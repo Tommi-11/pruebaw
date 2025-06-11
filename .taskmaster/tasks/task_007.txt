@@ -1,0 +1,41 @@
+# Task ID: 7
+# Title: Module Implementation: Responsabilidad Social Universitaria (RSU)
+# Status: pending
+# Dependencies: 3, 4, 5, 6
+# Priority: high
+# Description: Implement the specific functionalities for the RSU module, which manages the registration, monitoring, and certification of social responsibility projects.
+# Details:
+Develop the public RSU page, integrate the generic News/Contact components, and implement the project management system, including registration, monitoring (for programs of 2+ academic cycles) , and generation of PDF completion certificates.
+# Test Strategy:
+Test the full project lifecycle: registration, monitoring, and successful generation of a certificate PDF.
+
+# Subtasks:
+## 1. Create RSU Public Information Page [pending]
+### Dependencies: None
+### Description: Develop the Blade view for the RSU area, displaying its mission, functions, and objectives, and integrate the generic News and Contact Form components.
+### Details:
+Create a static Blade file for the public RSU page. Use `@livewire` to embed the `PublicNews` and `ContactForm` components.
+
+## 2. Backend for RSU Project Registration [pending]
+### Dependencies: None
+### Description: Create the controller logic to handle the submission of new RSU projects from faculties.
+### Details:
+Create `ProyectoController` with a `store` method that validates and saves new projects to the `proyectos` table.
+
+## 3. Frontend Form for RSU Project Registration [pending]
+### Dependencies: 7.2
+### Description: Build the Livewire component with the form for registering new projects.
+### Details:
+Create a `RegisterProjectForm` Livewire component with all fields required for a project: title, description, objectives, and faculty responsible.
+
+## 4. Develop Project Monitoring Interface [pending]
+### Dependencies: 7.3
+### Description: Create an interface for the "Encargado de Área RSU" to monitor the progress of projects and programs.
+### Details:
+Develop a `MonitorProjects` Livewire component that displays a table of all projects with their current status, and allows the area head to view details and update progress.
+
+## 5. Implement PDF Certificate Generation [pending]
+### Dependencies: 7.4
+### Description: Implement the logic to generate a PDF `constancia de culminación` for a completed project.
+### Details:
+Install a PDF library like `barryvdh/laravel-dompdf`. Create a route like `/proyectos/{id}/constancia` that generates a Blade view with the certificate details and returns it as a PDF stream or download.

@@ -17,11 +17,16 @@
         <!-- Styles -->
         @livewireStyles
     </head>
-    <body>
-        <div class="font-sans text-gray-900 antialiased">
+    <body class="bg-gradient-to-br from-blue-900 via-blue-700 to-blue-500 min-h-screen flex flex-col justify-center items-center">
+        <div class="w-full max-w-md p-8 bg-white rounded-xl shadow-lg mt-8">
+            <div class="flex flex-col items-center mb-6">
+                <img src="/images/logo.png" alt="Logo RSU" class="h-16 mb-2">
+                <h1 class="text-2xl font-bold text-blue-900 mb-1">{{ config('app.name', 'Sistema de Gestión de RSU') }}</h1>
+                <span class="text-sm text-blue-700 font-semibold tracking-wide">Gestión Universitaria Responsable</span>
+            </div>
             {{ $slot }}
         </div>
-
+        <footer class="mt-8 text-white text-xs opacity-80">&copy; {{ date('Y') }} Universidad. Todos los derechos reservados.</footer>
         @livewireScripts
     </body>
 </html>

@@ -1,0 +1,35 @@
+# Task ID: 11
+# Title: Security Hardening and Final Review
+# Status: pending
+# Dependencies: 3, 5, 6
+# Priority: critical
+# Description: Conduct a thorough security review and implement hardening measures to protect the application from common vulnerabilities.
+# Details:
+This involves enforcing security best practices across the entire application, including input validation, protection against common attacks, and secure configuration.
+# Test Strategy:
+Perform vulnerability scanning using automated tools. Conduct manual penetration testing for common vulnerabilities like SQL Injection, XSS, and CSRF. Review all access control logic.
+
+# Subtasks:
+## 1. Review and Enforce Input Validation [pending]
+### Dependencies: None
+### Description: Audit all forms and API endpoints to ensure strict server-side validation is in place.
+### Details:
+Go through every `FormRequest` or inline validation rule in the application. Ensure that all user-submitted data is validated for type, size, format, and existence in other tables where applicable.
+
+## 2. Implement Content Security Policy (CSP) [pending]
+### Dependencies: None
+### Description: Set up a Content Security Policy to mitigate XSS and other injection attacks.
+### Details:
+Use a package like `spatie/laravel-csp` to configure and enable a strict CSP. The policy should only allow scripts and styles from trusted sources.
+
+## 3. Cross-Site Request Forgery (CSRF) Protection Review [pending]
+### Dependencies: None
+### Description: Ensure all state-changing routes (POST, PUT, DELETE) are protected by CSRF tokens.
+### Details:
+Laravel provides this by default for web routes. This subtask involves auditing all forms to ensure the `@csrf` directive is present and verifying that non-web routes (if any) have alternative protection like Sanctum tokens.
+
+## 4. Review Role-Based Access Control (RBAC) Logic [pending]
+### Dependencies: None
+### Description: Perform a full audit of all middleware and in-controller permission checks.
+### Details:
+Create a matrix of roles vs. routes/actions. Manually test each one to ensure that users can only access the resources and perform the actions permitted for their role, as defined in the documentation.

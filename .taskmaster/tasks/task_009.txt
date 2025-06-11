@@ -1,0 +1,35 @@
+# Task ID: 9
+# Title: Module Implementation: Extensión Universitaria
+# Status: pending
+# Dependencies: 3, 4, 5, 6
+# Priority: medium
+# Description: Implement the University Extension module for managing and publicizing cultural, artistic, and community activities.
+# Details:
+This module requires a specialized news system with categorization (e.g., cultural events, calls, achievements). It must also display information on activities, volunteers , and agreements , and manage supervision acts.
+# Test Strategy:
+Test the creation of a news item and assign it a category. Verify that the news feed can be filtered. Test the functionality for managing supervision acts.
+
+# Subtasks:
+## 1. Extend News System with Categories [pending]
+### Dependencies: None
+### Description: Add a category relationship to the News model to allow for classification.
+### Details:
+Create a `noticia_categories` table and model. Add a many-to-many relationship between `Noticia` and `NoticiaCategory`. Update the `ManageNews` Livewire component to include a multi-select dropdown for assigning categories.
+
+## 2. Create Informational Views [pending]
+### Dependencies: None
+### Description: Create static pages or sections to display information about cultural groups, activities, and volunteer management.
+### Details:
+Develop the necessary Blade views with static content as described in the documentation.
+
+## 3. Implement Supervision Act Management [pending]
+### Dependencies: None
+### Description: Implement the functionality for managing supervision acts related to area agreements.
+### Details:
+Create a simple `ActaSupervision` model and migration. Build a Livewire component for the area head to perform CRUD operations on these acts, which serve to validate agreements.
+
+## 4. Module Integration [pending]
+### Dependencies: 9.1, 9.2, 9.3
+### Description: Assemble all features into the University Extension section.
+### Details:
+Create the main public page for University Extension, integrating the categorized news display, the informational sections, and the generic contact form.

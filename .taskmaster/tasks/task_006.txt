@@ -1,0 +1,41 @@
+# Task ID: 6
+# Title: Generic Content Components (News & Contact Forms)
+# Status: pending
+# Dependencies: 2, 3, 4
+# Priority: high
+# Description: Develop reusable components for managing news/events and handling contact form submissions, as these are common features across multiple modules.
+# Details:
+Using Livewire, create a "News" component for CRUD operations, handling image uploads with validation (JPG, PNG, WebP; max 5MB). Create a reusable "Contact Form" component that sends an email to the corresponding area's institutional address.
+# Test Strategy:
+Verify that news can be created/updated/deleted. Test the public news feed order (descending chronological). Test that each contact form routes emails to the correct recipient.
+
+# Subtasks:
+## 1. Backend for News/Events [pending]
+### Dependencies: None
+### Description: Implement the controller logic for all news CRUD operations, including server-side validation for images.
+### Details:
+Create `NoticiaController` with `store`, `update`, `destroy`. The validation rule for the image must be `image|mimes:jpg,png,webp|max:5120`.
+
+## 2. Livewire Component for News Management (Admin) [pending]
+### Dependencies: 6.1
+### Description: Build a Livewire component for authorized users to manage news.
+### Details:
+Create a `ManageNews` Livewire component with a form including `title`, `description`, and `image` file upload inputs.
+
+## 3. Blade Component for Public News Display [pending]
+### Dependencies: 6.1
+### Description: Create a Blade component to display a list of published news in descending chronological order on public pages.
+### Details:
+The component will fetch published news ordered by `fecha_publicacion` descending and loop through them to display title, date, and description.
+
+## 4. Backend Logic for Contact Form [pending]
+### Dependencies: None
+### Description: Create a Mailable class and a controller method to process form data and send it to a dynamic recipient.
+### Details:
+Run `php artisan make:mail AreaContactMail`. Create a controller that accepts the form request, instantiates the Mailable with the data, and sends it to the specified area's email address.
+
+## 5. Livewire Component for Contact Form (Frontend) [pending]
+### Dependencies: 6.4
+### Description: Build the public-facing Livewire component for the contact form.
+### Details:
+Create a `ContactForm` Livewire component with public properties for `nombres`, `apellidos`, `email`, `asunto`, and `mensaje`. Include validation rules and a `submit` method.

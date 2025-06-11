@@ -1,0 +1,35 @@
+# Task ID: 10
+# Title: Module Implementation: Reportes y Analytics
+# Status: pending
+# Dependencies: 7, 9
+# Priority: medium
+# Description: Develop a centralized reporting module to consolidate data, generate statistics, and create visual dashboards to support decision-making.
+# Details:
+The module will be accessible to administrators and area heads. It must generate reports on projects and agreements, provide statistics on student participation, and offer data export in PDF and Excel formats.
+# Test Strategy:
+Generate a report for all projects and export it to both PDF and Excel. Verify the data integrity. Check that access is correctly restricted to authorized roles.
+
+# Subtasks:
+## 1. Design Report Generation Interface [pending]
+### Dependencies: None
+### Description: Create the user interface where administrators can select report types and configure parameters/filters.
+### Details:
+Build a Livewire component with dropdowns and date pickers for users to define the report they want to generate (e.g., "Projects by Faculty", "Agreements by Status").
+
+## 2. Backend Logic for Report Generation [pending]
+### Dependencies: 10.1
+### Description: Develop the backend logic to query the database and aggregate data for reports based on the selected filters.
+### Details:
+Create a `ReportController` that takes the filter parameters, queries the relevant models (`Proyecto`, `Convenio`), and returns the data collection.
+
+## 3. Implement PDF and Excel Export Functionality [pending]
+### Dependencies: 10.2
+### Description: Integrate libraries to implement the file export functionality.
+### Details:
+Install `maatwebsite/excel` for Excel exports and use `barryvdh/laravel-dompdf` for PDF. Create methods in the `ReportController` to take a data collection and generate the corresponding file for download.
+
+## 4. Develop Initial Dashboard Visualizations [pending]
+### Dependencies: 10.2
+### Description: Create a basic dashboard view that presents key metrics and visualizations.
+### Details:
+Enhance the admin/area head dashboards to include simple charts or summary cards with data from the reporting engine. This can be a foundation for future interactive dashboards.

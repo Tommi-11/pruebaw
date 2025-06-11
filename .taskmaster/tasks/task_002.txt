@@ -1,0 +1,35 @@
+# Task ID: 2
+# Title: Core Database Schema and Models
+# Status: pending
+# Dependencies: 1
+# Priority: critical
+# Description: Create the database migrations for all core entities identified in the documentation, and define their corresponding Eloquent models and relationships.
+# Details:
+This task translates the conceptual data model into a physical database schema. All primary entities like Usuarios, Roles, Facultades, Proyectos, Convenios, Documentos, and Noticias will be created.
+# Test Strategy:
+Run `php artisan migrate` without errors. Inspect the database structure to confirm all tables, columns, indexes, and foreign key constraints are correct.
+
+# Subtasks:
+## 1. Create Users, Roles, and Faculties Schema [pending]
+### Dependencies: None
+### Description: Create the migrations and models for users, roles, and university faculties.
+### Details:
+Use the default `users` migration. Run `php artisan make:model Role -m` and `php artisan make:model Facultad -m`. In the `roles` migration, add a `name` column. In the `facultades` migration, add a `name` column. In the `users` migration, add a `role_id` foreign key. In the models, define the `hasMany`/`belongsTo` relationships.
+
+## 2. Create Projects and Activities Schema [pending]
+### Dependencies: 2.1
+### Description: Create the migrations and models for projects and their associated activities.
+### Details:
+Run `php artisan make:model Proyecto -m` and `php artisan make:model Actividad -m`. In the `proyectos` migration, add columns for `titulo`, `descripcion`, `objetivos`, `facultad_id` (foreign key), and `estado`. In the `actividades` migration, add `descripcion`, `fecha`, and `proyecto_id` (foreign key).
+
+## 3. Create Convenios and Entidades Schema [pending]
+### Dependencies: None
+### Description: Create the migrations and models for agreements (convenios) and the external entities involved.
+### Details:
+Run `php artisan make:model Convenio -m` and `php artisan make:model Entidad -m`. In the `entidades` migration, add `nombre` and `tipo`. In the `convenios` migration, add `nombre`, `entidad_id` (foreign key), `resolucion`, `fecha_inicio`, `fecha_fin`, and `estado`.
+
+## 4. Create Documents and Noticias Schema [pending]
+### Dependencies: None
+### Description: Create the migrations and models for the generic document repository and the news system.
+### Details:
+Run `php artisan make:model Documento -m` and `php artisan make:model Noticia -m`. In `documentos`, add `titulo`, `path`, `tipo_mime`, `tamaño`, `user_id`, and categorizing columns. In `noticias`, add `titulo`, `descripcion`, `fecha_publicacion`, and `imagen_path`.

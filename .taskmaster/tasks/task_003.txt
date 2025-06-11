@@ -1,0 +1,41 @@
+# Task ID: 3
+# Title: Authentication and User Management
+# Status: pending
+# Dependencies: 1, 2
+# Priority: high
+# Description: Implement secure user authentication with differentiated roles  and user management functionalities for administrators, as outlined in the documentation.
+# Details:
+Use Laravel Breeze as a foundation. Implement middleware to manage access based on the roles defined in the documentation. The system needs to handle roles like "Administrador", "Encargado de Área", "Colaborador", and "Usuario básico".
+# Test Strategy:
+Test user registration, login/logout for all roles. Verify role-based redirection. Test that an administrator can perform CRUD operations on users. Confirm that protected routes are inaccessible to unauthorized roles.
+
+# Subtasks:
+## 1. Implement Basic Laravel Authentication Flow [pending]
+### Dependencies: None
+### Description: Set up the core user authentication features including registration, login, and logout using the installed Laravel Breeze scaffolding.
+### Details:
+The routes, controllers, and views are already provided by `php artisan breeze:install`. Customize the Blade views to match the project's theme.
+
+## 2. Integrate User Roles and Middleware [pending]
+### Dependencies: 3.1
+### Description: Add support for user roles and implement middleware to restrict access to routes based on these roles.
+### Details:
+Use the `role_id` on the `users` table. Create a `CheckRole` middleware using `php artisan make:middleware CheckRole`. In its `handle` method, check if the authenticated user's role matches the required roles. Register the middleware in `app/Http/Kernel.php` and apply it to route groups.
+
+## 3. Implement Password Reset Functionality [pending]
+### Dependencies: 3.1
+### Description: Configure and ensure the password reset flow is functional.
+### Details:
+Breeze includes this functionality. The main task is to configure mail settings in the `.env` file (MAIL_MAILER, MAIL_HOST, etc.) to ensure emails can be sent.
+
+## 4. Develop User Management (CRUD) Interface for Admins [pending]
+### Dependencies: 3.2
+### Description: Create the interface for administrators to perform CRUD operations on user accounts.
+### Details:
+Create a `UserController`. Create Livewire components for listing users (`UserTable`), creating (`UserCreateForm`), and editing (`UserEditForm`) users, including the ability to assign a role. Protect these routes with middleware.
+
+## 5. Implement Basic Access and User Action Auditing [pending]
+### Dependencies: 3.1, 3.4
+### Description: Set up logging to record key authentication events and administrative actions.
+### Details:
+Use Laravel's built-in `Log` facade or a package like `spatie/laravel-activitylog`. In authentication controllers, log successful and failed login attempts. In `UserController`, log the creation, update, and deletion of users.

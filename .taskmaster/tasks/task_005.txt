@@ -1,0 +1,35 @@
+# Task ID: 5
+# Title: Centralized Document Management System
+# Status: pending
+# Dependencies: 2, 3, 4
+# Priority: high
+# Description: Implement a centralized system for storing, organizing, and managing PDF documents with role-based access control, as required by multiple modules.
+# Details:
+This system will function as a central repository. Implement functionalities for uploading, categorizing, and managing PDF documents. Enforce file type (PDF) and size validations. Develop an advanced search feature.
+# Test Strategy:
+Test document upload/download. Verify validations (e.g., PDF only, max 10MB ). Test search functionality. Test access permissions for different user roles.
+
+# Subtasks:
+## 1. Setup File Storage and Implement Upload API [pending]
+### Dependencies: None
+### Description: Configure local file storage and create a backend API endpoint to handle PDF file uploads.
+### Details:
+Configure a local storage disk in `config/filesystems.php`. Create a controller method to receive and save uploaded PDF files, validating mime type and size, and storing them with a unique name.
+
+## 2. Implement Role-Based Access Control (RBAC) for Documents [pending]
+### Dependencies: 5.1
+### Description: Implement backend logic to restrict view/download access to documents based on user roles and document categories.
+### Details:
+In the download controller method, check the authenticated user's role and permissions against the requested document's category or owner before serving the file.
+
+## 3. Develop Frontend UI for Document Management [pending]
+### Dependencies: 5.2
+### Description: Build the Livewire components for administrators and area heads to upload, categorize, and manage documents.
+### Details:
+Create a `ManageDocuments` Livewire component that displays a table of documents and includes a form for uploading new ones, with fields for title and category.
+
+## 4. Implement Advanced Document Search [pending]
+### Dependencies: 5.3
+### Description: Develop the search functionality to filter documents by title, publication date, and category.
+### Details:
+Enhance the `ManageDocuments` Livewire component with input fields for search terms. The backend logic will query the `documentos` table using `WHERE` clauses based on the search inputs.

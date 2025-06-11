@@ -1,0 +1,35 @@
+# Task ID: 8
+# Title: Module Implementation: Seguimiento y Certificación al Egresado
+# Status: pending
+# Dependencies: 3, 4, 5, 6
+# Priority: medium
+# Description: Implement the module for managing information, services, and communication aimed at university alumni.
+# Details:
+This involves managing news , relevant agreements, and providing access to official documents like regulations and procedures. The module will leverage the central Document Management system (Task 5) and must include a search feature for these documents.
+# Test Strategy:
+Test that alumni-specific documents can be managed. Verify that the document search works by title, date, and category. Ensure the alumni survey link is present and correct.
+
+# Subtasks:
+## 1. Create Alumni Public Information Page [pending]
+### Dependencies: None
+### Description: Develop the Blade view for the Alumni area, displaying its mission, functions, and support information.
+### Details:
+Create a static Blade file and integrate the generic `PublicNews` and `ContactForm` Livewire components.
+
+## 2. Implement Alumni Document Management View [pending]
+### Dependencies: None
+### Description: Create a frontend view that uses the Document Management system to display alumni-specific documents.
+### Details:
+Create a Livewire component that fetches and displays documents from categories like 'Normativa Egresados' or 'Resolucion Egresados'. Ensure the view enforces the max 10MB PDF size validation on upload.
+
+## 3. Develop Document Search for Alumni Section [pending]
+### Dependencies: 8.2
+### Description: Implement the search functionality allowing users to find documents by title, publication date, and category.
+### Details:
+Add search input fields to the document view component. The backend will filter the document query based on these inputs.
+
+## 4. Add Alumni Survey Link [pending]
+### Dependencies: 8.1
+### Description: Add a dedicated, easily accessible section or link that directs users to the official alumni survey.
+### Details:
+Edit the Alumni public Blade view to include a visually distinct button or link with the URL to the external survey.

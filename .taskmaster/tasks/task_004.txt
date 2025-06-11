@@ -1,0 +1,35 @@
+# Task ID: 4
+# Title: Base UI/UX Layout and Structure
+# Status: pending
+# Dependencies: 1
+# Priority: high
+# Description: Develop the main application layout and visual structure using Blade and Tailwind CSS to create a consistent, responsive, and accessible user interface.
+# Details:
+The structure should consist of a main layout with a persistent sidebar for navigation and a main content area for authenticated views. A separate, simpler layout will be used for public-facing pages.
+# Test Strategy:
+Test responsiveness on desktop, tablet, and mobile viewports. Check for browser compatibility on Chrome, Firefox, and Edge. Verify that navigation links are correctly highlighting the active page.
+
+# Subtasks:
+## 1. Implement Main Application Blade Layout [pending]
+### Dependencies: None
+### Description: Create the primary Blade layout file for the authenticated part of the application.
+### Details:
+Create a `layouts/app.blade.php` file. Use Tailwind CSS Flexbox or Grid to define the main structure. Include a `<slot>` for the main page content.
+
+## 2. Develop Core Navigation Component [pending]
+### Dependencies: 4.1
+### Description: Build the primary navigation component (sidebar) that will be included in the main layout.
+### Details:
+Create a `layouts/navigation.blade.php` file. Navigation links should be generated dynamically based on the authenticated user's role and permissions.
+
+## 3. Create Role-Differentiated Dashboard Views [pending]
+### Dependencies: 4.2
+### Description: Develop the initial dashboard views that users see after logging in, with content tailored to their role.
+### Details:
+Create a `dashboard.blade.php` view. Use `@if` directives checking `auth()->user()->role->name` to display different widgets or summaries based on the user's role.
+
+## 4. Implement Public-Facing Layout [pending]
+### Dependencies: 4.1
+### Description: Create a simpler layout for the public-facing pages that do not require authentication.
+### Details:
+Create a `layouts/public.blade.php` file. This will include a public navigation bar, a content area, and a footer, for pages like the main information page, public news lists, and contact forms.

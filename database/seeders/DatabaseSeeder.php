@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use App\Models\User; // Asegúrate de importar el modelo User
+use App\Models\Role;
 
 
 class DatabaseSeeder extends Seeder
@@ -18,12 +19,9 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // \App\Models\User::factory(10)->create();
-
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+        // Crear roles si no existen
+        $adminRole = Role::firstOrCreate(['id' => 1], ['name' => 'Administrador']);
+        $userRole = Role::firstOrCreate(['id' => 2], ['name' => 'Usuario']);
 
         // Verificar y crear usuario administrador
         if (!User::where('email', 'admin@example.com')->exists()) {
@@ -33,6 +31,7 @@ class DatabaseSeeder extends Seeder
                 'password' => Hash::make('12345'),
                 'email_verified_at' => now(),
                 'remember_token' => Str::random(10),
+                'role_id' => 1,
             ]);
             $this->command->info('Usuario administrador creado exitosamente.');
         }
@@ -45,6 +44,7 @@ class DatabaseSeeder extends Seeder
                 'password' => Hash::make('12345'),
                 'email_verified_at' => now(),
                 'remember_token' => Str::random(10),
+                'role_id' => 2,
             ]);
             $this->command->info('Usuario regular 1 creado exitosamente.');
         }
@@ -57,6 +57,7 @@ class DatabaseSeeder extends Seeder
                 'password' => Hash::make('12345'),
                 'email_verified_at' => now(),
                 'remember_token' => Str::random(10),
+                'role_id' => 2,
             ]);
             $this->command->info('Usuario regular 2 creado exitosamente.');
         }        
