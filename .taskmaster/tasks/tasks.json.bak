@@ -1,0 +1,114 @@
+{
+  "tasks": [
+    {
+      "id": 1,
+      "title": "Project Initialization & Setup",
+      "description": "Set up the project repository, development environment, and basic project structure.",
+      "details": "",
+      "testStrategy": "",
+      "priority": "medium",
+      "dependencies": [],
+      "status": "done",
+      "subtasks": []
+    },
+    {
+      "id": 2,
+      "title": "Database Design & Implementation",
+      "description": "Design and implement the database schema to support user data, activity data, area data, and relationships.",
+      "details": "",
+      "testStrategy": "",
+      "priority": "medium",
+      "dependencies": [],
+      "status": "pending",
+      "subtasks": []
+    },
+    {
+      "id": 3,
+      "title": "User Authentication & Authorization",
+      "description": "Implement user registration, login, session management, and role-based access control for administrators, coordinators, faculty, students, egresados, and external entities.",
+      "details": "",
+      "testStrategy": "",
+      "priority": "medium",
+      "dependencies": [],
+      "status": "pending",
+      "subtasks": []
+    },
+    {
+      "id": 4,
+      "title": "Core Area Modules Development",
+      "description": "Develop the core backend modules for managing data and logic related to the four main RSU areas: RSU, Seguimiento y Certificación al Egresado, Proyección Social, and Extensión Universitaria.",
+      "details": "",
+      "testStrategy": "",
+      "priority": "medium",
+      "dependencies": [],
+      "status": "pending",
+      "subtasks": []
+    },
+    {
+      "id": 5,
+      "title": "Activity Management Features",
+      "description": "Implement features allowing users (based on roles) to create, edit, view, search, and delete social responsibility activities within the system.",
+      "details": "",
+      "testStrategy": "",
+      "priority": "medium",
+      "dependencies": [],
+      "status": "pending",
+      "subtasks": []
+    },
+    {
+      "id": 6,
+      "title": "Workflow & Status Tracking",
+      "description": "Design and implement workflows for activity submission, review, approval, and completion. Include status tracking for each activity.",
+      "details": "",
+      "testStrategy": "",
+      "priority": "medium",
+      "dependencies": [],
+      "status": "pending",
+      "subtasks": []
+    },
+    {
+      "id": 7,
+      "title": "Impact Tracking & Data Collection",
+      "description": "Develop mechanisms to collect data related to activity participation, outcomes, and reach to track social impact.",
+      "details": "",
+      "testStrategy": "",
+      "priority": "medium",
+      "dependencies": [],
+      "status": "pending",
+      "subtasks": []
+    },
+    {
+      "id": 8,
+      "title": "Reporting & Analytics Dashboard",
+      "description": "Build features to generate reports and visualize key metrics and data for administrators and coordinators to support decision-making.",
+      "details": "",
+      "testStrategy": "",
+      "priority": "medium",
+      "dependencies": [],
+      "status": "pending",
+      "subtasks": []
+    },
+    {
+      "id": 9,
+      "title": "User Interface (UI) Development",
+      "description": "Develop the front-end user interface components and pages for all user roles, ensuring a user-friendly experience.",
+      "details": "",
+      "testStrategy": "",
+      "priority": "medium",
+      "dependencies": [],
+      "status": "pending",
+      "subtasks": []
+    },
+    {
+      "id": 10,
+      "title": "System Integration & Testing",
+      "description": "Perform integration testing between different system modules and prepare for user acceptance testing (UAT) with stakeholders.",
+      "details": "",
+      "testStrategy": "",
+      "priority": "medium",
+      "dependencies": [],
+      "status": "pending",
+      "subtasks": []
+    }
+  ]
+}

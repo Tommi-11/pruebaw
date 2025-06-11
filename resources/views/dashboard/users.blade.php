@@ -1,139 +1,15 @@
-{{-- resources/views/dashboard/users.blade.php
-@extends('layouts.app')
-@section('breadcrumb', 'Gestión de Usuarios')
-@section('content')
-<div class="flex justify-between items-center mb-6">
-    <h2 class="text-xl font-semibold">Usuarios</h2>
-    <button onclick="openUserModal()" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Agregar Usuario</button>
-</div>
-<div class="mb-4">
-    <input type="text" id="searchUser" placeholder="Buscar usuario..." class="border px-3 py-2 rounded w-1/3" onkeyup="filterUsers()">
-</div>
-<table class="min-w-full bg-white rounded-lg shadow">
-    <thead class="bg-blue-900 text-white">
-        <tr>
-            <th class="py-2 px-4">Nombre</th>
-            <th class="py-2 px-4">Correo</th>
-            <th class="py-2 px-4">Rol</th>
-            <th class="py-2 px-4">Acciones</th>
-        </tr>
-    </thead>
-    <tbody id="usersTable">
-        <!-- Usuarios de ejemplo en JSON -->
-    </tbody>
-</table>
-<!-- Modal de usuario -->
-<div id="userModal" class="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50 hidden">
-    <div class="bg-white p-6 rounded-lg w-96">
-        <h3 class="text-lg font-bold mb-4">Agregar/Editar Usuario</h3>
-        <form id="userForm">
-            <input type="hidden" id="userId">
-            <div class="mb-3">
-                <label class="block text-sm">Nombre</label>
-                <input type="text" id="userName" class="border px-3 py-2 rounded w-full" required>
-            </div>
-            <div class="mb-3">
-                <label class="block text-sm">Correo</label>
-                <input type="email" id="userEmail" class="border px-3 py-2 rounded w-full" required>
-            </div>
-            <div class="mb-3">
-                <label class="block text-sm">Rol</label>
-                <input type="text" id="userRole" class="border px-3 py-2 rounded w-full" required>
-            </div>
-            <div class="flex justify-end gap-2 mt-4">
-                <button type="button" onclick="closeUserModal()" class="px-4 py-2 rounded bg-gray-200">Cancelar</button>
-                <button type="submit" class="px-4 py-2 rounded bg-blue-600 text-white">Guardar</button>
-            </div>
-        </form>
-    </div>
-</div>
-<script>
-// Datos de ejemplo
-let users = [
-    {id: 1, name: 'Juan Perez', email: 'juan@uni.edu', role: 'Administrador'},
-    {id: 2, name: 'Ana Ruiz', email: 'ana@uni.edu', role: 'Docente'},
-    {id: 3, name: 'Carlos Soto', email: 'carlos@uni.edu', role: 'Estudiante'}
-];
-function renderUsers() {
-    let tbody = document.getElementById('usersTable');
-    tbody.innerHTML = '';
-    users.forEach(user => {
-        tbody.innerHTML += `<tr>
-            <td class='py-2 px-4'>${user.name}</td>
-            <td class='py-2 px-4'>${user.email}</td>
-            <td class='py-2 px-4'>${user.role}</td>
-            <td class='py-2 px-4'>
-                <button onclick="editUser(${user.id})" class='text-blue-600 hover:underline mr-2'>Editar</button>
-                <button onclick="deleteUser(${user.id})" class='text-red-600 hover:underline'>Eliminar</button>
-            </td>
-        </tr>`;
-    });
-}
-function openUserModal() {
-    document.getElementById('userModal').classList.remove('hidden');
-    document.getElementById('userForm').reset();
-    document.getElementById('userId').value = '';
-}
-function closeUserModal() {
-    document.getElementById('userModal').classList.add('hidden');
-}
-function editUser(id) {
-    let user = users.find(u => u.id === id);
-    document.getElementById('userId').value = user.id;
-    document.getElementById('userName').value = user.name;
-    document.getElementById('userEmail').value = user.email;
-    document.getElementById('userRole').value = user.role;
-    openUserModal();
-}
-document.getElementById('userForm').onsubmit = function(e) {
-    e.preventDefault();
-    let id = document.getElementById('userId').value;
-    let name = document.getElementById('userName').value;
-    let email = document.getElementById('userEmail').value;
-    let role = document.getElementById('userRole').value;
-    if (id) {
-        let user = users.find(u => u.id == id);
-        user.name = name;
-        user.email = email;
-        user.role = role;
-    } else {
-        users.push({id: Date.now(), name, email, role});
-    }
-    closeUserModal();
-    renderUsers();
-};
-function deleteUser(id) {
-    users = users.filter(u => u.id !== id);
-    renderUsers();
-}
-function filterUsers() {
-    let q = document.getElementById('searchUser').value.toLowerCase();
-    let tbody = document.getElementById('usersTable');
-    tbody.innerHTML = '';
-    users.filter(u => u.name.toLowerCase().includes(q) || u.email.toLowerCase().includes(q) || u.role.toLowerCase().includes(q)).forEach(user => {
-        tbody.innerHTML += `<tr>
-            <td class='py-2 px-4'>${user.name}</td>
-            <td class='py-2 px-4'>${user.email}</td>
-            <td class='py-2 px-4'>${user.role}</td>
-            <td class='py-2 px-4'>
-                <button onclick="editUser(${user.id})" class='text-blue-600 hover:underline mr-2'>Editar</button>
-                <button onclick="deleteUser(${user.id})" class='text-red-600 hover:underline'>Eliminar</button>
-            </td>
-        </tr>`;
-    });
-}
-renderUsers();
-</script>
-@endsection --}}
-
-
-
 {{-- resources/views/dashboard/users.blade.php --}}
 <x-layouts.app pageTitle="Gestión de Usuarios">
 
     <div class="flex justify-between items-center mb-6">
         <h2 class="text-2xl font-semibold text-gray-700">Lista de Usuarios</h2>
-        <button onclick="openUserModal()" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Agregar Usuario</button>
+        @php
+            // Ejemplo de uso de permisos avanzados con Spatie
+            // Solo los usuarios con permiso 'edit users' pueden ver el botón para agregar usuarios
+        @endphp
+        @if(auth()->user()->can('edit users'))
+            <button onclick="openUserModal()" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Agregar Usuario</button>
+        @endif
     </div>
 
     <div class="mb-4">
@@ -151,7 +27,22 @@ renderUsers();
                 </tr>
             </thead>
             <tbody id="usersTable" class="divide-y divide-gray-200">
-                <!-- Usuarios se renderizarán aquí por JS -->
+                {{-- Ejemplo: solo los usuarios con permiso 'edit users' pueden ver la columna de acciones --}}
+                @foreach($users as $user)
+                    <tr>
+                        <td>{{ $user->name }}</td>
+                        <td>{{ $user->email }}</td>
+                        <td>{{ $user->role }}</td>
+                        @can('edit users')
+                            <td>
+                                <button class="text-blue-600">Editar</button>
+                                <button class="text-red-600">Eliminar</button>
+                            </td>
+                        @endcan
+                    </tr>
+                    {{-- Ejemplo de formulario para asignar rol, solo visible para administradores --}}
+                    @include('dashboard.partials.assign-role', ['user' => $user])
+                @endforeach
             </tbody>
         </table>
     </div>

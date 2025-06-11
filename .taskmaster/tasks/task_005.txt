@@ -1,0 +1,11 @@
+# Task ID: 5
+# Title: RSU Core Module Development
+# Status: pending
+# Dependencies: 1, 2, 3, 4
+# Priority: high
+# Description: Develop the core RSU module including project management (CRUD), approval workflows, and basic user/beneficiary registration forms.
+# Details:
+CRUD for RSU projects. Implement approval/rejection process. Forms for registering beneficiaries. Basic dashboard view for RSU activities.
+
+# Test Strategy:
+Test project creation, editing, deletion. Verify approval workflow logic. Test form submissions and data storage

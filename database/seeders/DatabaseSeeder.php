@@ -60,5 +60,7 @@ class DatabaseSeeder extends Seeder
             ]);
             $this->command->info('Usuario regular 2 creado exitosamente.');
         }        
+
+        $this->call(PermissionSeeder::class); // Seeder de roles y permisos Spatie
     }
 }

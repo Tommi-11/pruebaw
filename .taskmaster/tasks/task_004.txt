@@ -1,0 +1,43 @@
+# Task ID: 4
+# Title: Document Management System
+# Status: pending
+# Dependencies: 1, 2
+# Priority: high
+# Description: Implement a centralized system for storing, organizing, and managing PDF documents with version control and access control by roles.
+# Details:
+Local file storage system. Implement upload, download, organization by category/module, versioning (basic), and role-based access.
+
+# Test Strategy:
+Test document upload/download, organization, access permissions for different roles, and basic version handling
+
+# Subtasks:
+## 1. Setup Local Storage and Implement Basic Upload API [pending]
+### Dependencies: None
+### Description: Configure the local file system path for document storage and implement a backend API endpoint to receive uploaded PDF files and save them to the configured path.
+### Details:
+Define a configuration setting for the storage directory. Create a POST API endpoint (e.g., `/api/documents/upload`) that accepts a file upload (multipart/form-data), generates a unique filename or uses the original, saves the file to the local storage directory, and returns a success response with the saved file path/identifier.
+
+## 2. Design and Implement Document Metadata Model and Database [pending]
+### Dependencies: 4.1
+### Description: Design the database schema to store document metadata (name, original filename, storage path, size, upload date, uploader, category/module association) and implement the necessary database tables and ORM models.
+### Details:
+Create a `documents` table with fields like `id`, `name`, `original_filename`, `storage_path`, `size`, `uploaded_at`, `uploaded_by_user_id`, `category_id`, `module_id`. Ensure appropriate data types and indices. Update the upload API (from subtask 1) to create a corresponding database entry upon successful file save.
+
+## 3. Implement Document Organization and Basic Versioning Logic [pending]
+### Dependencies: 4.2
+### Description: Implement backend logic to associate documents with categories/modules and handle basic versioning by creating new document entries or updating existing ones with new file paths for subsequent uploads of the 'same' document.
+### Details:
+Create `categories` and `modules` tables if they don't exist, and establish relationships in the `documents` table. Implement a versioning strategy: either add a `version` field to the `documents` table and create new rows for new versions (linking them via a `parent_document_id`), or use a separate `document_versions` table. Modify the upload API to handle updates to existing documents, creating a new version entry and updating the 'current' version pointer if applicable.
+
+## 4. Implement Role-Based Access Control (RBAC) for Documents [pending]
+### Dependencies: 4.3
+### Description: Implement backend logic to restrict access (view/download) to documents based on user roles and document-specific permissions.
+### Details:
+Define roles and permissions (e.g., 'can_view_all', 'can_view_category_X', 'can_manage_document_Y'). Create database tables to link roles to permissions and potentially documents to specific role/user permissions. Implement middleware or service logic in the backend APIs (e.g., for download) to check the authenticated user's roles and permissions against the requested document's access rules before allowing the operation.
+
+## 5. Develop Frontend UI for Document Management [pending]
+### Dependencies: 4.4
+### Description: Build the user interface components for uploading documents, browsing/searching documents by category/module, viewing document details (including versions), downloading documents, and potentially managing document permissions (if applicable to UI).
+### Details:
+Create pages/components for: Document List (displaying documents, filtered by category/module), Upload Form (allowing file selection and metadata input), Document Detail View (showing versions, metadata), and potentially a Permissions Management interface. Integrate these components with the backend APIs developed in previous steps (upload, list, download, etc.). Ensure UI respects RBAC rules (e.g., hiding documents the user cannot access).
+

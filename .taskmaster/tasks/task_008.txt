@@ -1,0 +1,11 @@
+# Task ID: 8
+# Title: Extensión Universitaria and Communications Module
+# Status: pending
+# Dependencies: 1, 2, 3, 4
+# Priority: medium
+# Description: Develop the Extensión Universitaria module including management of cultural activities, volunteering, advanced news with images, and specialized contact forms.
+# Details:
+Management of activities and volunteers. Advanced news system with image uploads. Specialized contact forms by area. Internal notification system (basic).
+
+# Test Strategy:
+Test activity and volunteer management. Verify news creation with images. Test contact form submissions and notification delivery

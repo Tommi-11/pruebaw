@@ -1,0 +1,43 @@
+# Task ID: 7
+# Title: Proyección Social and Convenios Module
+# Status: pending
+# Dependencies: 1, 2, 3, 4
+# Priority: medium
+# Description: Develop the Proyección Social module including management of framework agreements (convenios), community projects, and basic statistical dashboards.
+# Details:
+CRUD for convenios and community projects. Classification and filtering by entity type. Basic statistical dashboard for convenios/projects. Integration with external surveys (links).
+
+# Test Strategy:
+Test convenio and project CRUD. Verify filtering and classification. Test dashboard data display
+
+# Subtasks:
+## 1. Implement Convenio Data Model and CRUD API [pending]
+### Dependencies: None
+### Description: Define the database schema for Convenios including fields like title, description, start/end dates, entity type, status, etc. Implement RESTful API endpoints for creating, reading, updating, and deleting Convenio records.
+### Details:
+Use ORM/database migration tools to define the Convenio model. Implement controller/service logic for basic CRUD operations. Ensure input validation and basic error handling. Secure API endpoints.
+
+## 2. Implement Community Project Data Model and CRUD API [pending]
+### Dependencies: 7.1
+### Description: Define the database schema for Community Projects including fields similar to Convenios (title, description, dates, type, status, etc.). Implement RESTful API endpoints for creating, reading, updating, and deleting Project records.
+### Details:
+Define the Community Project model using ORM/migration tools. Implement CRUD API endpoints following patterns established for Convenios. Ensure data validation and error handling. Secure API endpoints.
+
+## 3. Implement Classification and Filtering for Convenios and Projects [pending]
+### Dependencies: 7.1, 7.2
+### Description: Enhance the data models to include classification fields (e.g., `entity_type`, `project_type`, `status`). Implement API endpoints or query logic to allow filtering and searching Convenios and Projects based on these classification fields and other relevant criteria (e.g., date ranges, keywords).
+### Details:
+Add necessary classification fields to the database schemas for Convenios and Projects. Implement query builders or API parameters to support filtering by these fields and other common criteria. Add database indexes for performance on frequently filtered fields.
+
+## 4. Develop Basic Statistical Dashboards [pending]
+### Dependencies: 7.1, 7.2, 7.3
+### Description: Create API endpoints to fetch aggregated data for Convenios and Projects, such as counts by status, type, or year. Develop simple UI components (e.g., charts, tables) to display this aggregated data on a dashboard page.
+### Details:
+Implement backend endpoints that perform database aggregations (e.g., COUNT, GROUP BY) to generate statistics. Develop frontend components using a charting library or simple tables to visualize the data fetched from the backend endpoints.
+
+## 5. Implement External Survey Link Management [pending]
+### Dependencies: 7.1, 7.2
+### Description: Add a field (e.g., `survey_link` - URL type) to the Convenio and Community Project data models. Implement functionality in the CRUD APIs and UI to allow users to add, update, and view external survey links associated with specific Convenios or Projects.
+### Details:
+Add the `survey_link` field to the database schemas for Convenios and Projects. Update the existing CRUD API endpoints (from tasks 1 and 2) to handle this new field in requests and responses. Modify the UI forms and display views to include input fields and display elements for the survey link.
+

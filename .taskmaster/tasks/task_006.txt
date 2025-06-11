@@ -1,0 +1,43 @@
+# Task ID: 6
+# Title: Certification and Egresado Module
+# Status: pending
+# Dependencies: 1, 2, 3, 4, 5
+# Priority: medium
+# Description: Implement automatic certificate generation (PDF) and develop the basic Egresado module including an information portal and news management.
+# Details:
+Automatic PDF certificate generation based on project data. CMS for egresado portal content. Basic news CRUD.
+
+# Test Strategy:
+Test certificate generation with different data. Verify egresado portal content display and news management functionality
+
+# Subtasks:
+## 1. Define Data Models for Certificates and Egresado Module [pending]
+### Dependencies: None
+### Description: Define the necessary database schemas or data models for certificate data (linking users/projects), Egresado portal content (pages, sections), and news articles.
+### Details:
+Use your chosen ORM (e.g., Django ORM, SQLAlchemy, Mongoose) to create models. For certificates, include fields like user, project, completion date, unique identifier. For portal content, consider flexible structures for pages/sections. For news, include title, body, author, publication date, status.
+
+## 2. Implement Automatic Certificate PDF Generation Backend [pending]
+### Dependencies: 6.1
+### Description: Develop the backend logic to fetch relevant project and user data based on the defined models and generate a PDF certificate using a suitable library.
+### Details:
+Choose a PDF generation library (e.g., ReportLab, WeasyPrint, jsPDF on backend). Create a function that takes necessary parameters (e.g., user_id, project_id) and returns a PDF file or byte stream. Design a basic template for the certificate.
+
+## 3. Implement Egresado News Management (Admin CRUD) [pending]
+### Dependencies: 6.1
+### Description: Develop the backend API endpoints and the administrative interface for creating, reading, updating, and deleting news articles for the Egresado portal.
+### Details:
+Create RESTful API endpoints for news CRUD operations. Implement corresponding views/forms in the admin panel (e.g., using Django Admin, Flask-Admin, or a custom admin UI framework). Ensure data validation and basic error handling.
+
+## 4. Implement Egresado Portal Content Management (Admin CMS) [pending]
+### Dependencies: 6.1
+### Description: Develop the backend API endpoints and the administrative interface for managing general content (pages, sections, blocks) for the Egresado information portal.
+### Details:
+Similar to news, create API endpoints and admin views for managing portal content. Consider supporting different content types or a flexible block-based structure. Integrate a rich text editor if needed.
+
+## 5. Develop Public Egresado Views and Certificate Integration [pending]
+### Dependencies: 6.2, 6.3, 6.4
+### Description: Create the public-facing web pages to display Egresado portal content and news. Integrate the certificate generation function into the user interface or a relevant workflow trigger.
+### Details:
+Develop frontend views (HTML, CSS, JS, or framework components) to consume the news and content APIs developed in subtasks 3 and 4. Create pages for news listing, news detail, and general portal content. Add a mechanism (e.g., a button on a project completion page) to trigger the certificate generation/download function from subtask 2.
+

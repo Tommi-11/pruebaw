@@ -1,0 +1,11 @@
+# Task ID: 1
+# Title: Project Setup and Database Design
+# Status: pending
+# Dependencies: None
+# Priority: high
+# Description: Set up the Laravel project, configure the environment, and design the core database schema (Users, Facultades, etc.).
+# Details:
+Laravel 10.48, PHP 8.2+, MySQL 8.0+, Nginx/Apache, Ubuntu. Design data models for Users, Facultades, etc.
+
+# Test Strategy:
+Verify environment setup, database connection, and schema integrity.
