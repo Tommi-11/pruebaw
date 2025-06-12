@@ -2,6 +2,10 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardController;
+use App\Livewire\ObjetivosDesarrolloSostenible;
+use App\Livewire\Facultades;
+use App\Livewire\Estudiantes;
+use App\Livewire\Docentes;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -46,3 +50,15 @@ Route::middleware(['auth'])->group(function () {
 // Temporal: para pruebas con vistas de ejemplo
 Route::view('/users', 'dashboard.users')->name('users.index');
 Route::view('/roles', 'dashboard.roles')->name('roles.index');
+
+Route::get('/objetivos-desarrollo-sostenible', ObjetivosDesarrolloSostenible::class)
+    ->name('objetivos-desarrollo-sostenible');
+
+Route::get('/facultades', Facultades::class)
+    ->name('facultades');
+
+Route::get('/estudiantes', Estudiantes::class)
+    ->name('estudiantes');
+
+Route::get('/docentes', Docentes::class)
+    ->name('docentes');
