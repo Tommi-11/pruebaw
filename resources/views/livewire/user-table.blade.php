@@ -1,87 +1,91 @@
 <div>
-    <div class="flex justify-between items-center mb-6">
-        <h2 class="text-xl font-semibold">Usuarios</h2>
+    <h2 class="text-xl font-bold text-gray-800 mb-2">Listado de Usuarios</h2>
+    <div class="flex justify-end mb-2">
         <button wire:click="openModal" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Agregar Usuario</button>
     </div>
-    <div class="mb-4">
-        <input type="text" wire:model.debounce.500ms="search" placeholder="Buscar usuario o rol..." class="border px-3 py-2 rounded w-1/3">
+    <div class="w-full md:w-1/3 mb-6">
+        <input type="text" wire:model.debounce.500ms="search" placeholder="Buscar usuario o rol..." class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400" />
     </div>
     <div class="overflow-x-auto bg-white rounded shadow">
-        <table class="min-w-full bg-white shadow">
-            <thead class="bg-blue-900 text-white rounded-lg">
+        <table class="min-w-full w-full table-auto divide-y divide-gray-200">
+            <thead class="bg-blue-900 text-white">
                 <tr>
-                    <th class="py-2 px-4">Nombre</th>
-                    <th class="py-2 px-4">Correo</th>
-                    <th class="py-2 px-4">Rol</th>
-                    <th class="py-2 px-4">Acciones</th>
+                    <th class="py-2 px-4 text-center">Nombre</th>
+                    <th class="py-2 px-4 text-center">Correo</th>
+                    <th class="py-2 px-4 text-center">Rol</th>
+                    <th class="py-2 px-4 text-center">Acciones</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody class="bg-white divide-y divide-gray-200">
                 @forelse($users as $user)
-                    <tr class="hover:bg-gray-50">
-                        <td class="py-2 px-4">{{ $user->nombres }} {{ $user->apellidos }}</td>
-                        <td class="py-2 px-4">{{ $user->email }}</td>
-                        <td class="py-2 px-4">{{ $user->role->nombre ?? '-' }}</td>
-                        <td class="py-2 px-4">
-                            <button wire:click="openModal({{ $user->id }})" class="text-blue-600 hover:underline mr-2">Editar</button>
-                            <button wire:click="confirmDelete({{ $user->id }})" class="text-red-600 hover:underline">Eliminar</button>
-                        </td>
-                    </tr>
+                <tr>
+                    <td class="px-4 py-3 whitespace-nowrap text-center align-top">{{ $user->nombres }} {{ $user->apellidos }}</td>
+                    <td class="px-4 py-3 whitespace-nowrap text-center align-top">{{ $user->email }}</td>
+                    <td class="px-4 py-3 whitespace-nowrap text-center align-top">{{ $user->role->nombre ?? '-' }}</td>
+                    <td class="px-4 py-3 whitespace-nowrap text-center align-top">
+                        <div class="flex justify-center gap-2">
+                            <button wire:click="openModal({{ $user->id }})" class="bg-yellow-400 text-white px-3 py-1 rounded hover:bg-yellow-500">Editar</button>
+                            <button wire:click="confirmDelete({{ $user->id }})" class="bg-red-600 text-white px-3 py-1 rounded hover:bg-red-700">Eliminar</button>
+                        </div>
+                    </td>
+                </tr>
                 @empty
-                    <tr><td colspan="4" class="text-center py-4 text-gray-500">No se encontraron usuarios.</td></tr>
+                <tr>
+                    <td colspan="4" class="px-4 py-6 text-center text-gray-500">No se encontraron usuarios.</td>
+                </tr>
                 @endforelse
             </tbody>
         </table>
     </div>
     <div class="mt-4">{{ $users->links() }}</div>
-
     <!-- Modal Crear/Editar Usuario -->
-    <x-dialog-modal wire:model="showModal">
-        <x-slot name="title">
-            {{ $isEdit ? 'Editar Usuario' : 'Agregar Usuario' }}
-        </x-slot>
-        <x-slot name="content">
-            <div class="mb-4">
-                <label class="block text-sm font-medium">Nombres</label>
-                <input type="text" wire:model.defer="nombres" class="mt-1 border px-3 py-2 rounded w-full" required>
-                @error('nombres') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
+    @if($showModal)
+        <div class="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-40">
+            <div class="bg-white rounded-lg shadow-lg w-full max-w-md p-6">
+                <h2 class="text-lg font-bold mb-4">{{ $isEdit ? 'Editar Usuario' : 'Agregar Usuario' }}</h2>
+                <div class="mb-4">
+                    <label class="block text-gray-700">Nombres</label>
+                    <input type="text" wire:model.defer="nombres" class="w-full border rounded px-3 py-2 mt-1" />
+                    @error('nombres') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
+                </div>
+                <div class="mb-4">
+                    <label class="block text-gray-700">Apellidos</label>
+                    <input type="text" wire:model.defer="apellidos" class="w-full border rounded px-3 py-2 mt-1" />
+                    @error('apellidos') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
+                </div>
+                <div class="mb-4">
+                    <label class="block text-gray-700">Correo</label>
+                    <input type="email" wire:model.defer="email" class="w-full border rounded px-3 py-2 mt-1" />
+                    @error('email') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
+                </div>
+                <div class="mb-4">
+                    <label class="block text-gray-700">Cargo</label>
+                    <select wire:model.defer="role_id" class="w-full border rounded px-3 py-2 mt-1">
+                        <option value="">Seleccione un cargo</option>
+                        @foreach($roles as $role)
+                            <option value="{{ $role->id }}">{{ $role->nombre }}</option>
+                        @endforeach
+                    </select>
+                    @error('role_id') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
+                </div>
+                <div class="flex justify-end gap-2 mt-4">
+                    <button wire:click="closeModal" class="bg-gray-300 px-4 py-2 rounded">Cancelar</button>
+                    <button wire:click="saveUser" class="bg-blue-600 text-white px-4 py-2 rounded">{{ $isEdit ? 'Actualizar' : 'Crear' }}</button>
+                </div>
             </div>
-            <div class="mb-4">
-                <label class="block text-sm font-medium">Apellidos</label>
-                <input type="text" wire:model.defer="apellidos" class="mt-1 border px-3 py-2 rounded w-full" required>
-                @error('apellidos') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
+        </div>
+    @endif
+    <!-- Confirm Delete Modal -->
+    @if($showDeleteModal)
+        <div class="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-40">
+            <div class="bg-white rounded-lg shadow-lg w-full max-w-md p-6">
+                <h2 class="text-lg font-bold mb-4">Eliminar Usuario</h2>
+                <p class="mb-4">¿Está seguro que desea eliminar este usuario?</p>
+                <div class="flex justify-end gap-2 mt-4">
+                    <button wire:click="closeDeleteModal" class="bg-gray-300 px-4 py-2 rounded">Cancelar</button>
+                    <button wire:click="deleteUser" class="bg-red-600 text-white px-4 py-2 rounded">Eliminar</button>
+                </div>
             </div>
-            <div class="mb-4">
-                <label class="block text-sm font-medium">Correo</label>
-                <input type="email" wire:model.defer="email" class="mt-1 border px-3 py-2 rounded w-full" required>
-                @error('email') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
-            </div>
-            <div class="mb-4">
-                <label class="block text-sm font-medium">Cargo</label>
-                <select wire:model.defer="role_id" class="mt-1 border px-3 py-2 rounded w-full" required>
-                    <option value="">Seleccione un cargo</option>
-                    @foreach($roles as $rol)
-                        <option value="{{ $rol->id }}">{{ $rol->nombre }}</option>
-                    @endforeach
-                </select>
-                @error('role_id') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
-            </div>
-        </x-slot>
-        <x-slot name="footer">
-            <button wire:click="$set('showModal', false)" class="px-4 py-2 rounded bg-gray-200">Cancelar</button>
-            <button wire:click="saveUser" class="px-4 py-2 rounded bg-blue-600 text-white ml-2">Guardar</button>
-        </x-slot>
-    </x-dialog-modal>
-
-    <!-- Modal Confirmar Eliminación -->
-    <x-dialog-modal wire:model="showDeleteModal">
-        <x-slot name="title">Eliminar Usuario</x-slot>
-        <x-slot name="content">
-            ¿Está seguro que desea eliminar este usuario?
-        </x-slot>
-        <x-slot name="footer">
-            <button wire:click="$set('showDeleteModal', false)" class="px-4 py-2 rounded bg-gray-200">Cancelar</button>
-            <button wire:click="deleteUser" class="px-4 py-2 rounded bg-red-600 text-white ml-2">Eliminar</button>
-        </x-slot>
-    </x-dialog-modal>
+        </div>
+    @endif
 </div>

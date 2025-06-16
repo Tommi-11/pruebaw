@@ -1,7 +1,5 @@
-@extends('layouts.app')
-
-@section('content')
-    @include('layouts.header-nav')
+<?php $__env->startSection('content'); ?>
+    <?php echo $__env->make('layouts.header-nav', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
     <main class="flex-1 w-full">
         <section class="my-8">
             <div class="flex flex-col lg:flex-row items-center gap-8">
@@ -156,5 +154,7 @@
             </div>
         </section>
     </main>
-    @include('layouts.footer')
-@endsection
+    <?php echo $__env->make('layouts.footer', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('layouts.app', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\xampp\htdocs\sisogrsu1\resources\views/extension-universitaria.blade.php ENDPATH**/ ?>

@@ -1,20 +1,19 @@
-@extends('layouts.fullwidth')
-
-@section('content')    
+<?php $__env->startSection('content'); ?>    
     <main class="h-screen w-full">
         <a href="/" style="position: absolute; top: 16px; left: 16px; z-index: 1000; text-decoration: none; font-weight: bold; color: #3490dc; font-size: 18px;">&larr; Volver a inicio</a>
         <div class="absolute inset-0 flex flex-col items-center justify-center">
             <h2 class="text-4xl font-serif font-bold text-white mb-8 text-center drop-shadow">Iniciar Sesión</h2>
-            @if (session('status'))
+            <?php if(session('status')): ?>
                 <div class="mb-4 font-medium text-sm text-green-600">
-                    {{ session('status') }}
+                    <?php echo e(session('status')); ?>
+
                 </div>
-            @endif
-            <form method="POST" action="{{ route('login') }}" class="w-full max-w-lg bg-white bg-opacity-90 rounded-2xl shadow-2xl p-10 space-y-8 mx-auto" id="loginForm">
-                @csrf
+            <?php endif; ?>
+            <form method="POST" action="<?php echo e(route('login')); ?>" class="w-full max-w-lg bg-white bg-opacity-90 rounded-2xl shadow-2xl p-10 space-y-8 mx-auto" id="loginForm">
+                <?php echo csrf_field(); ?>
                 <div>
                     <label for="email" class="block text-blue-900 font-semibold mb-1">Correo electrónico</label>
-                    <input id="email" class="block w-full px-4 py-3 border border-blue-200 rounded focus:ring-2 focus:ring-blue-400 focus:outline-none text-lg" type="email" name="email" value="{{ old('email') }}" required autofocus autocomplete="username">
+                    <input id="email" class="block w-full px-4 py-3 border border-blue-200 rounded focus:ring-2 focus:ring-blue-400 focus:outline-none text-lg" type="email" name="email" value="<?php echo e(old('email')); ?>" required autofocus autocomplete="username">
                 </div>
                 <div>
                     <label for="password" class="block text-blue-900 font-semibold mb-1">Contraseña</label>
@@ -30,12 +29,12 @@
                         <input type="checkbox" name="remember" class="rounded border-blue-300 text-blue-800 shadow-sm focus:ring focus:ring-blue-200 focus:ring-opacity-50">
                         <span class="ml-2 text-gray-700">Recordarme</span>
                     </label>
-                    <a class="text-blue-700 hover:underline font-semibold" href="{{ route('password.request') }}">¿Olvidaste tu contraseña?</a>
+                    <a class="text-blue-700 hover:underline font-semibold" href="<?php echo e(route('password.request')); ?>">¿Olvidaste tu contraseña?</a>
                 </div>
                 <button type="submit" class="w-full bg-blue-900 text-white py-3 rounded font-bold text-lg hover:bg-blue-800 transition">Ingresar</button>
                 <div class="text-center mt-6">
                     <span class="text-blue-900">¿No tienes cuenta?</span>
-                    <a href="{{ route('register') }}" class="text-blue-700 font-semibold hover:underline">Regístrate</a>
+                    <a href="<?php echo e(route('register')); ?>" class="text-blue-700 font-semibold hover:underline">Regístrate</a>
                 </div>
             </form>
         </div>
@@ -53,4 +52,6 @@
         }
     }
     </script>
-@endsection
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('layouts.fullwidth', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\xampp\htdocs\sisogrsu1\resources\views/auth/login.blade.php ENDPATH**/ ?>

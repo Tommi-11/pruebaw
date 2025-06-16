@@ -73,8 +73,15 @@ class DatabaseSeeder extends Seeder
                 'role_id' => $roleIds['Encargado de PS'],
             ]);
             $this->command->info('Usuario regular 2 creado exitosamente.');
-        }        
-
+        }
+        
+        //llamar al seeder de Objetivos de Desarrollo Sostenible
         $this->call(ObjetivosDesarrolloSostenibleSeeder::class);
+        //llamar al seeder de Facultades
+        $this->call(FacultadesSeeder::class);
+        //llamar al seeder de Estudiantes
+        $this->call(EstudiantesSeeder::class);
+        //llamar al seeder de Docentes 
+        $this->call(DocentesSeeder::class);
     }
 }

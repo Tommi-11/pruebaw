@@ -50,6 +50,11 @@
                         <span class="material-icons mr-2">person</span> Docentes
                     </a>
                 </li>
+                <li>
+                    <a href="<?php echo e(route('proyectos')); ?>" class="flex items-center px-4 py-2 rounded-lg transition hover:bg-blue-800 <?php echo e(request()->routeIs('proyectos') ? 'bg-blue-800 ring-2 ring-blue-400' : ''); ?>">
+                        <span class="material-icons mr-2">assignment</span> Proyectos
+                    </a>
+                </li>
             </ul>
         </div>
         <div class="mb-4">

@@ -5,3 +5,13 @@
 [x-cloak] {
     display: none;
 }
+
+.login-bg {
+    min-height: 100vh;
+    min-width: 100vw;
+    background-image: url('/images/unasam_central.webp');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    /* background-color: #f3f4f6; fallback color similar a bg-gray-100 */
+}

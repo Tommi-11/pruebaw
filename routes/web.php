@@ -6,6 +6,7 @@ use App\Livewire\ObjetivosDesarrolloSostenible;
 use App\Livewire\Facultades;
 use App\Livewire\Estudiantes;
 use App\Livewire\Docentes;
+use App\Livewire\Proyectos;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -62,3 +63,6 @@ Route::get('/estudiantes', Estudiantes::class)
 
 Route::get('/docentes', Docentes::class)
     ->name('docentes');
+
+Route::get('/proyectos', Proyectos::class)
+    ->name('proyectos');

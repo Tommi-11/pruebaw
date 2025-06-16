@@ -1,60 +1,52 @@
 <div>
-    <div class="flex justify-between items-center mb-6">
-        <h2 class="text-xl font-semibold">Usuarios</h2>
+    <h2 class="text-xl font-bold text-gray-800 mb-2">Listado de Usuarios</h2>
+    <div class="flex justify-end mb-2">
         <button wire:click="openModal" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Agregar Usuario</button>
     </div>
-    <div class="mb-4">
-        <input type="text" wire:model.debounce.500ms="search" placeholder="Buscar usuario o rol..." class="border px-3 py-2 rounded w-1/3">
+    <div class="w-full md:w-1/3 mb-6">
+        <input type="text" wire:model.debounce.500ms="search" placeholder="Buscar usuario o rol..." class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400" />
     </div>
     <div class="overflow-x-auto bg-white rounded shadow">
-        <table class="min-w-full bg-white shadow">
-            <thead class="bg-blue-900 text-white rounded-lg">
+        <table class="min-w-full w-full table-auto divide-y divide-gray-200">
+            <thead class="bg-blue-900 text-white">
                 <tr>
-                    <th class="py-2 px-4">Nombre</th>
-                    <th class="py-2 px-4">Correo</th>
-                    <th class="py-2 px-4">Rol</th>
-                    <th class="py-2 px-4">Acciones</th>
+                    <th class="py-2 px-4 text-center">Nombre</th>
+                    <th class="py-2 px-4 text-center">Correo</th>
+                    <th class="py-2 px-4 text-center">Rol</th>
+                    <th class="py-2 px-4 text-center">Acciones</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody class="bg-white divide-y divide-gray-200">
                 <!--[if BLOCK]><![endif]--><?php $__empty_1 = true; $__currentLoopData = $users; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $user): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
-                    <tr class="hover:bg-gray-50">
-                        <td class="py-2 px-4"><?php echo e($user->nombres); ?> <?php echo e($user->apellidos); ?></td>
-                        <td class="py-2 px-4"><?php echo e($user->email); ?></td>
-                        <td class="py-2 px-4"><?php echo e($user->role->nombre ?? '-'); ?></td>
-                        <td class="py-2 px-4">
-                            <button wire:click="openModal(<?php echo e($user->id); ?>)" class="text-blue-600 hover:underline mr-2">Editar</button>
-                            <button wire:click="confirmDelete(<?php echo e($user->id); ?>)" class="text-red-600 hover:underline">Eliminar</button>
-                        </td>
-                    </tr>
+                <tr>
+                    <td class="px-4 py-3 whitespace-nowrap text-center align-top"><?php echo e($user->nombres); ?> <?php echo e($user->apellidos); ?></td>
+                    <td class="px-4 py-3 whitespace-nowrap text-center align-top"><?php echo e($user->email); ?></td>
+                    <td class="px-4 py-3 whitespace-nowrap text-center align-top"><?php echo e($user->role->nombre ?? '-'); ?></td>
+                    <td class="px-4 py-3 whitespace-nowrap text-center align-top">
+                        <div class="flex justify-center gap-2">
+                            <button wire:click="openModal(<?php echo e($user->id); ?>)" class="bg-yellow-400 text-white px-3 py-1 rounded hover:bg-yellow-500">Editar</button>
+                            <button wire:click="confirmDelete(<?php echo e($user->id); ?>)" class="bg-red-600 text-white px-3 py-1 rounded hover:bg-red-700">Eliminar</button>
+                        </div>
+                    </td>
+                </tr>
                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
-                    <tr><td colspan="4" class="text-center py-4 text-gray-500">No se encontraron usuarios.</td></tr>
+                <tr>
+                    <td colspan="4" class="px-4 py-6 text-center text-gray-500">No se encontraron usuarios.</td>
+                </tr>
                 <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
             </tbody>
         </table>
     </div>
     <div class="mt-4"><?php echo e($users->links()); ?></div>
-
     <!-- Modal Crear/Editar Usuario -->
-    <?php if (isset($component)) { $__componentOriginal49bd1c1dd878e22e0fb84faabf295a3f = $component; } ?>
-<?php if (isset($attributes)) { $__attributesOriginal49bd1c1dd878e22e0fb84faabf295a3f = $attributes; } ?>
-<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.dialog-modal','data' => ['wire:model' => 'showModal']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
-<?php $component->withName('dialog-modal'); ?>
-<?php if ($component->shouldRender()): ?>
-<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
-<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag && $constructor = (new ReflectionClass(Illuminate\View\AnonymousComponent::class))->getConstructor()): ?>
-<?php $attributes = $attributes->except(collect($constructor->getParameters())->map->getName()->all()); ?>
-<?php endif; ?>
-<?php $component->withAttributes(['wire:model' => 'showModal']); ?>
-         <?php $__env->slot('title', null, []); ?> 
-            <?php echo e($isEdit ? 'Editar Usuario' : 'Agregar Usuario'); ?>
-
-         <?php $__env->endSlot(); ?>
-         <?php $__env->slot('content', null, []); ?> 
-            <div class="mb-4">
-                <label class="block text-sm font-medium">Nombres</label>
-                <input type="text" wire:model.defer="nombres" class="mt-1 border px-3 py-2 rounded w-full" required>
-                <!--[if BLOCK]><![endif]--><?php $__errorArgs = ['nombres'];
+    <!--[if BLOCK]><![endif]--><?php if($showModal): ?>
+        <div class="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-40">
+            <div class="bg-white rounded-lg shadow-lg w-full max-w-md p-6">
+                <h2 class="text-lg font-bold mb-4"><?php echo e($isEdit ? 'Editar Usuario' : 'Agregar Usuario'); ?></h2>
+                <div class="mb-4">
+                    <label class="block text-gray-700">Nombres</label>
+                    <input type="text" wire:model.defer="nombres" class="w-full border rounded px-3 py-2 mt-1" />
+                    <!--[if BLOCK]><![endif]--><?php $__errorArgs = ['nombres'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
 if (isset($message)) { $__messageOriginal = $message; }
@@ -62,11 +54,11 @@ $message = $__bag->first($__errorArgs[0]); ?> <span class="text-red-500 text-xs"
 if (isset($__messageOriginal)) { $message = $__messageOriginal; }
 endif;
 unset($__errorArgs, $__bag); ?><!--[if ENDBLOCK]><![endif]-->
-            </div>
-            <div class="mb-4">
-                <label class="block text-sm font-medium">Apellidos</label>
-                <input type="text" wire:model.defer="apellidos" class="mt-1 border px-3 py-2 rounded w-full" required>
-                <!--[if BLOCK]><![endif]--><?php $__errorArgs = ['apellidos'];
+                </div>
+                <div class="mb-4">
+                    <label class="block text-gray-700">Apellidos</label>
+                    <input type="text" wire:model.defer="apellidos" class="w-full border rounded px-3 py-2 mt-1" />
+                    <!--[if BLOCK]><![endif]--><?php $__errorArgs = ['apellidos'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
 if (isset($message)) { $__messageOriginal = $message; }
@@ -74,11 +66,11 @@ $message = $__bag->first($__errorArgs[0]); ?> <span class="text-red-500 text-xs"
 if (isset($__messageOriginal)) { $message = $__messageOriginal; }
 endif;
 unset($__errorArgs, $__bag); ?><!--[if ENDBLOCK]><![endif]-->
-            </div>
-            <div class="mb-4">
-                <label class="block text-sm font-medium">Correo</label>
-                <input type="email" wire:model.defer="email" class="mt-1 border px-3 py-2 rounded w-full" required>
-                <!--[if BLOCK]><![endif]--><?php $__errorArgs = ['email'];
+                </div>
+                <div class="mb-4">
+                    <label class="block text-gray-700">Correo</label>
+                    <input type="email" wire:model.defer="email" class="w-full border rounded px-3 py-2 mt-1" />
+                    <!--[if BLOCK]><![endif]--><?php $__errorArgs = ['email'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
 if (isset($message)) { $__messageOriginal = $message; }
@@ -86,16 +78,16 @@ $message = $__bag->first($__errorArgs[0]); ?> <span class="text-red-500 text-xs"
 if (isset($__messageOriginal)) { $message = $__messageOriginal; }
 endif;
 unset($__errorArgs, $__bag); ?><!--[if ENDBLOCK]><![endif]-->
-            </div>
-            <div class="mb-4">
-                <label class="block text-sm font-medium">Cargo</label>
-                <select wire:model.defer="role_id" class="mt-1 border px-3 py-2 rounded w-full" required>
-                    <option value="">Seleccione un cargo</option>
-                    <!--[if BLOCK]><![endif]--><?php $__currentLoopData = $roles; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $rol): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                        <option value="<?php echo e($rol->id); ?>"><?php echo e($rol->nombre); ?></option>
-                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?><!--[if ENDBLOCK]><![endif]-->
-                </select>
-                <!--[if BLOCK]><![endif]--><?php $__errorArgs = ['role_id'];
+                </div>
+                <div class="mb-4">
+                    <label class="block text-gray-700">Cargo</label>
+                    <select wire:model.defer="role_id" class="w-full border rounded px-3 py-2 mt-1">
+                        <option value="">Seleccione un cargo</option>
+                        <!--[if BLOCK]><![endif]--><?php $__currentLoopData = $roles; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $role): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                            <option value="<?php echo e($role->id); ?>"><?php echo e($role->nombre); ?></option>
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?><!--[if ENDBLOCK]><![endif]-->
+                    </select>
+                    <!--[if BLOCK]><![endif]--><?php $__errorArgs = ['role_id'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
 if (isset($message)) { $__messageOriginal = $message; }
@@ -103,51 +95,26 @@ $message = $__bag->first($__errorArgs[0]); ?> <span class="text-red-500 text-xs"
 if (isset($__messageOriginal)) { $message = $__messageOriginal; }
 endif;
 unset($__errorArgs, $__bag); ?><!--[if ENDBLOCK]><![endif]-->
+                </div>
+                <div class="flex justify-end gap-2 mt-4">
+                    <button wire:click="closeModal" class="bg-gray-300 px-4 py-2 rounded">Cancelar</button>
+                    <button wire:click="saveUser" class="bg-blue-600 text-white px-4 py-2 rounded"><?php echo e($isEdit ? 'Actualizar' : 'Crear'); ?></button>
+                </div>
             </div>
-         <?php $__env->endSlot(); ?>
-         <?php $__env->slot('footer', null, []); ?> 
-            <button wire:click="$set('showModal', false)" class="px-4 py-2 rounded bg-gray-200">Cancelar</button>
-            <button wire:click="saveUser" class="px-4 py-2 rounded bg-blue-600 text-white ml-2">Guardar</button>
-         <?php $__env->endSlot(); ?>
-     <?php echo $__env->renderComponent(); ?>
-<?php endif; ?>
-<?php if (isset($__attributesOriginal49bd1c1dd878e22e0fb84faabf295a3f)): ?>
-<?php $attributes = $__attributesOriginal49bd1c1dd878e22e0fb84faabf295a3f; ?>
-<?php unset($__attributesOriginal49bd1c1dd878e22e0fb84faabf295a3f); ?>
-<?php endif; ?>
-<?php if (isset($__componentOriginal49bd1c1dd878e22e0fb84faabf295a3f)): ?>
-<?php $component = $__componentOriginal49bd1c1dd878e22e0fb84faabf295a3f; ?>
-<?php unset($__componentOriginal49bd1c1dd878e22e0fb84faabf295a3f); ?>
-<?php endif; ?>
-
-    <!-- Modal Confirmar Eliminación -->
-    <?php if (isset($component)) { $__componentOriginal49bd1c1dd878e22e0fb84faabf295a3f = $component; } ?>
-<?php if (isset($attributes)) { $__attributesOriginal49bd1c1dd878e22e0fb84faabf295a3f = $attributes; } ?>
-<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.dialog-modal','data' => ['wire:model' => 'showDeleteModal']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
-<?php $component->withName('dialog-modal'); ?>
-<?php if ($component->shouldRender()): ?>
-<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
-<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag && $constructor = (new ReflectionClass(Illuminate\View\AnonymousComponent::class))->getConstructor()): ?>
-<?php $attributes = $attributes->except(collect($constructor->getParameters())->map->getName()->all()); ?>
-<?php endif; ?>
-<?php $component->withAttributes(['wire:model' => 'showDeleteModal']); ?>
-         <?php $__env->slot('title', null, []); ?> Eliminar Usuario <?php $__env->endSlot(); ?>
-         <?php $__env->slot('content', null, []); ?> 
-            ¿Está seguro que desea eliminar este usuario?
-         <?php $__env->endSlot(); ?>
-         <?php $__env->slot('footer', null, []); ?> 
-            <button wire:click="$set('showDeleteModal', false)" class="px-4 py-2 rounded bg-gray-200">Cancelar</button>
-            <button wire:click="deleteUser" class="px-4 py-2 rounded bg-red-600 text-white ml-2">Eliminar</button>
-         <?php $__env->endSlot(); ?>
-     <?php echo $__env->renderComponent(); ?>
-<?php endif; ?>
-<?php if (isset($__attributesOriginal49bd1c1dd878e22e0fb84faabf295a3f)): ?>
-<?php $attributes = $__attributesOriginal49bd1c1dd878e22e0fb84faabf295a3f; ?>
-<?php unset($__attributesOriginal49bd1c1dd878e22e0fb84faabf295a3f); ?>
-<?php endif; ?>
-<?php if (isset($__componentOriginal49bd1c1dd878e22e0fb84faabf295a3f)): ?>
-<?php $component = $__componentOriginal49bd1c1dd878e22e0fb84faabf295a3f; ?>
-<?php unset($__componentOriginal49bd1c1dd878e22e0fb84faabf295a3f); ?>
-<?php endif; ?>
+        </div>
+    <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
+    <!-- Confirm Delete Modal -->
+    <!--[if BLOCK]><![endif]--><?php if($showDeleteModal): ?>
+        <div class="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-40">
+            <div class="bg-white rounded-lg shadow-lg w-full max-w-md p-6">
+                <h2 class="text-lg font-bold mb-4">Eliminar Usuario</h2>
+                <p class="mb-4">¿Está seguro que desea eliminar este usuario?</p>
+                <div class="flex justify-end gap-2 mt-4">
+                    <button wire:click="closeDeleteModal" class="bg-gray-300 px-4 py-2 rounded">Cancelar</button>
+                    <button wire:click="deleteUser" class="bg-red-600 text-white px-4 py-2 rounded">Eliminar</button>
+                </div>
+            </div>
+        </div>
+    <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
 </div>
 <?php /**PATH C:\xampp\htdocs\sisogrsu1\resources\views/livewire/user-table.blade.php ENDPATH**/ ?>
