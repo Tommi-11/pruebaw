@@ -16,7 +16,7 @@ class Estudiantes extends Component
     public $nombres, $apellidos, $codigo_universidad, $dni, $celular, $facultad_id, $estudianteId;
     public $confirmingDelete = false;
     public $estudianteToDelete;
-    public $search = '';
+    public $search = '';    
 
     protected $rules = [
         'nombres' => 'required|string|max:255',
@@ -40,6 +40,11 @@ class Estudiantes extends Component
         $facultades = Facultades::all();
         return view('livewire.estudiantes', compact('estudiantes', 'facultades'));
     }
+
+    public function updatedSearch()
+    {        
+        $this->resetPage();
+    }   
 
     public function openModal($mode = 'create', $id = null)
     {
@@ -107,4 +112,6 @@ class Estudiantes extends Component
         EstudianteModel::destroy($this->estudianteToDelete);
         $this->confirmingDelete = false;
     }
+
+    
 }

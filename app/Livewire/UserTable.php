@@ -13,11 +13,13 @@ class UserTable extends Component
     public $search = '';
     public $showModal = false;
     public $showDeleteModal = false;
+    public $showSuccessModal = false;
     public $userId;
     public $nombres;
     public $apellidos;
     public $email;
     public $role_id;
+    public $new_password;
     public $roles = [];
     public $isEdit = false;
     public $confirmingDeleteId;
@@ -52,7 +54,7 @@ class UserTable extends Component
     public function openModal($id = null)
     {
         $this->resetValidation();
-        $this->reset(['nombres','apellidos','email','role_id','userId']);
+        $this->reset(['nombres','apellidos','email','role_id','userId','new_password']);
         $this->isEdit = false;
         if ($id) {
             $user = User::findOrFail($id);
@@ -71,12 +73,14 @@ class UserTable extends Component
         $this->validate();
         if ($this->userId) {
             $user = User::findOrFail($this->userId);
-            $user->update([
-                'nombres' => $this->nombres,
-                'apellidos' => $this->apellidos,
-                'email' => $this->email,
-                'role_id' => $this->role_id,
-            ]);
+            $user->nombres = $this->nombres;
+            $user->apellidos = $this->apellidos;
+            $user->email = $this->email;
+            $user->role_id = $this->role_id;
+            if (!empty($this->new_password)) {
+                $user->password = bcrypt($this->new_password);
+            }
+            $user->save();
         } else {
             User::create([
                 'nombres' => $this->nombres,
@@ -87,6 +91,7 @@ class UserTable extends Component
             ]);
         }
         $this->showModal = false;
+        $this->showSuccessModal = true;
     }
 
     public function confirmDelete($id)
@@ -104,5 +109,19 @@ class UserTable extends Component
     public function updatingSearch()
     {
         $this->resetPage();
+    }
+
+    public function closeModal()
+    {
+        $this->showModal = false;
+        $this->reset(['nombres','apellidos','email','role_id','userId','new_password']);
+        $this->resetValidation();
+    }
+
+    public function closeSuccessModal()
+    {
+        $this->showSuccessModal = false;
+        $this->reset(['nombres','apellidos','email','role_id','userId','new_password']);
+        $this->resetValidation();
     }
 }

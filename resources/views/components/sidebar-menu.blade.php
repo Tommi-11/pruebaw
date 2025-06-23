@@ -55,6 +55,11 @@
                         <span class="material-icons mr-2">assignment</span> Proyectos
                     </a>
                 </li>
+                <li>
+                    <a href="{{ route('noticias') }}" class="flex items-center px-4 py-2 rounded-lg transition hover:bg-blue-800 {{ request()->routeIs('noticias') ? 'bg-blue-800 ring-2 ring-blue-400' : '' }}">
+                        <span class="material-icons mr-2">article</span> Noticias
+                    </a>
+                </li>
             </ul>
         </div>
         <div class="mb-4">

@@ -7,6 +7,10 @@ use App\Livewire\Facultades;
 use App\Livewire\Estudiantes;
 use App\Livewire\Docentes;
 use App\Livewire\Proyectos;
+use App\Livewire\Noticias;
+use App\Livewire\NoticiasForm;
+use App\Models\Noticias as NoticiaModel;
+use App\Http\Controllers\NoticiasUploadController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -66,3 +70,13 @@ Route::get('/docentes', Docentes::class)
 
 Route::get('/proyectos', Proyectos::class)
     ->name('proyectos');
+
+Route::get('/noticias', Noticias::class)
+    ->name('noticias');
+Route::get('/noticias/create', NoticiasForm::class)->name('noticias.create');
+Route::get('/noticias/{id}/edit', NoticiasForm::class)->name('noticias.edit');
+Route::get('/noticias/{id}', function($id) {
+    $noticia = NoticiaModel::findOrFail($id);
+    return view('livewire.noticia-show', compact('noticia'));
+})->name('noticias.show');
+Route::post('/noticias/upload', [NoticiasUploadController::class, 'upload'])->name('noticias.upload');

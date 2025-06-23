@@ -46,6 +46,14 @@ class RoleTable extends Component
         $this->showModal = true;
     }
 
+    public function closeModal()
+    {
+        $this->showModal = false;
+        $this->reset(['nombre','descripcion','roleId']);
+        $this->resetValidation();
+        $this->isEdit = false;
+    }
+
     public function saveRole()
     {
         $this->validate($this->isEdit ? [

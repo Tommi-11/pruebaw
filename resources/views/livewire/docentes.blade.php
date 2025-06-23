@@ -4,7 +4,7 @@
         <button wire:click="openModal('create')" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Nuevo Docente</button>
     </div>
     <div class="w-full md:w-1/3 mb-6">
-        <input type="text" wire:model.debounce.500ms="search" placeholder="Buscar por nombre, apellido o DNI..." class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400" />
+        <input type="text" wire:model.live.debounce.500ms="search" placeholder="Buscar por nombre, apellido o DNI..." class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400" />
     </div>
     <div class="overflow-x-auto bg-white rounded shadow">
         <table class="min-w-full w-full table-auto divide-y divide-gray-200">
@@ -90,7 +90,7 @@
                     @error('celular') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
                 </div>
                 <div class="flex justify-end gap-2 mt-4">
-                    <button wire:click="closeModal" class="bg-gray-300 px-4 py-2 rounded">Cancelar</button>
+                    <button type="button" wire:click="closeModal" class="bg-gray-300 px-4 py-2 rounded">Cancelar</button>
                     <button wire:click="saveDocente" class="bg-blue-600 text-white px-4 py-2 rounded">{{ $modalMode === 'create' ? 'Crear' : 'Actualizar' }}</button>
                 </div>
             </div>
@@ -104,7 +104,7 @@
                 <h2 class="text-lg font-bold mb-4">Eliminar Docente</h2>
                 <p class="mb-4">¿Está seguro que desea eliminar este docente?</p>
                 <div class="flex justify-end gap-2 mt-4">
-                    <button wire:click="$set('confirmingDelete', false)" class="bg-gray-300 px-4 py-2 rounded">Cancelar</button>
+                    <button type="button" wire:click="$set('confirmingDelete', false)" class="bg-gray-300 px-4 py-2 rounded">Cancelar</button>
                     <button wire:click="deleteDocente" class="bg-red-600 text-white px-4 py-2 rounded">Eliminar</button>
                 </div>
             </div>
