@@ -1,40 +1,150 @@
 @push('styles')
-    <link rel="stylesheet" href="https://cdn.ckeditor.com/ckeditor5/45.2.0/ckeditor5.css">
+    <style>
+        .ck-editor__editable {
+            min-height: 400px;
+            border-radius: 0 0 8px 8px;
+            padding: 20px;
+        }
+        .ck.ck-toolbar {
+            border-radius: 8px 8px 0 0;
+            border: 1px solid #e2e8f0;
+            background-color: #f8fafc;
+        }
+    </style>
 @endpush
 
 @push('scripts')
-    <script src="https://cdn.ckeditor.com/ckeditor5/45.2.0/ckeditor5.umd.js"></script>
+    <!-- CDN con CKEditor 5 completo y gratuito -->
+    <script src="https://cdn.jsdelivr.net/npm/ckeditor5-full-free-plugin@23.1.2/build/ckeditor.min.js"></script>
+    
     <script>
-        // Log para verificar si el script se inyecta
-        console.log('CKEditor script push loaded');
-        document.addEventListener('livewire:load', function () {
-            console.log('livewire:load event fired');
+        document.addEventListener('livewire:init', async function () {
+            console.log('livewire:init event fired');
+            
             if (window.editorInstance) return;
+            
             const textarea = document.querySelector('#content');
-            console.log('Textarea encontrado:', textarea);
             if (!textarea) {
                 console.error('No se encontró el textarea #content');
                 return;
             }
-            const ClassicEditor = window.CKEditor5.ClassicEditor;
-            ClassicEditor.create(textarea, {
-                // Puedes agregar configuración adicional aquí si lo necesitas
-            })
-            .then(editor => {
-                window.editorInstance = editor;
-                editor.model.document.on('change:data', () => {
-                    Livewire.find('{{ $this->getId() }}').set('descripcion', editor.getData());
+
+            try {
+                // Configuración completa con todos los plugins gratuitos
+                window.editorInstance = await ClassicEditor.create(textarea, {
+                    toolbar: {
+                        items: [
+                            'heading', '|',
+                            'fontfamily', 'fontsize', 'fontColor', 'fontBackgroundColor', '|',
+                            'bold', 'italic', 'underline', 'strikethrough', '|',
+                            'alignment', '|',
+                            'link', 'imageUpload', 'mediaEmbed', 'insertTable', 'blockQuote', '|',
+                            'bulletedList', 'numberedList', 'todoList', '|',
+                            'outdent', 'indent', '|',
+                            'code', 'codeBlock', 'htmlEmbed', '|',
+                            'horizontalLine', 'pageBreak', '|',
+                            'sourceEditing', '|',
+                            'undo', 'redo'
+                        ],
+                        shouldNotGroupWhenFull: true
+                    },
+                    language: 'es',
+                    placeholder: 'Escribe el contenido aquí...',
+                    
+                    // Configuración avanzada de imágenes
+                    image: {
+                        toolbar: [
+                            'imageTextAlternative', 
+                            'imageStyle:inline', 
+                            'imageStyle:block', 
+                            'imageStyle:side',
+                            'toggleImageCaption',
+                            'imageResize:25',
+                            'imageResize:50',
+                            'imageResize:75',
+                            'imageResize:100'
+                        ],
+                        resizeOptions: [
+                            {
+                                name: 'resizeImage:original',
+                                value: null,
+                                icon: 'original'
+                            },
+                            {
+                                name: 'resizeImage:25',
+                                value: '25',
+                                icon: 'small'
+                            },
+                            {
+                                name: 'resizeImage:50',
+                                value: '50',
+                                icon: 'medium'
+                            },
+                            {
+                                name: 'resizeImage:75',
+                                value: '75',
+                                icon: 'large'
+                            }
+                        ],
+                        styles: [
+                            'full',
+                            'side',
+                            'alignLeft', 
+                            'alignCenter', 
+                            'alignRight'
+                        ]
+                    },
+                    
+                    // Configuración de subida de imágenes
+                    simpleUpload: {
+                        uploadUrl: "{{ route('ckeditor.upload') }}",
+                        headers: {
+                            'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                            'X-Requested-With': 'XMLHttpRequest'
+                        }
+                    },
+                    removePlugins: ['CKFinderUploadAdapter'],
+                    
+                    // Plugins adicionales
+                    table: {
+                        contentToolbar: [
+                            'tableColumn',
+                            'tableRow',
+                            'mergeTableCells',
+                            'tableProperties',
+                            'tableCellProperties'
+                        ]
+                    },
+                    codeBlock: {
+                        languages: [
+                            { language: 'html', label: 'HTML' },
+                            { language: 'css', label: 'CSS' },
+                            { language: 'javascript', label: 'JavaScript' },
+                            { language: 'php', label: 'PHP' }
+                        ]
+                    }
                 });
+                
+                console.log('CKEditor 5 Full Free inicializado');
+                
+                // Sincronización con Livewire
+                window.editorInstance.model.document.on('change:data', () => {
+                    Livewire.find('{{ $this->getId() }}').set('descripcion', window.editorInstance.getData());
+                });
+
                 Livewire.hook('message.processed', (message, component) => {
                     const livewireInstance = Livewire.find('{{ $this->getId() }}');
-                    if (window.editorInstance && livewireInstance.get('descripcion') !== editor.getData()) {
+                    if (window.editorInstance && livewireInstance.get('descripcion') !== window.editorInstance.getData()) {
                         window.editorInstance.setData(livewireInstance.get('descripcion') || '');
                     }
                 });
-            })
-            .catch(error => {
-                console.error('CKEditor initialization error:', error);
-            });
+                
+                // Manejar carga inicial de datos
+                window.editorInstance.setData(textarea.value || '');
+                
+            } catch (error) {
+                console.error('Error al inicializar CKEditor 5 Full Free:', error);
+            }
         });
     </script>
 @endpush
@@ -48,10 +158,12 @@
                 <input type="text" wire:model.defer="titulo" class="w-full border border-gray-300 rounded px-4 py-2 mt-1 focus:ring-2 focus:ring-blue-400 focus:outline-none text-lg" />
                 @error('titulo') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
             </div>
-            <div>
+            <div wire:ignore>
                 <label class="block text-gray-700 font-semibold mb-1">Contenido</label>
                 <div id="editor-container">
-                    <textarea name="content" id="content" cols="30" rows="10" wire:model.defer="descripcion" class="form-control" placeholder="Escribe su contenido"></textarea>
+                    <textarea name="content" id="content" cols="30" rows="10" 
+                              wire:model.defer="descripcion" class="form-control" 
+                              placeholder="Escribe su contenido">{{ $descripcion }}</textarea>
                 </div>
                 @error('descripcion') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
             </div>

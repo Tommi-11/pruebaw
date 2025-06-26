@@ -20,10 +20,10 @@ class NoticiasForm extends Component
         'area_origen' => 'required|string',
     ];
 
-    public function mount($id = null)
+    public function mount($modo = 'create', $id = null)
     {
+        $this->modo = $modo;
         if ($id) {
-            $this->modo = 'edit';
             $noticia = Noticias::findOrFail($id);
             $this->noticiaId = $noticia->id;
             $this->titulo = $noticia->titulo;

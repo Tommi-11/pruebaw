@@ -73,10 +73,15 @@ Route::get('/proyectos', Proyectos::class)
 
 Route::get('/noticias', Noticias::class)
     ->name('noticias');
-Route::get('/noticias/create', NoticiasForm::class)->name('noticias.create');
-Route::get('/noticias/{id}/edit', NoticiasForm::class)->name('noticias.edit');
+Route::get('/noticias/create', function () {
+    return view('noticias.form', ['modo' => 'create']);
+})->name('noticias.create');
+Route::get('/noticias/{id}/edit', function($id) {
+    return view('noticias.form', ['modo' => 'edit', 'id' => $id]);
+})->name('noticias.edit');
 Route::get('/noticias/{id}', function($id) {
     $noticia = NoticiaModel::findOrFail($id);
     return view('livewire.noticia-show', compact('noticia'));
 })->name('noticias.show');
 Route::post('/noticias/upload', [NoticiasUploadController::class, 'upload'])->name('noticias.upload');
+require __DIR__.'/ckeditor_upload.php';
