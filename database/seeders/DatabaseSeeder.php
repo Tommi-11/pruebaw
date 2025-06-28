@@ -83,5 +83,7 @@ class DatabaseSeeder extends Seeder
         $this->call(EstudiantesSeeder::class);
         //llamar al seeder de Docentes 
         $this->call(DocentesSeeder::class);
+        //llamar al seeder de CategoriaDocumento
+        $this->call(CategoriaDocumentoSeeder::class);
     }
 }

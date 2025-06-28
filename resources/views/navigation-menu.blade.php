@@ -15,6 +15,12 @@
                     <x-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
+                    <x-nav-link href="{{ route('noticias') }}" :active="request()->routeIs('noticias')">
+                        {{ __('Noticias') }}
+                    </x-nav-link>
+                    <x-nav-link href="{{ route('documentos') }}" :active="request()->routeIs('documentos')">
+                        {{ __('Documentos') }}
+                    </x-nav-link>
                 </div>
             </div>
 
@@ -142,6 +148,12 @@
             <x-responsive-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
+            <x-responsive-nav-link href="{{ route('noticias') }}" :active="request()->routeIs('noticias')">
+                {{ __('Noticias') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link href="{{ route('documentos') }}" :active="request()->routeIs('documentos')">
+                {{ __('Documentos') }}
+            </x-responsive-nav-link>
         </div>
 
         <!-- Responsive Settings Options -->
@@ -215,5 +227,47 @@
                 @endif
             </div>
         </div>
+    </div>
+
+    <!-- GESTIÓN RESPONSABILIDAD SOCIAL -->
+    <div class="mt-4">
+        <div class="text-xs text-gray-400 font-bold uppercase mb-2">GESTIÓN RESPONSABILIDAD SOCIAL</div>
+        <ul class="space-y-1">
+            <li>
+                <x-nav-link href="{{ route('facultades') }}" :active="request()->routeIs('facultades')">
+                    <i class="fas fa-building mr-2"></i> {{ __('Facultades') }}
+                </x-nav-link>
+            </li>
+            <li>
+                <x-nav-link href="{{ route('objetivos-desarrollo-sostenible') }}" :active="request()->routeIs('objetivos-desarrollo-sostenible')">
+                    <i class="fas fa-leaf mr-2"></i> {{ __('Objetivos de Desarrollo Sostenible') }}
+                </x-nav-link>
+            </li>
+            <li>
+                <x-nav-link href="{{ route('estudiantes') }}" :active="request()->routeIs('estudiantes')">
+                    <i class="fas fa-user-graduate mr-2"></i> {{ __('Estudiantes') }}
+                </x-nav-link>
+            </li>
+            <li>
+                <x-nav-link href="{{ route('docentes') }}" :active="request()->routeIs('docentes')">
+                    <i class="fas fa-chalkboard-teacher mr-2"></i> {{ __('Docentes') }}
+                </x-nav-link>
+            </li>
+            <li>
+                <x-nav-link href="{{ route('proyectos') }}" :active="request()->routeIs('proyectos')">
+                    <i class="fas fa-tasks mr-2"></i> {{ __('Proyectos') }}
+                </x-nav-link>
+            </li>
+            <li>
+                <x-nav-link href="{{ route('noticias') }}" :active="request()->routeIs('noticias')">
+                    <i class="fas fa-newspaper mr-2"></i> {{ __('Noticias') }}
+                </x-nav-link>
+            </li>
+            <li>
+                <x-nav-link href="{{ route('documentos') }}" :active="request()->routeIs('documentos')">
+                    <i class="fas fa-file-alt mr-2"></i> {{ __('Documentos') }}
+                </x-nav-link>
+            </li>
+        </ul>
     </div>
 </nav>

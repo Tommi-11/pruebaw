@@ -11,6 +11,7 @@ use App\Livewire\Noticias;
 use App\Livewire\NoticiasForm;
 use App\Models\Noticias as NoticiaModel;
 use App\Http\Controllers\NoticiasUploadController;
+use App\Livewire\Documentos;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -85,3 +86,6 @@ Route::get('/noticias/{id}', function($id) {
 })->name('noticias.show');
 Route::post('/noticias/upload', [NoticiasUploadController::class, 'upload'])->name('noticias.upload');
 require __DIR__.'/ckeditor_upload.php';
+
+Route::get('/documentos', Documentos::class)
+->name('documentos');
