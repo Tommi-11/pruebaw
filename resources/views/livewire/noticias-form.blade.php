@@ -158,6 +158,26 @@
                 <input type="text" wire:model.defer="titulo" class="w-full border border-gray-300 rounded px-4 py-2 mt-1 focus:ring-2 focus:ring-blue-400 focus:outline-none text-lg" />
                 @error('titulo') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
             </div>
+            <div>
+                <label class="block text-gray-700 font-semibold mb-1">Miniatura (JPG, PNG, WEBP, máx. 5MB)</label>
+                <input type="file" wire:model="imagen_upload" accept="image/jpeg,image/png,image/webp" class="w-full border border-gray-300 rounded px-4 py-2 mt-1 focus:ring-2 focus:ring-blue-400 focus:outline-none text-lg" />
+                @php
+                    $hasImagenUpload = isset($imagen_upload) || (property_exists($this, 'imagen_upload') && $imagen_upload);
+                    $hasImagenPath = isset($imagen_path) || (property_exists($this, 'imagen_path') && $imagen_path);
+                @endphp
+                @if($hasImagenUpload)
+                    <div class="mt-2">
+                        <span class="block text-gray-600 text-xs mb-1">Vista previa:</span>
+                        <img src="{{ $imagen_upload->temporaryUrl() }}" class="h-20 w-auto rounded shadow border" />
+                    </div>
+                @elseif($hasImagenPath)
+                    <div class="mt-2">
+                        <span class="block text-gray-600 text-xs mb-1">Miniatura actual:</span>
+                        <img src="{{ Storage::url($imagen_path) }}" class="h-20 w-auto rounded shadow border" />
+                    </div>
+                @endif
+                @error('imagen_upload') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
+            </div>
             <div wire:ignore>
                 <label class="block text-gray-700 font-semibold mb-1">Contenido</label>
                 <div id="editor-container">

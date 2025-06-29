@@ -24,7 +24,7 @@ class Noticias extends Component
     protected $rules = [
         'titulo' => 'required|string|max:255',
         'descripcion' => 'required|string',
-        'imagen_upload' => 'nullable|image|max:5120', // 5MB
+        'imagen_upload' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:5120', // 5MB, formatos válidos
         'area_origen' => 'required|string',
     ];
 
@@ -73,7 +73,7 @@ class Noticias extends Component
             'fecha_publicacion' => now(),
         ];
         if ($this->imagen_upload) {
-            $data['imagen_path'] = $this->imagen_upload->store('noticias', 'public');
+            $data['imagen_path'] = $this->imagen_upload->store('miniatura-noticia', 'public');
         } elseif ($this->modalMode === 'edit' && $this->noticiaId) {
             $noticia = NoticiaModel::findOrFail($this->noticiaId);
             $data['imagen_path'] = $noticia->imagen_path;

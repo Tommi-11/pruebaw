@@ -165,6 +165,33 @@ if (isset($__messageOriginal)) { $message = $__messageOriginal; }
 endif;
 unset($__errorArgs, $__bag); ?><!--[if ENDBLOCK]><![endif]-->
             </div>
+            <div>
+                <label class="block text-gray-700 font-semibold mb-1">Miniatura (JPG, PNG, WEBP, máx. 5MB)</label>
+                <input type="file" wire:model="imagen_upload" accept="image/jpeg,image/png,image/webp" class="w-full border border-gray-300 rounded px-4 py-2 mt-1 focus:ring-2 focus:ring-blue-400 focus:outline-none text-lg" />
+                <?php
+                    $hasImagenUpload = isset($imagen_upload) || (property_exists($this, 'imagen_upload') && $imagen_upload);
+                    $hasImagenPath = isset($imagen_path) || (property_exists($this, 'imagen_path') && $imagen_path);
+                ?>
+                <!--[if BLOCK]><![endif]--><?php if($hasImagenUpload): ?>
+                    <div class="mt-2">
+                        <span class="block text-gray-600 text-xs mb-1">Vista previa:</span>
+                        <img src="<?php echo e($imagen_upload->temporaryUrl()); ?>" class="h-20 w-auto rounded shadow border" />
+                    </div>
+                <?php elseif($hasImagenPath): ?>
+                    <div class="mt-2">
+                        <span class="block text-gray-600 text-xs mb-1">Miniatura actual:</span>
+                        <img src="<?php echo e(Storage::url($imagen_path)); ?>" class="h-20 w-auto rounded shadow border" />
+                    </div>
+                <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
+                <!--[if BLOCK]><![endif]--><?php $__errorArgs = ['imagen_upload'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> <span class="text-red-500 text-xs"><?php echo e($message); ?></span> <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?><!--[if ENDBLOCK]><![endif]-->
+            </div>
             <div wire:ignore>
                 <label class="block text-gray-700 font-semibold mb-1">Contenido</label>
                 <div id="editor-container">
