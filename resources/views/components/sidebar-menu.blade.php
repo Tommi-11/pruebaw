@@ -67,39 +67,50 @@
                 </li>
             </ul>
         </div>
+        <!-- Mejorado: Cada sección tiene rutas y activación individual para evitar selección múltiple -->
         <div class="mb-4">
-            <span class="text-xs font-semibold text-blue-200 uppercase pl-2">Gestión Académica</span>
+            <span class="text-xs font-semibold text-blue-200 uppercase pl-2">Seguimiento y Certificación al Egresado</span>
             <ul class="mt-2 space-y-1">
-                <li>
-                    <a href="#" class="flex items-center px-4 py-2 rounded-lg transition hover:bg-blue-800 opacity-60 cursor-not-allowed">
-                        <span class="material-icons mr-2">school</span> Carreras
-                    </a>
-                </li>
-                <li>
-                    <a href="#" class="flex items-center px-4 py-2 rounded-lg transition hover:bg-blue-800 opacity-60 cursor-not-allowed">
-                        <span class="material-icons mr-2">class</span> Materias
-                    </a>
-                </li>
+            <li>
+                <a href="{{ route('noticias.egresado') }}" class="flex items-center px-4 py-2 rounded-lg transition hover:bg-blue-800 {{ request()->routeIs('noticias.egresado') ? 'bg-blue-800 ring-2 ring-blue-400' : '' }}">
+                <span class="material-icons mr-2">article</span> Noticias
+                </a>
+            </li>
+            <li>
+                <a href="{{ route('documentos.egresado') }}" class="flex items-center px-4 py-2 rounded-lg transition hover:bg-blue-800 {{ request()->routeIs('documentos.egresado') ? 'bg-blue-800 ring-2 ring-blue-400' : '' }}">
+                <span class="material-icons mr-2">description</span> Documentos
+                </a>
+            </li>
             </ul>
         </div>
         <div class="mb-4">
-            <span class="text-xs font-semibold text-blue-200 uppercase pl-2">Gestión Administrativa</span>
+            <span class="text-xs font-semibold text-blue-200 uppercase pl-2">Gestión Proyección Social</span>
             <ul class="mt-2 space-y-1">
-                <li>
-                    <a href="#" class="flex items-center px-4 py-2 rounded-lg transition hover:bg-blue-800 opacity-60 cursor-not-allowed">
-                        <span class="material-icons mr-2">business_center</span> Proyectos
-                    </a>
-                </li>
+            <li>
+                <a href="{{ route('noticias.gestion') }}" class="flex items-center px-4 py-2 rounded-lg transition hover:bg-blue-800 {{ request()->routeIs('noticias.gestion') ? 'bg-blue-800 ring-2 ring-blue-400' : '' }}">
+                <span class="material-icons mr-2">article</span> Noticias
+                </a>
+            </li>
+            <li>
+                <a href="{{ route('documentos.gestion') }}" class="flex items-center px-4 py-2 rounded-lg transition hover:bg-blue-800 {{ request()->routeIs('documentos.gestion') ? 'bg-blue-800 ring-2 ring-blue-400' : '' }}">
+                <span class="material-icons mr-2">description</span> Documentos
+                </a>
+            </li>
             </ul>
         </div>
-        <div>
-            <span class="text-xs font-semibold text-blue-200 uppercase pl-2">Reportes</span>
+        <div class="mb-4">
+            <span class="text-xs font-semibold text-blue-200 uppercase pl-2">Extensión Universitaria</span>
             <ul class="mt-2 space-y-1">
-                <li>
-                    <a href="#" class="flex items-center px-4 py-2 rounded-lg transition hover:bg-blue-800 opacity-60 cursor-not-allowed">
-                        <span class="material-icons mr-2">bar_chart</span> Estadísticas
-                    </a>
-                </li>
+            <li>
+                <a href="{{ route('noticias.extension') }}" class="flex items-center px-4 py-2 rounded-lg transition hover:bg-blue-800 {{ request()->routeIs('noticias.extension') ? 'bg-blue-800 ring-2 ring-blue-400' : '' }}">
+                <span class="material-icons mr-2">article</span> Noticias
+                </a>
+            </li>
+            <li>
+                <a href="{{ route('documentos.extension') }}" class="flex items-center px-4 py-2 rounded-lg transition hover:bg-blue-800 {{ request()->routeIs('documentos.extension') ? 'bg-blue-800 ring-2 ring-blue-400' : '' }}">
+                <span class="material-icons mr-2">description</span> Documentos
+                </a>
+            </li>
             </ul>
         </div>
     </nav>

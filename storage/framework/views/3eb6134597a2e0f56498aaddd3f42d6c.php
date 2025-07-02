@@ -9,7 +9,11 @@
             <a href="#" class="text-blue-800 font-semibold hover:underline transition">Intranet</a>
             <a href="#" class="text-blue-800 font-semibold hover:underline transition">Correo</a>
             <a href="#" class="text-blue-800 font-semibold hover:underline transition">Plataformas</a>
-            <a href="<?php echo e(route('login')); ?>" class="text-blue-800 font-semibold hover:underline transition">Iniciar Sesión</a>
+            <?php if(auth()->guard()->guest()): ?>
+                <a href="<?php echo e(route('login')); ?>" class="text-blue-800 font-semibold hover:underline transition">Iniciar Sesión</a>
+            <?php else: ?>
+                <a href="<?php echo e(route('dashboard')); ?>" class="text-blue-800 font-semibold hover:underline transition">Ir a Dashboard</a>
+            <?php endif; ?>
             <a href="#" class="text-blue-800 hover:text-blue-600" aria-label="Buscar">
                 <svg xmlns="http://www.w3.org/2000/svg" class="inline h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-4.35-4.35M17 11a6 6 0 11-12 0 6 6 0 0112 0z" /></svg>
             </a>
@@ -81,7 +85,7 @@
                 </ul>
             </li>
             <!-- CONVENIOS Y CONVOCATORIAS -->
-            <li class="relative" x-data="{ submenu: false }" @mouseenter="submenu = true" @mouseleave="submenu = false" @focusin="submenu = true" @focusout="submenu = false">
+            <!-- <li class="relative" x-data="{ submenu: false }" @mouseenter="submenu = true" @mouseleave="submenu = false" @focusin="submenu = true" @focusout="submenu = false">
                 <a href="#" @click.prevent="submenu = !submenu" class="block py-2 px-4 text-white hover:bg-blue-800 rounded transition cursor-pointer">
                     Convenios y Convocatorias
                 </a>
@@ -89,7 +93,7 @@
                     <li><a class="block px-4 py-2 text-gray-700 hover:bg-blue-700 hover:text-white transition" href="#convenio-1">Convenio 1</a></li>
                     <li><a class="block px-4 py-2 text-gray-700 hover:bg-blue-700 hover:text-white transition" href="#convocatoria-1">Convocatoria 1</a></li>
                 </ul>
-            </li>
+            </li> -->
         </ul>
     </div>
 </nav>

@@ -14,8 +14,7 @@ class Proyectos extends Model
     protected $fillable = [
         'tematica',
         'titulo',
-        'lineas_rsu',
-        'objetivos_desarrollo_sostenible',
+        'lineas_rsu',        
         'ubicacion_localidad',
         'ubicacion_distrito',
         'ubicacion_provincia',
@@ -26,11 +25,7 @@ class Proyectos extends Model
         'fecha_termino',
         'estado',
         'docente_tutor_id',
-    ];
-
-    protected $casts = [
-        'objetivos_desarrollo_sostenible' => 'array',
-    ];
+    ];    
 
     public function docenteTutor()
     {
@@ -39,12 +34,12 @@ class Proyectos extends Model
 
     public function estudiantes()
     {
-        return $this->belongsToMany(Estudiantes::class, 'proyecto_estudiante', 'proyecto_id', 'estudiante_id');
+        return $this->belongsToMany(Estudiantes::class, 'proyecto_estudiantes', 'proyecto_id', 'estudiante_id');
     }
 
     public function objetivos()
     {
-        return $this->belongsToMany(Objetivos_desarrollo_sostenible::class, 'proyecto_objetivo_desarrollo', 'proyecto_id', 'objetivo_id');
+        return $this->belongsToMany(Objetivos_desarrollo_sostenible::class, 'proyecto_objetivo_desarrollos', 'proyecto_id', 'objetivo_id');
     }
 
     public function informeFinal()

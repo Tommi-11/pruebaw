@@ -16,7 +16,7 @@ return new class extends Migration
             $table->text('tematica')->nullable()->comment('Temática del proyecto.');
             $table->string('titulo', 255);
             $table->text('lineas_rsu')->nullable()->comment('Línea(s) de Responsabilidad Social Universitaria.');
-            $table->json('objetivos_desarrollo_sostenible')->nullable()->comment('Almacena los ODS seleccionados, ej: [1, 5, 10].');
+            // Eliminado el campo JSON de objetivos_desarrollo_sostenible
             $table->string('ubicacion_localidad', 255)->nullable();
             $table->string('ubicacion_distrito', 255)->nullable();
             $table->string('ubicacion_provincia', 255)->nullable();
