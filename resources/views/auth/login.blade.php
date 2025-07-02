@@ -1,10 +1,19 @@
-@extends('layouts.app')
+@extends('layouts.fullwidth')
 
 @section('content')    
-    <main class="min-h-screen w-full flex items-center justify-center bg-gradient-to-br from-blue-700 to-blue-400">
-        <a href="/" style="position: absolute; top: 16px; left: 16px; z-index: 1000; text-decoration: none; font-weight: bold; color: #3490dc; font-size: 18px;">&larr; Volver a inicio</a>
-        <div class="w-full h-full flex flex-col items-center justify-center">
-            <h2 class="text-4xl font-serif font-bold text-white mb-8 text-center drop-shadow">Iniciar Sesión</h2>
+    <main class="h-screen w-full">
+        <a href="/" 
+           class="transition-all duration-200 ease-in-out"
+           style="position: absolute; top: 16px; left: 16px; z-index: 1000; text-decoration: none; font-weight: bold; color: #3490dc; font-size: 18px; backdrop-filter: blur(4px); background: rgba(255,255,255,0.3); padding: 8px 18px; border-radius: 8px;"
+           onmouseover="this.style.background='white'; this.style.backdropFilter='none';"
+           onmouseout="this.style.background='rgba(255,255,255,0.3)'; this.style.backdropFilter='blur(4px)';"
+        >&larr; Volver a Inicio</a>
+        <div class="absolute inset-0 flex flex-col items-center justify-center">
+            <div class="w-full flex justify-center mb-8">
+                <div class="backdrop-blur-sm bg-white bg-opacity-90 rounded-xl px-10 py-6 flex items-center justify-center" style="min-width: 340px;">
+                    <h2 class="text-4xl font-serif font-bold text-blue-900 text-center drop-shadow">Iniciar Sesión</h2>
+                </div>
+            </div>
             @if (session('status'))
                 <div class="mb-4 font-medium text-sm text-green-600">
                     {{ session('status') }}
@@ -33,10 +42,10 @@
                     <a class="text-blue-700 hover:underline font-semibold" href="{{ route('password.request') }}">¿Olvidaste tu contraseña?</a>
                 </div>
                 <button type="submit" class="w-full bg-blue-900 text-white py-3 rounded font-bold text-lg hover:bg-blue-800 transition">Ingresar</button>
-                <div class="text-center mt-6">
+                <!-- <div class="text-center mt-6">
                     <span class="text-blue-900">¿No tienes cuenta?</span>
                     <a href="{{ route('register') }}" class="text-blue-700 font-semibold hover:underline">Regístrate</a>
-                </div>
+                </div> -->
             </form>
         </div>
     </main>

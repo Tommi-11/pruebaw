@@ -25,14 +25,28 @@ class DatabaseSeeder extends Seeder
         //     'email' => 'test@example.com',
         // ]);
 
+        // Crear roles base si no existen
+        $roles = [
+            ['nombre' => 'Administrador', 'descripcion' => 'Administrador del sistema'],
+            ['nombre' => 'Encargado de RSU', 'descripcion' => 'Encargado de Responsabilidad Social Universitaria'],
+            ['nombre' => 'Encargado de PS', 'descripcion' => 'Encargado de Proyección Social'],
+            ['nombre' => 'Encargado de SEC', 'descripcion' => 'Encargado de Seguimiento al Egresado'],
+            ['nombre' => 'Encargado de EU', 'descripcion' => 'Encargado de Extensión Universitaria'],
+        ];
+        $roleIds = [];
+        foreach ($roles as $rol) {
+            $role = \App\Models\Roles::firstOrCreate(['nombre' => $rol['nombre']], $rol);
+            $roleIds[$rol['nombre']] = $role->id;
+        }
+
         // Verificar y crear usuario administrador
         if (!User::where('email', 'admin@example.com')->exists()) {
             User::create([
-                'name' => 'Admin User',
+                'nombres' => 'Admin',
+                'apellidos' => 'User',
                 'email' => 'admin@example.com',
                 'password' => Hash::make('12345'),
-                'email_verified_at' => now(),
-                'remember_token' => Str::random(10),
+                'role_id' => $roleIds['Administrador'],
             ]);
             $this->command->info('Usuario administrador creado exitosamente.');
         }
@@ -40,11 +54,11 @@ class DatabaseSeeder extends Seeder
         // Verificar y crear usuario regular 1
         if (!User::where('email', 'user1@example.com')->exists()) {
             User::create([
-                'name' => 'Usuario Regular 1',
+                'nombres' => 'Usuario',
+                'apellidos' => 'Regular1',
                 'email' => 'user1@example.com',
                 'password' => Hash::make('12345'),
-                'email_verified_at' => now(),
-                'remember_token' => Str::random(10),
+                'role_id' => $roleIds['Encargado de RSU'],
             ]);
             $this->command->info('Usuario regular 1 creado exitosamente.');
         }
@@ -52,13 +66,24 @@ class DatabaseSeeder extends Seeder
         // Verificar y crear usuario regular 2
         if (!User::where('email', 'user2@example.com')->exists()) {
             User::create([
-                'name' => 'Usuario Regular 2',
+                'nombres' => 'Usuario',
+                'apellidos' => 'Regular2',
                 'email' => 'user2@example.com',
                 'password' => Hash::make('12345'),
-                'email_verified_at' => now(),
-                'remember_token' => Str::random(10),
+                'role_id' => $roleIds['Encargado de PS'],
             ]);
             $this->command->info('Usuario regular 2 creado exitosamente.');
-        }        
+        }
+        
+        //llamar al seeder de Objetivos de Desarrollo Sostenible
+        $this->call(ObjetivosDesarrolloSostenibleSeeder::class);
+        //llamar al seeder de Facultades
+        $this->call(FacultadesSeeder::class);
+        //llamar al seeder de Estudiantes
+        $this->call(EstudiantesSeeder::class);
+        //llamar al seeder de Docentes 
+        $this->call(DocentesSeeder::class);
+        //llamar al seeder de CategoriaDocumento
+        $this->call(CategoriaDocumentoSeeder::class);
     }
 }
