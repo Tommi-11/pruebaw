@@ -10,7 +10,7 @@
         <table class="min-w-full w-full table-auto divide-y divide-gray-200">
             <thead class="bg-blue-900 text-white">
                 <tr>
-                    <th class="py-2 px-4 text-center">Nombre</th>
+                    <th class="py-2 px-4 text-center">Cargo</th>
                     <th class="py-2 px-4 text-center">Descripción</th>
                     <th class="py-2 px-4 text-center">Acciones</th>
                 </tr>

@@ -38,11 +38,10 @@ Route::middleware([
     })->name('dashboard');
 });
 
-// Rutas para nuevas oficinas y vistas
-// Mejorado: Se añade protección con middleware 'auth' para evitar acceso no autorizado (control de acceso defectuoso)
-Route::view('/proyeccion-social', 'proyeccion-social')->name('proyeccion.social');
-Route::view('/seguimiento-egresado', 'seguimiento-egresado')->name('seguimiento.egresado');
-Route::view('/extension-universitaria', 'extension-universitaria')->name('extension.universitaria');
+// Rutas para nuevas oficinas y vistas con controladores para mostrar noticias y documentos
+Route::get('/proyeccion-social', [\App\Http\Controllers\ProyeccionSocialController::class, 'index'])->name('proyeccion.social');
+Route::get('/seguimiento-egresado', [\App\Http\Controllers\SeguimientoEgresadoController::class, 'index'])->name('seguimiento.egresado');
+Route::get('/extension-universitaria', [\App\Http\Controllers\ExtensionUniversitariaController::class, 'index'])->name('extension.universitaria');
 
 
 // Vista informativa de Responsabilidad Social
@@ -107,8 +106,7 @@ Route::get('/noticias/{id}', function($id) {
     if (!is_numeric($id) || intval($id) != $id) {
         abort(404); // Si el id no es un entero válido, retorna 404
     }
-    $noticia = NoticiaModel::findOrFail($id);
-    return view('livewire.noticia-show', compact('noticia'));
+    return app(\App\Http\Controllers\NoticiaController::class)->show($id);
 })->name('noticias.show');
 Route::post('/noticias/upload', [NoticiasUploadController::class, 'upload'])->name('noticias.upload');
 require __DIR__.'/ckeditor_upload.php';

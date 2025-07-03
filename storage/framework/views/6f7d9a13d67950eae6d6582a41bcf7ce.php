@@ -153,8 +153,116 @@
                 </div>
             </div>
         </section>
+        <!-- Últimas Noticias -->
+        <section class="bg-gray-50 py-8 border-t border-b">
+            <div class="px-0">
+                <h2 class="font-serif text-2xl font-bold mb-6 text-blue-900">Últimas Noticias</h2>
+                <div class="swiper noticias-swiper">
+                    <div class="swiper-wrapper">
+                        <?php $__currentLoopData = $noticias; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $noticia): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                            <div class="swiper-slide h-full">
+                                <div class="bg-white rounded-lg shadow-md flex flex-col overflow-hidden h-full">
+                                    <img src="<?php echo e(asset('storage/' . $noticia->imagen_path)); ?>" alt="Miniatura"
+                                        class="w-full h-32 object-cover rounded-t-lg border-b border-blue-100 shadow-sm bg-gray-100" style="aspect-ratio: 16/9;">
+                                    <div class="p-4 flex-1 flex flex-col">
+                                        <h3 class="font-semibold text-blue-800 text-lg mb-1">
+                                            <a href="<?php echo e(route('noticias.show', ['id' => $noticia->id])); ?>" class="hover:underline hover:text-blue-600 transition-colors duration-150">
+                                                <?php echo e($noticia->titulo); ?>
+
+                                            </a>
+                                        </h3>
+                                        <div class="text-xs text-gray-500 mt-2"><?php echo e($noticia->area_origen); ?> | <?php echo e(\Carbon\Carbon::parse($noticia->fecha_publicacion)->format('d/m/Y H:i')); ?></div>
+                                    </div>
+                                </div>
+                            </div>
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                    </div>
+                    <div class="swiper-pagination"></div>
+                    <div class="swiper-button-prev"></div>
+                    <div class="swiper-button-next"></div>
+                </div>
+            </div>
+        </section>
+        
+        <h2 class="font-serif text-2xl font-bold mb-6 text-blue-900">Documentos Normativos</h2>
+        <div class="swiper documentos-swiper">
+            <div class="swiper-wrapper">
+                <?php $__empty_1 = true; $__currentLoopData = $documentosNormativos; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $doc): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
+                    <div class="swiper-slide">
+                        <div class="bg-white rounded-lg shadow p-4 flex flex-col items-center">
+                            <img src="https://cdn.jsdelivr.net/gh/edent/SuperTinyIcons/images/svg/pdf.svg" alt="PDF" class="w-16 h-16 mb-2">
+                            <div class="font-semibold text-center"><?php echo e($doc->titulo); ?></div>
+                            <div class="flex gap-2 mt-3">
+                                <a href="<?php echo e(asset('storage/' . $doc->path_archivo)); ?>" target="_blank"
+                                   class="inline-flex items-center px-4 py-2 bg-blue-700 hover:bg-blue-800 text-white text-sm font-semibold rounded-lg shadow transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2">
+                                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M15 12H9m12 0A9 9 0 11 3 12a9 9 0 0118 0z"/>
+                                    </svg>
+                                    Ver PDF
+                                </a>
+                                <a href="<?php echo e(asset('storage/' . $doc->path_archivo)); ?>" download
+                                   class="inline-flex items-center px-4 py-2 bg-gray-100 hover:bg-gray-200 text-blue-800 text-sm font-semibold rounded-lg shadow transition-colors duration-200 border border-blue-200 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2">
+                                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/>
+                                    </svg>
+                                    Descargar
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
+                    <div class="swiper-slide">
+                        <div class="bg-white rounded-lg shadow p-4 flex flex-col items-center text-gray-500">No hay documentos normativos.</div>
+                    </div>
+                <?php endif; ?>
+            </div>
+            <div class="swiper-pagination"></div>
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-button-next"></div>
+        </div>
+        
+        <h2 class="font-serif text-2xl font-bold mb-6 text-blue-900 mt-12">Documentos de Requisitos</h2>
+        <div class="swiper documentos-swiper">
+            <div class="swiper-wrapper">
+                <?php $__empty_1 = true; $__currentLoopData = $documentosRequisitos; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $doc): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
+                    <div class="swiper-slide">
+                        <div class="bg-white rounded-lg shadow p-4 flex flex-col items-center">
+                            <img src="https://cdn.jsdelivr.net/gh/edent/SuperTinyIcons/images/svg/pdf.svg" alt="PDF" class="w-16 h-16 mb-2">
+                            <div class="font-semibold text-center"><?php echo e($doc->titulo); ?></div>
+                            <div class="flex gap-2 mt-3">
+                                <a href="<?php echo e(asset('storage/' . $doc->path_archivo)); ?>" target="_blank"
+                                   class="inline-flex items-center px-4 py-2 bg-blue-700 hover:bg-blue-800 text-white text-sm font-semibold rounded-lg shadow transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2">
+                                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M15 12H9m12 0A9 9 0 11 3 12a9 9 0 0118 0z"/>
+                                    </svg>
+                                    Ver PDF
+                                </a>
+                                <a href="<?php echo e(asset('storage/' . $doc->path_archivo)); ?>" download
+                                   class="inline-flex items-center px-4 py-2 bg-gray-100 hover:bg-gray-200 text-blue-800 text-sm font-semibold rounded-lg shadow transition-colors duration-200 border border-blue-200 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2">
+                                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/>
+                                    </svg>
+                                    Descargar
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
+                    <div class="swiper-slide">
+                        <div class="bg-white rounded-lg shadow p-4 flex flex-col items-center text-gray-500">No hay documentos de requisitos.</div>
+                    </div>
+                <?php endif; ?>
+            </div>
+            <div class="swiper-pagination"></div>
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-button-next"></div>
+        </div>
     </main>
     <?php echo $__env->make('layouts.footer', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 <?php $__env->stopSection(); ?>
+
+<?php $__env->startPush('scripts'); ?>
+    <?php echo app('Illuminate\Foundation\Vite')(['resources/js/app.js']); ?>
+<?php $__env->stopPush(); ?>
 
 <?php echo $__env->make('layouts.app', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\xampp\htdocs\sisogrsu1\resources\views/extension-universitaria.blade.php ENDPATH**/ ?>

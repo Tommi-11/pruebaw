@@ -15,6 +15,7 @@
                     <th class="py-2 px-4 text-center uppercase">Categoría</th>
                     <th class="py-2 px-4 text-center uppercase">Formato</th>
                     <th class="py-2 px-4 text-center uppercase">Tamaño (MB)</th>
+                    <th class="py-2 px-4 text-center uppercase">Dirección</th>
                     <th class="py-2 px-4 text-center uppercase w-40">Acciones</th>
                 </tr>
             </thead>
@@ -26,6 +27,7 @@
                     <td class="px-4 py-3 whitespace-normal align-top text-gray-800">{{ $doc->categoria->nombre ?? '-' }}</td>
                     <td class="px-4 py-3 whitespace-normal align-top text-gray-800">{{ $doc->formato }}</td>
                     <td class="px-4 py-3 whitespace-normal align-top text-gray-800">{{ $doc->tamano_mb }}</td>
+                    <td class="px-4 py-3 whitespace-normal align-top text-gray-800">{{ $doc->area_origen ?? '-' }}</td>
                     <td class="px-4 py-3 whitespace-nowrap text-center align-top">
                         <div class="flex justify-center gap-2">
                             <a href="{{ Storage::url($doc->path_archivo) }}" target="_blank" class="bg-green-600 text-white px-3 py-1 rounded hover:bg-green-700">Ver</a>
@@ -70,6 +72,17 @@
                         @endforeach
                     </select>
                     @error('categoria_id') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
+                </div>
+                <div class="mb-4">
+                    <label class="block text-gray-700">Dirección</label>
+                    <select wire:model.defer="area_origen" class="w-full border rounded px-3 py-2 mt-1">
+                        <option value="">Seleccione una dirección</option>
+                        <option value="RSU">RSU</option>
+                        <option value="Seguimiento al Egresado">Seguimiento al Egresado</option>
+                        <option value="Proyeccion Social">Proyeccion Social</option>
+                        <option value="Extension Universitaria">Extension Universitaria</option>
+                    </select>
+                    @error('area_origen') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
                 </div>
                 <div class="flex justify-end gap-2 mt-4">
                     <button type="button" wire:click="closeModal" class="bg-gray-300 px-4 py-2 rounded">Cancelar</button>

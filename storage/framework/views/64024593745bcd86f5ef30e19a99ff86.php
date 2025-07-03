@@ -15,6 +15,7 @@
                     <th class="py-2 px-4 text-center uppercase">Categoría</th>
                     <th class="py-2 px-4 text-center uppercase">Formato</th>
                     <th class="py-2 px-4 text-center uppercase">Tamaño (MB)</th>
+                    <th class="py-2 px-4 text-center uppercase">Dirección</th>
                     <th class="py-2 px-4 text-center uppercase w-40">Acciones</th>
                 </tr>
             </thead>
@@ -26,6 +27,7 @@
                     <td class="px-4 py-3 whitespace-normal align-top text-gray-800"><?php echo e($doc->categoria->nombre ?? '-'); ?></td>
                     <td class="px-4 py-3 whitespace-normal align-top text-gray-800"><?php echo e($doc->formato); ?></td>
                     <td class="px-4 py-3 whitespace-normal align-top text-gray-800"><?php echo e($doc->tamano_mb); ?></td>
+                    <td class="px-4 py-3 whitespace-normal align-top text-gray-800"><?php echo e($doc->area_origen ?? '-'); ?></td>
                     <td class="px-4 py-3 whitespace-nowrap text-center align-top">
                         <div class="flex justify-center gap-2">
                             <a href="<?php echo e(Storage::url($doc->path_archivo)); ?>" target="_blank" class="bg-green-600 text-white px-3 py-1 rounded hover:bg-green-700">Ver</a>
@@ -85,6 +87,24 @@ unset($__errorArgs, $__bag); ?><!--[if ENDBLOCK]><![endif]-->
                         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?><!--[if ENDBLOCK]><![endif]-->
                     </select>
                     <!--[if BLOCK]><![endif]--><?php $__errorArgs = ['categoria_id'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> <span class="text-red-500 text-xs"><?php echo e($message); ?></span> <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?><!--[if ENDBLOCK]><![endif]-->
+                </div>
+                <div class="mb-4">
+                    <label class="block text-gray-700">Dirección</label>
+                    <select wire:model.defer="area_origen" class="w-full border rounded px-3 py-2 mt-1">
+                        <option value="">Seleccione una dirección</option>
+                        <option value="RSU">RSU</option>
+                        <option value="Seguimiento al Egresado">Seguimiento al Egresado</option>
+                        <option value="Proyeccion Social">Proyeccion Social</option>
+                        <option value="Extension Universitaria">Extension Universitaria</option>
+                    </select>
+                    <!--[if BLOCK]><![endif]--><?php $__errorArgs = ['area_origen'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
 if (isset($message)) { $__messageOriginal = $message; }
