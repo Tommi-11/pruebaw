@@ -52,10 +52,8 @@ Route::get('/responsabilidad-social', [ResponsabilidadSocialController::class, '
     ->name('responsabilidad.social');
 
 // vista del dashboard
-Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-    Route::get('/overview-1', [DashboardController::class, 'overview1'])->name('overview1');
-    Route::get('/overview-2', [DashboardController::class, 'overview2'])->name('overview2');
 });
 // Temporal: para pruebas con vistas de ejemplo
 // Mejorado: Se añade protección con middleware 'auth' para evitar acceso no autorizado a vistas administrativas
@@ -64,37 +62,45 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::view('/roles', 'dashboard.roles')->name('roles.index');
 });
 
-Route::get('/objetivos-desarrollo-sostenible', ObjetivosDesarrolloSostenible::class)
-    ->name('objetivos-desarrollo-sostenible');
 
-Route::get('/facultades', Facultades::class)
-    ->name('facultades');
-
-Route::get('/estudiantes', Estudiantes::class)
-    ->name('estudiantes');
-
-Route::get('/docentes', Docentes::class)
-    ->name('docentes');
-
-Route::get('/proyectos', Proyectos::class)
-    ->name('proyectos');
 
 // Rutas individuales para cada sección de Noticias y Documentos (para el menú lateral)
-// Gestión Responsabilidad Social
-Route::get('/noticias', Noticias::class)->name('noticias');
-Route::get('/documentos', Documentos::class)->name('documentos');
 
-// Seguimiento y Certificación al Egresado
-Route::get('/noticias-egresado', Noticias::class)->name('noticias.egresado');
-Route::get('/documentos-egresado', Documentos::class)->name('documentos.egresado');
+// Gestión Responsabilidad Social
+Route::middleware(['role:Administrador,Encargado de RSU'])->group(function () {
+    Route::get('/objetivos-desarrollo-sostenible', ObjetivosDesarrolloSostenible::class)->name('objetivos-desarrollo-sostenible');
+    Route::get('/facultades', Facultades::class)->name('facultades');
+    Route::get('/estudiantes', Estudiantes::class)->name('estudiantes');
+    Route::get('/docentes', Docentes::class)->name('docentes');
+    Route::get('/proyectos', Proyectos::class)->name('proyectos');
+    Route::get('/noticias', Noticias::class)->name('noticias');
+    Route::get('/documentos', Documentos::class)->name('documentos');
+});
+
+// Ruta para la tarjeta estadística de proyectos por estado
+Route::middleware(['role:Administrador,Encargado de RSU'])->group(function () {
+    Route::get('/proyectos/estadistica', [\App\Http\Controllers\ProyectosEstadisticaController::class, 'proyectosPorEstado'])->name('proyectos.estadistica');
+});
+
+// Gestión Seguimiento y Certificación al Egresado
+Route::middleware(['role:Administrador,Encargado de SCE'])->group(function () {
+    Route::get('/noticias-egresado', Noticias::class)->name('noticias.egresado');
+    Route::get('/documentos-egresado', Documentos::class)->name('documentos.egresado');
+});
 
 // Gestión Proyección Social
-Route::get('/noticias-gestion', Noticias::class)->name('noticias.gestion');
-Route::get('/documentos-gestion', Documentos::class)->name('documentos.gestion');
+Route::middleware(['role:Administrador,Encargado de PS'])->group(function () {
+    Route::get('/noticias-gestion', Noticias::class)->name('noticias.gestion');
+    Route::get('/documentos-gestion', Documentos::class)->name('documentos.gestion');
+});
 
 // Extensión Universitaria
-Route::get('/noticias-extension', Noticias::class)->name('noticias.extension');
-Route::get('/documentos-extension', Documentos::class)->name('documentos.extension');
+Route::middleware(['role:Administrador,Encargado de EU'])->group(function () {
+    Route::get('/noticias-extension', Noticias::class)->name('noticias.extension');
+    Route::get('/documentos-extension', Documentos::class)->name('documentos.extension');
+});
+
+// Rutas para crear, editar y mostrar noticias
 Route::get('/noticias/create', function () {
     return view('noticias.form', ['modo' => 'create']);
 })->name('noticias.create');
@@ -113,3 +119,8 @@ require __DIR__.'/ckeditor_upload.php';
 
 Route::get('/documentos', Documentos::class)
 ->name('documentos');
+
+
+// Ruta de la clase que controla el formulario de contacto de RSU
+Route::post('/contacto-rsu', [ResponsabilidadSocialController::class, 'contactoRSU'])
+    ->name('contacto.rsu');

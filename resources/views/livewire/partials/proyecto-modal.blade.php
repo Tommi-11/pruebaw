@@ -4,16 +4,18 @@
         <form wire:submit.prevent="saveProyecto">
             <div class="mb-4">
                 <label class="block text-gray-700">Título</label>
-                <input type="text" wire:model.defer="titulo" class="w-full border rounded px-3 py-2 mt-1" />
+                <input type="text" wire:model.defer="titulo" maxlength="255" class="w-full border rounded px-3 py-2 mt-1 @error('titulo') border-red-500 @enderror" placeholder="Ej: Proyecto de Salud Comunitaria" />
                 @error('titulo') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
             </div>
             <div class="mb-4">
                 <label class="block text-gray-700">Temática</label>
-                <textarea wire:model.defer="tematica" class="w-full border rounded px-3 py-2 mt-1"></textarea>
+                <textarea wire:model.defer="tematica" maxlength="500" class="w-full border rounded px-3 py-2 mt-1 @error('tematica') border-red-500 @enderror" placeholder="Describe la temática del proyecto"></textarea>
+                @error('tematica') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
             </div>
             <div class="mb-4">
                 <label class="block text-gray-700">Líneas RSU</label>
-                <textarea wire:model.defer="lineas_rsu" class="w-full border rounded px-3 py-2 mt-1"></textarea>
+                <textarea wire:model.defer="lineas_rsu" maxlength="500" class="w-full border rounded px-3 py-2 mt-1 @error('lineas_rsu') border-red-500 @enderror" placeholder="Describe las líneas RSU"></textarea>
+                @error('lineas_rsu') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
             </div>
             <div class="mb-4">
                 <label class="block text-gray-700">ODS (2-10)</label>
@@ -45,44 +47,52 @@
             <div class="mb-4 grid grid-cols-1 md:grid-cols-3 gap-2">
                 <div>
                     <label class="block text-gray-700">Localidad</label>
-                    <input type="text" wire:model.defer="ubicacion_localidad" class="w-full border rounded px-3 py-2 mt-1" />
+                    <input type="text" wire:model.defer="ubicacion_localidad" maxlength="255" class="w-full border rounded px-3 py-2 mt-1 @error('ubicacion_localidad') border-red-500 @enderror" placeholder="Ej: Marian" />
+                    @error('ubicacion_localidad') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
                 </div>
                 <div>
                     <label class="block text-gray-700">Distrito</label>
-                    <input type="text" wire:model.defer="ubicacion_distrito" class="w-full border rounded px-3 py-2 mt-1" />
+                    <input type="text" wire:model.defer="ubicacion_distrito" maxlength="255" class="w-full border rounded px-3 py-2 mt-1 @error('ubicacion_distrito') border-red-500 @enderror" placeholder="Ej: Independencia" />
+                    @error('ubicacion_distrito') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
                 </div>
                 <div>
                     <label class="block text-gray-700">Provincia</label>
-                    <input type="text" wire:model.defer="ubicacion_provincia" class="w-full border rounded px-3 py-2 mt-1" />
+                    <input type="text" wire:model.defer="ubicacion_provincia" maxlength="255" class="w-full border rounded px-3 py-2 mt-1 @error('ubicacion_provincia') border-red-500 @enderror" placeholder="Ej: Ancash" />
+                    @error('ubicacion_provincia') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
                 </div>
             </div>
             <div class="mb-4 grid grid-cols-2 gap-2">
                 <div>
                     <label class="block text-gray-700">Beneficiarios Mínimo</label>
-                    <input type="number" wire:model.defer="beneficiarios_numero_minimo" class="w-full border rounded px-3 py-2 mt-1" />
+                    <input type="number" wire:model.defer="beneficiarios_numero_minimo" min="0" class="w-full border rounded px-3 py-2 mt-1 @error('beneficiarios_numero_minimo') border-red-500 @enderror" placeholder="Ej: 2" />
+                    @error('beneficiarios_numero_minimo') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
                 </div>
                 <div>
                     <label class="block text-gray-700">Beneficiarios Máximo</label>
-                    <input type="number" wire:model.defer="beneficiarios_numero_maximo" class="w-full border rounded px-3 py-2 mt-1" />
+                    <input type="number" wire:model.defer="beneficiarios_numero_maximo" min="0" class="w-full border rounded px-3 py-2 mt-1 @error('beneficiarios_numero_maximo') border-red-500 @enderror" placeholder="Ej: 4" />
+                    @error('beneficiarios_numero_maximo') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
                 </div>
             </div>
             <div class="mb-4">
                 <label class="block text-gray-700">Acciones Concretas</label>
-                <textarea wire:model.defer="acciones_concretas" class="w-full border rounded px-3 py-2 mt-1"></textarea>
+                <textarea wire:model.defer="acciones_concretas" maxlength="1000" class="w-full border rounded px-3 py-2 mt-1 @error('acciones_concretas') border-red-500 @enderror" placeholder="Describe las acciones concretas del proyecto"></textarea>
+                @error('acciones_concretas') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
             </div>
             <div class="mb-4 grid grid-cols-2 gap-2">
                 <div>
                     <label class="block text-gray-700">Fecha Inicio</label>
-                    <input type="date" wire:model.defer="fecha_inicio" class="w-full border rounded px-3 py-2 mt-1" />
+                    <input type="date" wire:model.defer="fecha_inicio" class="w-full border rounded px-3 py-2 mt-1 @error('fecha_inicio') border-red-500 @enderror" />
+                    @error('fecha_inicio') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
                 </div>
                 <div>
                     <label class="block text-gray-700">Fecha Término</label>
-                    <input type="date" wire:model.defer="fecha_termino" class="w-full border rounded px-3 py-2 mt-1" />
+                    <input type="date" wire:model.defer="fecha_termino" class="w-full border rounded px-3 py-2 mt-1 @error('fecha_termino') border-red-500 @enderror" />
+                    @error('fecha_termino') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
                 </div>
             </div>
             <div class="mb-4">
                 <label class="block text-gray-700">Estado</label>
-                <select wire:model.defer="estado" class="w-full border rounded px-3 py-2 mt-1">
+                <select wire:model.defer="estado" class="w-full border rounded px-3 py-2 mt-1 @error('estado') border-red-500 @enderror">
                     <option value="Registrado">Registrado</option>
                     <option value="Aprobado">Aprobado</option>
                     <option value="En Curso">En Curso</option>
@@ -90,6 +100,7 @@
                     <option value="Finalizado">Finalizado</option>
                     <option value="Con Informe">Con Informe</option>
                 </select>
+                @error('estado') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
             </div>
             <div class="mb-4">
                 <label class="block text-gray-700">Docente Tutor</label>

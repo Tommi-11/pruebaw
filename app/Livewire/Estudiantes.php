@@ -87,6 +87,7 @@ class Estudiantes extends Component
                 'celular' => $this->celular,
                 'facultad_id' => $this->facultad_id,
             ]);
+            $this->dispatch('show-success-modal', message: 'El estudiante ha sido creado correctamente.');
         } else if ($this->modalMode === 'edit' && $this->estudianteId) {
             $estudiante = EstudianteModel::findOrFail($this->estudianteId);
             $estudiante->update([
@@ -97,6 +98,7 @@ class Estudiantes extends Component
                 'celular' => $this->celular,
                 'facultad_id' => $this->facultad_id,
             ]);
+            $this->dispatch('show-success-modal', message: 'El estudiante ha sido actualizado correctamente.');
         }
         $this->closeModal();
     }

@@ -1,32 +1,44 @@
 {{-- resources/views/components/sidebar-menu.blade.php --}}
+@php
+    $user = auth()->user();
+    $role = $user?->role?->nombre ?? null;
+@endphp
 <aside class="w-64 bg-blue-900 text-white flex flex-col min-h-screen rounded-r-3xl shadow-xl">
     <div class="p-6 text-2xl font-bold border-b border-blue-800 rounded-tr-3xl">
         <span class="tracking-wide">CONTROL OGRSU</span>
     </div>
     <nav class="flex-1 px-4 py-6">
+        @if($role === 'Administrador' || $role === 'Encargado de RSU' || $role === 'Encargado de SCE' || $role === 'Encargado de PS' || $role === 'Encargado de EU')
         <div class="mb-4">
             <span class="text-xs font-semibold text-blue-200 uppercase pl-2">Panel Principal</span>
             <ul class="mt-2 space-y-1">
-                <li>
-                    <a href="{{ route('dashboard') }}" class="flex items-center px-4 py-2 rounded-lg transition hover:bg-blue-800 {{ request()->routeIs('dashboard') ? 'bg-blue-800 ring-2 ring-blue-400' : '' }}">
-                        <span class="material-icons mr-2">home</span> Inicio
-                    </a>
-                </li>
-            </ul>
-            <span class="text-xs font-semibold text-blue-200 uppercase pl-2">Gestión de Usuarios</span>
-            <ul class="mt-2 space-y-1">
-                <li>
-                    <a href="{{ route('users.index') }}" class="flex items-center px-4 py-2 rounded-lg transition hover:bg-blue-800 {{ request()->routeIs('users.index') ? 'bg-blue-800 ring-2 ring-blue-400' : '' }}">
-                        <span class="material-icons mr-2">people</span> Usuarios
-                    </a>
-                </li>
-                <li>
-                    <a href="{{ route('roles.index') }}" class="flex items-center px-4 py-2 rounded-lg transition hover:bg-blue-800 {{ request()->routeIs('roles.index') ? 'bg-blue-800 ring-2 ring-blue-400' : '' }}">
-                        <span class="material-icons mr-2">badge</span> Cargos
-                    </a>
-                </li>
+            <li>
+                <a href="{{ route('dashboard') }}" class="flex items-center px-4 py-2 rounded-lg transition hover:bg-blue-800 {{ request()->routeIs('dashboard') ? 'bg-blue-800 ring-2 ring-blue-400' : '' }}">
+                <span class="material-icons mr-2">home</span> Inicio
+                </a>
+            </li>
             </ul>
         </div>
+        @endif
+        @if($role === 'Administrador')
+        <div class="mb-4">
+            <span class="text-xs font-semibold text-blue-200 uppercase pl-2">Gestión de Usuarios</span>
+            <ul class="mt-2 space-y-1">
+            <li>
+                <a href="{{ route('users.index') }}" class="flex items-center px-4 py-2 rounded-lg transition hover:bg-blue-800 {{ request()->routeIs('users.index') ? 'bg-blue-800 ring-2 ring-blue-400' : '' }}">
+                <span class="material-icons mr-2">people</span> Usuarios
+                </a>
+            </li>
+            <li>
+                <a href="{{ route('roles.index') }}" class="flex items-center px-4 py-2 rounded-lg transition hover:bg-blue-800 {{ request()->routeIs('roles.index') ? 'bg-blue-800 ring-2 ring-blue-400' : '' }}">
+                <span class="material-icons mr-2">badge</span> Cargos
+                </a>
+            </li>
+            </ul>
+        </div>
+        @endif
+
+        @if(in_array($role, ['Administrador', 'Encargado de RSU']))
         <div class="mb-4">
             <span class="text-xs font-semibold text-blue-200 uppercase pl-2">Gestión Responsabilidad Social</span>
             <ul class="mt-2 space-y-1">
@@ -67,7 +79,9 @@
                 </li>
             </ul>
         </div>
-        <!-- Mejorado: Cada sección tiene rutas y activación individual para evitar selección múltiple -->
+        @endif
+
+        @if(in_array($role, ['Administrador', 'Encargado de SCE']))
         <div class="mb-4">
             <span class="text-xs font-semibold text-blue-200 uppercase pl-2">Seguimiento y Certificación al Egresado</span>
             <ul class="mt-2 space-y-1">
@@ -83,6 +97,9 @@
             </li>
             </ul>
         </div>
+        @endif
+
+        @if(in_array($role, ['Administrador', 'Encargado de PS']))
         <div class="mb-4">
             <span class="text-xs font-semibold text-blue-200 uppercase pl-2">Gestión Proyección Social</span>
             <ul class="mt-2 space-y-1">
@@ -98,6 +115,9 @@
             </li>
             </ul>
         </div>
+        @endif
+
+        @if(in_array($role, ['Administrador', 'Encargado de EU']))
         <div class="mb-4">
             <span class="text-xs font-semibold text-blue-200 uppercase pl-2">Extensión Universitaria</span>
             <ul class="mt-2 space-y-1">
@@ -113,5 +133,6 @@
             </li>
             </ul>
         </div>
+        @endif
     </nav>
 </aside>

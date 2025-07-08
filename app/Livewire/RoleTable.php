@@ -66,11 +66,13 @@ class RoleTable extends Component
                 'nombre' => $this->nombre,
                 'descripcion' => $this->descripcion,
             ]);
+            $this->dispatch('show-success-modal', message: 'El cargo ha sido actualizado correctamente.');
         } else {
             Roles::create([
                 'nombre' => $this->nombre,
                 'descripcion' => $this->descripcion,
             ]);
+            $this->dispatch('show-success-modal', message: 'El cargo ha sido creado correctamente.');
         }
         $this->showModal = false;
     }

@@ -80,6 +80,7 @@ class Docentes extends Component
                 'departamento' => $this->departamento,
                 'celular' => $this->celular,
             ]);
+            $this->dispatch('show-success-modal', message: 'El docente ha sido creado correctamente.');
         } else if ($this->modalMode === 'edit' && $this->docenteId) {
             $docente = Docente::findOrFail($this->docenteId);
             $docente->update([
@@ -90,6 +91,7 @@ class Docentes extends Component
                 'departamento' => $this->departamento,
                 'celular' => $this->celular,
             ]);
+            $this->dispatch('show-success-modal', message: 'El docente ha sido actualizado correctamente.');
         }
         $this->closeModal();
     }

@@ -25,10 +25,11 @@ class UserTable extends Component
     public $confirmingDeleteId;
 
     protected $rules = [
-        'nombres' => 'required|string',
-        'apellidos' => 'required|string',
-        'email' => 'required|email',
+        'nombres' => 'required|string|max:50|regex:/^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+$/',
+        'apellidos' => 'required|string|max:50|regex:/^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+$/',
+        'email' => 'required|email:rfc,dns|max:100',
         'role_id' => 'required|exists:roles,id',
+        'new_password' => 'nullable|min:6',
     ];
 
     public function mount()
@@ -70,7 +71,12 @@ class UserTable extends Component
 
     public function saveUser()
     {
-        $this->validate();
+        if ($this->isEdit) {
+            $this->rules['new_password'] = 'nullable|min:6';
+        } else {
+            unset($this->rules['new_password']);
+        }
+        $this->validate($this->rules, $this->messages);
         if ($this->userId) {
             $user = User::findOrFail($this->userId);
             $user->nombres = $this->nombres;
@@ -91,7 +97,11 @@ class UserTable extends Component
             ]);
         }
         $this->showModal = false;
-        $this->showSuccessModal = true;
+        if ($this->isEdit) {
+            $this->dispatch('show-success-modal', message: 'El usuario ha sido actualizado correctamente.');
+        } else {
+            $this->dispatch('show-success-modal', message: 'El usuario ha sido creado correctamente.');
+        }
     }
 
     public function confirmDelete($id)
@@ -124,4 +134,15 @@ class UserTable extends Component
         $this->reset(['nombres','apellidos','email','role_id','userId','new_password']);
         $this->resetValidation();
     }
+
+    protected $messages = [
+        'nombres.required' => 'El campo nombres es obligatorio',
+        'nombres.regex' => 'El campo nombres solo puede contener letras y espacios',
+        'apellidos.required' => 'El campo apellidos es obligatorio',
+        'apellidos.regex' => 'El campo apellidos solo puede contener letras y espacios',
+        'email.required' => 'El campo correo electrónico es obligatorio',
+        'email.email' => 'El correo electrónico no tiene un formato válido',
+        'role_id.required' => 'El campo cargo es obligatorio',
+        'new_password.min' => 'La contraseña debe tener al menos 6 caracteres',
+    ];
 }

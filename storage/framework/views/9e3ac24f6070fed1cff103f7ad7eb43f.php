@@ -57,7 +57,14 @@
                 <h2 class="text-lg font-bold mb-4"><?php echo e($modalMode === 'create' ? 'Nuevo Docente' : 'Editar Docente'); ?></h2>
                 <div class="mb-4">
                     <label class="block text-gray-700">Nombres</label>
-                    <input type="text" wire:model.defer="nombres" class="w-full border rounded px-3 py-2 mt-1" />
+                    <input type="text" wire:model.defer="nombres" maxlength="255" pattern="^[\pL\s\-]+$" class="w-full border rounded px-3 py-2 mt-1 <?php $__errorArgs = ['nombres'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> border-red-500 <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>" placeholder="Ej: Juan Carlos" />
                     <!--[if BLOCK]><![endif]--><?php $__errorArgs = ['nombres'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
@@ -69,7 +76,14 @@ unset($__errorArgs, $__bag); ?><!--[if ENDBLOCK]><![endif]-->
                 </div>
                 <div class="mb-4">
                     <label class="block text-gray-700">Apellidos</label>
-                    <input type="text" wire:model.defer="apellidos" class="w-full border rounded px-3 py-2 mt-1" />
+                    <input type="text" wire:model.defer="apellidos" maxlength="255" pattern="^[\pL\s\-]+$" class="w-full border rounded px-3 py-2 mt-1 <?php $__errorArgs = ['apellidos'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> border-red-500 <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>" placeholder="Ej: Pérez Gómez" />
                     <!--[if BLOCK]><![endif]--><?php $__errorArgs = ['apellidos'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
@@ -81,7 +95,14 @@ unset($__errorArgs, $__bag); ?><!--[if ENDBLOCK]><![endif]-->
                 </div>
                 <div class="mb-4">
                     <label class="block text-gray-700">DNI</label>
-                    <input type="text" wire:model.defer="dni" class="w-full border rounded px-3 py-2 mt-1" />
+                    <input type="text" wire:model.defer="dni" maxlength="8" pattern="\d{8}" class="w-full border rounded px-3 py-2 mt-1 <?php $__errorArgs = ['dni'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> border-red-500 <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>" placeholder="Ej: 12345678" />
                     <!--[if BLOCK]><![endif]--><?php $__errorArgs = ['dni'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
@@ -93,7 +114,14 @@ unset($__errorArgs, $__bag); ?><!--[if ENDBLOCK]><![endif]-->
                 </div>
                 <div class="mb-4">
                     <label class="block text-gray-700">Facultad</label>
-                    <select wire:model.defer="facultad_id" class="w-full border rounded px-3 py-2 mt-1">
+                    <select wire:model.defer="facultad_id" class="w-full border rounded px-3 py-2 mt-1 <?php $__errorArgs = ['facultad_id'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> border-red-500 <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>">
                         <option value="">Seleccione una facultad</option>
                         <!--[if BLOCK]><![endif]--><?php $__currentLoopData = $facultades; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $facultad): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                             <option value="<?php echo e($facultad->id); ?>"><?php echo e($facultad->nombre); ?></option>
@@ -110,7 +138,14 @@ unset($__errorArgs, $__bag); ?><!--[if ENDBLOCK]><![endif]-->
                 </div>
                 <div class="mb-4">
                     <label class="block text-gray-700">Departamento</label>
-                    <input type="text" wire:model.defer="departamento" class="w-full border rounded px-3 py-2 mt-1" />
+                    <input type="text" wire:model.defer="departamento" maxlength="255" class="w-full border rounded px-3 py-2 mt-1 <?php $__errorArgs = ['departamento'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> border-red-500 <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>" placeholder="Ej: Ciencias Básicas" />
                     <!--[if BLOCK]><![endif]--><?php $__errorArgs = ['departamento'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
@@ -122,7 +157,14 @@ unset($__errorArgs, $__bag); ?><!--[if ENDBLOCK]><![endif]-->
                 </div>
                 <div class="mb-4">
                     <label class="block text-gray-700">Celular</label>
-                    <input type="text" wire:model.defer="celular" class="w-full border rounded px-3 py-2 mt-1" />
+                    <input type="text" wire:model.defer="celular" maxlength="15" pattern="\d{9,15}" class="w-full border rounded px-3 py-2 mt-1 <?php $__errorArgs = ['celular'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> border-red-500 <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>" placeholder="Ej: 987654321" />
                     <!--[if BLOCK]><![endif]--><?php $__errorArgs = ['celular'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
@@ -153,5 +195,27 @@ unset($__errorArgs, $__bag); ?><!--[if ENDBLOCK]><![endif]-->
             </div>
         </div>
     <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
+
+    <!-- Modal de éxito con Alpine.js -->
+    <?php if (isset($component)) { $__componentOriginal1347047ed676050ce05de3ccca425f13 = $component; } ?>
+<?php if (isset($attributes)) { $__attributesOriginal1347047ed676050ce05de3ccca425f13 = $attributes; } ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.exito-modal','data' => ['message' => '']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
+<?php $component->withName('exito-modal'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag && $constructor = (new ReflectionClass(Illuminate\View\AnonymousComponent::class))->getConstructor()): ?>
+<?php $attributes = $attributes->except(collect($constructor->getParameters())->map->getName()->all()); ?>
+<?php endif; ?>
+<?php $component->withAttributes(['message' => '']); ?>
+<?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__attributesOriginal1347047ed676050ce05de3ccca425f13)): ?>
+<?php $attributes = $__attributesOriginal1347047ed676050ce05de3ccca425f13; ?>
+<?php unset($__attributesOriginal1347047ed676050ce05de3ccca425f13); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginal1347047ed676050ce05de3ccca425f13)): ?>
+<?php $component = $__componentOriginal1347047ed676050ce05de3ccca425f13; ?>
+<?php unset($__componentOriginal1347047ed676050ce05de3ccca425f13); ?>
+<?php endif; ?>
 </div>
 <?php /**PATH C:\xampp\htdocs\sisogrsu1\resources\views/livewire/docentes.blade.php ENDPATH**/ ?>

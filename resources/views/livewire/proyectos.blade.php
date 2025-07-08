@@ -4,7 +4,7 @@
         <button wire:click="openModal('create')" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Nuevo Proyecto</button>
     </div>
     <div class="w-full md:w-1/3 mb-6">
-        <input type="text" wire:model.debounce.500ms="search" placeholder="Buscar por título..." class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400" />
+        <input type="text" wire:model.live.debounce.500ms="search" placeholder="Buscar por título..." class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400" />
     </div>
     <div class="overflow-x-auto bg-white rounded shadow">
         <table class="min-w-full w-full table-auto divide-y divide-gray-200">
@@ -72,4 +72,7 @@
             </div>
         </div>
     @endif
+
+    <!-- Modal de éxito con Alpine.js -->
+    <x-exito-modal message="" />
 </div>

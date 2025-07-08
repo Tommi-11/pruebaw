@@ -1,3 +1,4 @@
+<!-- Componente principal de Documentos: solo un root element -->
 <div>
     <h2 class="text-xl font-bold text-gray-800 mb-2">Listado de Documentos</h2>
     <div class="flex justify-end mb-2">
@@ -55,17 +56,40 @@
                 <h2 class="text-lg font-bold mb-4">{{ $modalMode === 'create' ? 'Nuevo Documento' : 'Editar Documento' }}</h2>
                 <div class="mb-4">
                     <label class="block text-gray-700">Título</label>
-                    <input type="text" wire:model.defer="titulo" class="w-full border rounded px-3 py-2 mt-1" />
+                    <input type="text" wire:model.defer="titulo" maxlength="255" class="w-full border rounded px-3 py-2 mt-1 @error('titulo') border-red-500 @enderror" placeholder="Ej: Reglamento Interno" />
                     @error('titulo') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
                 </div>
                 <div class="mb-4">
                     <label class="block text-gray-700">Archivo PDF</label>
-                    <input type="file" wire:model="archivo_pdf" accept="application/pdf" class="w-full border rounded px-3 py-2 mt-1" />
+                    <input type="file" wire:model="archivo_pdf" accept="application/pdf" class="w-full border rounded px-3 py-2 mt-1 @error('archivo_pdf') border-red-500 @enderror" />
                     @error('archivo_pdf') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
+
+                    @if($modalMode === 'edit' && $archivoActual)
+                        <div class="mt-4 border rounded p-3 bg-gray-50 flex items-center justify-between">
+                            <div>
+                                <span class="text-gray-700 font-semibold">Archivo actual:</span>
+                                <a href="{{ Storage::url($archivoActual) }}" target="_blank" class="text-blue-600 underline ml-2">Ver PDF</a>
+                            </div>
+                            <button type="button" wire:click="confirmarEliminarArchivo" class="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600 ml-4">Eliminar</button>
+                        </div>
+                    @endif
+    <!-- Modal de Confirmación de Eliminación de Archivo -->
+    @if($confirmingDeleteArchivo)
+        <div class="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-40">
+            <div class="bg-white rounded-lg shadow-lg w-full max-w-md p-6">
+                <h2 class="text-lg font-bold mb-4">Eliminar Archivo</h2>
+                <p class="mb-4">¿Está seguro que desea eliminar el archivo PDF de este documento? Esta acción no se puede deshacer.</p>
+                <div class="flex justify-end gap-2 mt-4">
+                    <button type="button" wire:click="$set('confirmingDeleteArchivo', false)" class="bg-gray-300 px-4 py-2 rounded">Cancelar</button>
+                    <button wire:click="eliminarArchivo" class="bg-red-600 text-white px-4 py-2 rounded">Eliminar</button>
+                </div>
+            </div>
+        </div>
+    @endif
                 </div>
                 <div class="mb-4">
                     <label class="block text-gray-700">Categoría</label>
-                    <select wire:model.defer="categoria_id" class="w-full border rounded px-3 py-2 mt-1">
+                    <select wire:model.defer="categoria_id" class="w-full border rounded px-3 py-2 mt-1 @error('categoria_id') border-red-500 @enderror">
                         <option value="">Seleccione una categoría</option>
                         @foreach($categorias as $cat)
                             <option value="{{ $cat->id }}">{{ $cat->nombre }}</option>
@@ -75,7 +99,7 @@
                 </div>
                 <div class="mb-4">
                     <label class="block text-gray-700">Dirección</label>
-                    <select wire:model.defer="area_origen" class="w-full border rounded px-3 py-2 mt-1">
+                    <select wire:model.defer="area_origen" class="w-full border rounded px-3 py-2 mt-1 @error('area_origen') border-red-500 @enderror">
                         <option value="">Seleccione una dirección</option>
                         <option value="RSU">RSU</option>
                         <option value="Seguimiento al Egresado">Seguimiento al Egresado</option>
@@ -88,6 +112,10 @@
                     <button type="button" wire:click="closeModal" class="bg-gray-300 px-4 py-2 rounded">Cancelar</button>
                     <button wire:click="{{ $modalMode === 'create' ? 'create' : 'update' }}" class="bg-blue-600 text-white px-4 py-2 rounded">{{ $modalMode === 'create' ? 'Crear' : 'Actualizar' }}</button>
                 </div>
+                <!-- Mensaje de éxito en modal -->
+                @if(session('success_message'))
+                    <x-exito-modal :message="session('success_message')" />
+                @endif
             </div>
         </div>
     @endif
@@ -104,5 +132,10 @@
                 </div>
             </div>
         </div>
+    @endif
+
+    <!-- Mensaje de éxito global (fuera de modal) -->
+    @if(session('success_message') && !$modalOpen)
+        <x-exito-modal :message="session('success_message')" />
     @endif
 </div>

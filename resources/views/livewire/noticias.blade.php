@@ -67,4 +67,6 @@
                         </div>
                     </div>
                 @endif
- </div>
+    <!-- Modal de éxito con Alpine.js -->
+    <x-exito-modal :message="session('success_message') ?? ''" />
+</div>

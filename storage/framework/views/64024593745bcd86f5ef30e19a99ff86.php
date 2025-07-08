@@ -1,3 +1,4 @@
+<!-- Componente principal de Documentos: solo un root element -->
 <div>
     <h2 class="text-xl font-bold text-gray-800 mb-2">Listado de Documentos</h2>
     <div class="flex justify-end mb-2">
@@ -56,7 +57,14 @@
                 <h2 class="text-lg font-bold mb-4"><?php echo e($modalMode === 'create' ? 'Nuevo Documento' : 'Editar Documento'); ?></h2>
                 <div class="mb-4">
                     <label class="block text-gray-700">Título</label>
-                    <input type="text" wire:model.defer="titulo" class="w-full border rounded px-3 py-2 mt-1" />
+                    <input type="text" wire:model.defer="titulo" maxlength="255" class="w-full border rounded px-3 py-2 mt-1 <?php $__errorArgs = ['titulo'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> border-red-500 <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>" placeholder="Ej: Reglamento Interno" />
                     <!--[if BLOCK]><![endif]--><?php $__errorArgs = ['titulo'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
@@ -68,7 +76,14 @@ unset($__errorArgs, $__bag); ?><!--[if ENDBLOCK]><![endif]-->
                 </div>
                 <div class="mb-4">
                     <label class="block text-gray-700">Archivo PDF</label>
-                    <input type="file" wire:model="archivo_pdf" accept="application/pdf" class="w-full border rounded px-3 py-2 mt-1" />
+                    <input type="file" wire:model="archivo_pdf" accept="application/pdf" class="w-full border rounded px-3 py-2 mt-1 <?php $__errorArgs = ['archivo_pdf'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> border-red-500 <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>" />
                     <!--[if BLOCK]><![endif]--><?php $__errorArgs = ['archivo_pdf'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
@@ -77,10 +92,40 @@ $message = $__bag->first($__errorArgs[0]); ?> <span class="text-red-500 text-xs"
 if (isset($__messageOriginal)) { $message = $__messageOriginal; }
 endif;
 unset($__errorArgs, $__bag); ?><!--[if ENDBLOCK]><![endif]-->
+
+                    <!--[if BLOCK]><![endif]--><?php if($modalMode === 'edit' && $archivoActual): ?>
+                        <div class="mt-4 border rounded p-3 bg-gray-50 flex items-center justify-between">
+                            <div>
+                                <span class="text-gray-700 font-semibold">Archivo actual:</span>
+                                <a href="<?php echo e(Storage::url($archivoActual)); ?>" target="_blank" class="text-blue-600 underline ml-2">Ver PDF</a>
+                            </div>
+                            <button type="button" wire:click="confirmarEliminarArchivo" class="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600 ml-4">Eliminar</button>
+                        </div>
+                    <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
+    <!-- Modal de Confirmación de Eliminación de Archivo -->
+    <!--[if BLOCK]><![endif]--><?php if($confirmingDeleteArchivo): ?>
+        <div class="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-40">
+            <div class="bg-white rounded-lg shadow-lg w-full max-w-md p-6">
+                <h2 class="text-lg font-bold mb-4">Eliminar Archivo</h2>
+                <p class="mb-4">¿Está seguro que desea eliminar el archivo PDF de este documento? Esta acción no se puede deshacer.</p>
+                <div class="flex justify-end gap-2 mt-4">
+                    <button type="button" wire:click="$set('confirmingDeleteArchivo', false)" class="bg-gray-300 px-4 py-2 rounded">Cancelar</button>
+                    <button wire:click="eliminarArchivo" class="bg-red-600 text-white px-4 py-2 rounded">Eliminar</button>
+                </div>
+            </div>
+        </div>
+    <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
                 </div>
                 <div class="mb-4">
                     <label class="block text-gray-700">Categoría</label>
-                    <select wire:model.defer="categoria_id" class="w-full border rounded px-3 py-2 mt-1">
+                    <select wire:model.defer="categoria_id" class="w-full border rounded px-3 py-2 mt-1 <?php $__errorArgs = ['categoria_id'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> border-red-500 <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>">
                         <option value="">Seleccione una categoría</option>
                         <!--[if BLOCK]><![endif]--><?php $__currentLoopData = $categorias; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $cat): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                             <option value="<?php echo e($cat->id); ?>"><?php echo e($cat->nombre); ?></option>
@@ -97,7 +142,14 @@ unset($__errorArgs, $__bag); ?><!--[if ENDBLOCK]><![endif]-->
                 </div>
                 <div class="mb-4">
                     <label class="block text-gray-700">Dirección</label>
-                    <select wire:model.defer="area_origen" class="w-full border rounded px-3 py-2 mt-1">
+                    <select wire:model.defer="area_origen" class="w-full border rounded px-3 py-2 mt-1 <?php $__errorArgs = ['area_origen'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> border-red-500 <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>">
                         <option value="">Seleccione una dirección</option>
                         <option value="RSU">RSU</option>
                         <option value="Seguimiento al Egresado">Seguimiento al Egresado</option>
@@ -117,6 +169,29 @@ unset($__errorArgs, $__bag); ?><!--[if ENDBLOCK]><![endif]-->
                     <button type="button" wire:click="closeModal" class="bg-gray-300 px-4 py-2 rounded">Cancelar</button>
                     <button wire:click="<?php echo e($modalMode === 'create' ? 'create' : 'update'); ?>" class="bg-blue-600 text-white px-4 py-2 rounded"><?php echo e($modalMode === 'create' ? 'Crear' : 'Actualizar'); ?></button>
                 </div>
+                <!-- Mensaje de éxito en modal -->
+                <!--[if BLOCK]><![endif]--><?php if(session('success_message')): ?>
+                    <?php if (isset($component)) { $__componentOriginal1347047ed676050ce05de3ccca425f13 = $component; } ?>
+<?php if (isset($attributes)) { $__attributesOriginal1347047ed676050ce05de3ccca425f13 = $attributes; } ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.exito-modal','data' => ['message' => session('success_message')]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
+<?php $component->withName('exito-modal'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag && $constructor = (new ReflectionClass(Illuminate\View\AnonymousComponent::class))->getConstructor()): ?>
+<?php $attributes = $attributes->except(collect($constructor->getParameters())->map->getName()->all()); ?>
+<?php endif; ?>
+<?php $component->withAttributes(['message' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute(session('success_message'))]); ?>
+<?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__attributesOriginal1347047ed676050ce05de3ccca425f13)): ?>
+<?php $attributes = $__attributesOriginal1347047ed676050ce05de3ccca425f13; ?>
+<?php unset($__attributesOriginal1347047ed676050ce05de3ccca425f13); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginal1347047ed676050ce05de3ccca425f13)): ?>
+<?php $component = $__componentOriginal1347047ed676050ce05de3ccca425f13; ?>
+<?php unset($__componentOriginal1347047ed676050ce05de3ccca425f13); ?>
+<?php endif; ?>
+                <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
             </div>
         </div>
     <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
@@ -133,6 +208,30 @@ unset($__errorArgs, $__bag); ?><!--[if ENDBLOCK]><![endif]-->
                 </div>
             </div>
         </div>
+    <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
+
+    <!-- Mensaje de éxito global (fuera de modal) -->
+    <?php if(session('success_message') && !$modalOpen): ?>
+        <?php if (isset($component)) { $__componentOriginal1347047ed676050ce05de3ccca425f13 = $component; } ?>
+<?php if (isset($attributes)) { $__attributesOriginal1347047ed676050ce05de3ccca425f13 = $attributes; } ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.exito-modal','data' => ['message' => session('success_message')]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
+<?php $component->withName('exito-modal'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag && $constructor = (new ReflectionClass(Illuminate\View\AnonymousComponent::class))->getConstructor()): ?>
+<?php $attributes = $attributes->except(collect($constructor->getParameters())->map->getName()->all()); ?>
+<?php endif; ?>
+<?php $component->withAttributes(['message' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute(session('success_message'))]); ?>
+<?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__attributesOriginal1347047ed676050ce05de3ccca425f13)): ?>
+<?php $attributes = $__attributesOriginal1347047ed676050ce05de3ccca425f13; ?>
+<?php unset($__attributesOriginal1347047ed676050ce05de3ccca425f13); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginal1347047ed676050ce05de3ccca425f13)): ?>
+<?php $component = $__componentOriginal1347047ed676050ce05de3ccca425f13; ?>
+<?php unset($__componentOriginal1347047ed676050ce05de3ccca425f13); ?>
+<?php endif; ?>
     <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
 </div>
 <?php /**PATH C:\xampp\htdocs\sisogrsu1\resources\views/livewire/documentos.blade.php ENDPATH**/ ?>

@@ -4,7 +4,7 @@
         <button wire:click="openModal('create')" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Nuevo Proyecto</button>
     </div>
     <div class="w-full md:w-1/3 mb-6">
-        <input type="text" wire:model.debounce.500ms="search" placeholder="Buscar por título..." class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400" />
+        <input type="text" wire:model.live.debounce.500ms="search" placeholder="Buscar por título..." class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400" />
     </div>
     <div class="overflow-x-auto bg-white rounded shadow">
         <table class="min-w-full w-full table-auto divide-y divide-gray-200">
@@ -73,5 +73,27 @@
             </div>
         </div>
     <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
+
+    <!-- Modal de éxito con Alpine.js -->
+    <?php if (isset($component)) { $__componentOriginal1347047ed676050ce05de3ccca425f13 = $component; } ?>
+<?php if (isset($attributes)) { $__attributesOriginal1347047ed676050ce05de3ccca425f13 = $attributes; } ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.exito-modal','data' => ['message' => '']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
+<?php $component->withName('exito-modal'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag && $constructor = (new ReflectionClass(Illuminate\View\AnonymousComponent::class))->getConstructor()): ?>
+<?php $attributes = $attributes->except(collect($constructor->getParameters())->map->getName()->all()); ?>
+<?php endif; ?>
+<?php $component->withAttributes(['message' => '']); ?>
+<?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__attributesOriginal1347047ed676050ce05de3ccca425f13)): ?>
+<?php $attributes = $__attributesOriginal1347047ed676050ce05de3ccca425f13; ?>
+<?php unset($__attributesOriginal1347047ed676050ce05de3ccca425f13); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginal1347047ed676050ce05de3ccca425f13)): ?>
+<?php $component = $__componentOriginal1347047ed676050ce05de3ccca425f13; ?>
+<?php unset($__componentOriginal1347047ed676050ce05de3ccca425f13); ?>
+<?php endif; ?>
 </div>
 <?php /**PATH C:\xampp\htdocs\sisogrsu1\resources\views/livewire/proyectos.blade.php ENDPATH**/ ?>

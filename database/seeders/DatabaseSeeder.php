@@ -30,7 +30,7 @@ class DatabaseSeeder extends Seeder
             ['nombre' => 'Administrador', 'descripcion' => 'Administrador del sistema'],
             ['nombre' => 'Encargado de RSU', 'descripcion' => 'Encargado de Responsabilidad Social Universitaria'],
             ['nombre' => 'Encargado de PS', 'descripcion' => 'Encargado de Proyección Social'],
-            ['nombre' => 'Encargado de SEC', 'descripcion' => 'Encargado de Seguimiento al Egresado'],
+            ['nombre' => 'Encargado de SCE', 'descripcion' => 'Encargado de Seguimiento al Egresado'],
             ['nombre' => 'Encargado de EU', 'descripcion' => 'Encargado de Extensión Universitaria'],
         ];
         $roleIds = [];

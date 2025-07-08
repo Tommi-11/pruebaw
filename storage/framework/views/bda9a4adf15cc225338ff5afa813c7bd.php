@@ -4,7 +4,14 @@
         <form wire:submit.prevent="saveProyecto">
             <div class="mb-4">
                 <label class="block text-gray-700">Título</label>
-                <input type="text" wire:model.defer="titulo" class="w-full border rounded px-3 py-2 mt-1" />
+                <input type="text" wire:model.defer="titulo" maxlength="255" class="w-full border rounded px-3 py-2 mt-1 <?php $__errorArgs = ['titulo'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> border-red-500 <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>" placeholder="Ej: Proyecto de Salud Comunitaria" />
                 <!--[if BLOCK]><![endif]--><?php $__errorArgs = ['titulo'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
@@ -16,11 +23,41 @@ unset($__errorArgs, $__bag); ?><!--[if ENDBLOCK]><![endif]-->
             </div>
             <div class="mb-4">
                 <label class="block text-gray-700">Temática</label>
-                <textarea wire:model.defer="tematica" class="w-full border rounded px-3 py-2 mt-1"></textarea>
+                <textarea wire:model.defer="tematica" maxlength="500" class="w-full border rounded px-3 py-2 mt-1 <?php $__errorArgs = ['tematica'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> border-red-500 <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>" placeholder="Describe la temática del proyecto"></textarea>
+                <!--[if BLOCK]><![endif]--><?php $__errorArgs = ['tematica'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> <span class="text-red-500 text-xs"><?php echo e($message); ?></span> <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?><!--[if ENDBLOCK]><![endif]-->
             </div>
             <div class="mb-4">
                 <label class="block text-gray-700">Líneas RSU</label>
-                <textarea wire:model.defer="lineas_rsu" class="w-full border rounded px-3 py-2 mt-1"></textarea>
+                <textarea wire:model.defer="lineas_rsu" maxlength="500" class="w-full border rounded px-3 py-2 mt-1 <?php $__errorArgs = ['lineas_rsu'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> border-red-500 <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>" placeholder="Describe las líneas RSU"></textarea>
+                <!--[if BLOCK]><![endif]--><?php $__errorArgs = ['lineas_rsu'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> <span class="text-red-500 text-xs"><?php echo e($message); ?></span> <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?><!--[if ENDBLOCK]><![endif]-->
             </div>
             <div class="mb-4">
                 <label class="block text-gray-700">ODS (2-10)</label>
@@ -59,44 +96,171 @@ unset($__errorArgs, $__bag); ?><!--[if ENDBLOCK]><![endif]-->
             <div class="mb-4 grid grid-cols-1 md:grid-cols-3 gap-2">
                 <div>
                     <label class="block text-gray-700">Localidad</label>
-                    <input type="text" wire:model.defer="ubicacion_localidad" class="w-full border rounded px-3 py-2 mt-1" />
+                    <input type="text" wire:model.defer="ubicacion_localidad" maxlength="255" class="w-full border rounded px-3 py-2 mt-1 <?php $__errorArgs = ['ubicacion_localidad'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> border-red-500 <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>" placeholder="Ej: Marian" />
+                    <!--[if BLOCK]><![endif]--><?php $__errorArgs = ['ubicacion_localidad'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> <span class="text-red-500 text-xs"><?php echo e($message); ?></span> <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?><!--[if ENDBLOCK]><![endif]-->
                 </div>
                 <div>
                     <label class="block text-gray-700">Distrito</label>
-                    <input type="text" wire:model.defer="ubicacion_distrito" class="w-full border rounded px-3 py-2 mt-1" />
+                    <input type="text" wire:model.defer="ubicacion_distrito" maxlength="255" class="w-full border rounded px-3 py-2 mt-1 <?php $__errorArgs = ['ubicacion_distrito'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> border-red-500 <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>" placeholder="Ej: Independencia" />
+                    <!--[if BLOCK]><![endif]--><?php $__errorArgs = ['ubicacion_distrito'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> <span class="text-red-500 text-xs"><?php echo e($message); ?></span> <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?><!--[if ENDBLOCK]><![endif]-->
                 </div>
                 <div>
                     <label class="block text-gray-700">Provincia</label>
-                    <input type="text" wire:model.defer="ubicacion_provincia" class="w-full border rounded px-3 py-2 mt-1" />
+                    <input type="text" wire:model.defer="ubicacion_provincia" maxlength="255" class="w-full border rounded px-3 py-2 mt-1 <?php $__errorArgs = ['ubicacion_provincia'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> border-red-500 <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>" placeholder="Ej: Ancash" />
+                    <!--[if BLOCK]><![endif]--><?php $__errorArgs = ['ubicacion_provincia'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> <span class="text-red-500 text-xs"><?php echo e($message); ?></span> <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?><!--[if ENDBLOCK]><![endif]-->
                 </div>
             </div>
             <div class="mb-4 grid grid-cols-2 gap-2">
                 <div>
                     <label class="block text-gray-700">Beneficiarios Mínimo</label>
-                    <input type="number" wire:model.defer="beneficiarios_numero_minimo" class="w-full border rounded px-3 py-2 mt-1" />
+                    <input type="number" wire:model.defer="beneficiarios_numero_minimo" min="0" class="w-full border rounded px-3 py-2 mt-1 <?php $__errorArgs = ['beneficiarios_numero_minimo'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> border-red-500 <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>" placeholder="Ej: 2" />
+                    <!--[if BLOCK]><![endif]--><?php $__errorArgs = ['beneficiarios_numero_minimo'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> <span class="text-red-500 text-xs"><?php echo e($message); ?></span> <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?><!--[if ENDBLOCK]><![endif]-->
                 </div>
                 <div>
                     <label class="block text-gray-700">Beneficiarios Máximo</label>
-                    <input type="number" wire:model.defer="beneficiarios_numero_maximo" class="w-full border rounded px-3 py-2 mt-1" />
+                    <input type="number" wire:model.defer="beneficiarios_numero_maximo" min="0" class="w-full border rounded px-3 py-2 mt-1 <?php $__errorArgs = ['beneficiarios_numero_maximo'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> border-red-500 <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>" placeholder="Ej: 4" />
+                    <!--[if BLOCK]><![endif]--><?php $__errorArgs = ['beneficiarios_numero_maximo'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> <span class="text-red-500 text-xs"><?php echo e($message); ?></span> <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?><!--[if ENDBLOCK]><![endif]-->
                 </div>
             </div>
             <div class="mb-4">
                 <label class="block text-gray-700">Acciones Concretas</label>
-                <textarea wire:model.defer="acciones_concretas" class="w-full border rounded px-3 py-2 mt-1"></textarea>
+                <textarea wire:model.defer="acciones_concretas" maxlength="1000" class="w-full border rounded px-3 py-2 mt-1 <?php $__errorArgs = ['acciones_concretas'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> border-red-500 <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>" placeholder="Describe las acciones concretas del proyecto"></textarea>
+                <!--[if BLOCK]><![endif]--><?php $__errorArgs = ['acciones_concretas'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> <span class="text-red-500 text-xs"><?php echo e($message); ?></span> <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?><!--[if ENDBLOCK]><![endif]-->
             </div>
             <div class="mb-4 grid grid-cols-2 gap-2">
                 <div>
                     <label class="block text-gray-700">Fecha Inicio</label>
-                    <input type="date" wire:model.defer="fecha_inicio" class="w-full border rounded px-3 py-2 mt-1" />
+                    <input type="date" wire:model.defer="fecha_inicio" class="w-full border rounded px-3 py-2 mt-1 <?php $__errorArgs = ['fecha_inicio'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> border-red-500 <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>" />
+                    <!--[if BLOCK]><![endif]--><?php $__errorArgs = ['fecha_inicio'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> <span class="text-red-500 text-xs"><?php echo e($message); ?></span> <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?><!--[if ENDBLOCK]><![endif]-->
                 </div>
                 <div>
                     <label class="block text-gray-700">Fecha Término</label>
-                    <input type="date" wire:model.defer="fecha_termino" class="w-full border rounded px-3 py-2 mt-1" />
+                    <input type="date" wire:model.defer="fecha_termino" class="w-full border rounded px-3 py-2 mt-1 <?php $__errorArgs = ['fecha_termino'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> border-red-500 <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>" />
+                    <!--[if BLOCK]><![endif]--><?php $__errorArgs = ['fecha_termino'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> <span class="text-red-500 text-xs"><?php echo e($message); ?></span> <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?><!--[if ENDBLOCK]><![endif]-->
                 </div>
             </div>
             <div class="mb-4">
                 <label class="block text-gray-700">Estado</label>
-                <select wire:model.defer="estado" class="w-full border rounded px-3 py-2 mt-1">
+                <select wire:model.defer="estado" class="w-full border rounded px-3 py-2 mt-1 <?php $__errorArgs = ['estado'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> border-red-500 <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>">
                     <option value="Registrado">Registrado</option>
                     <option value="Aprobado">Aprobado</option>
                     <option value="En Curso">En Curso</option>
@@ -104,6 +268,14 @@ unset($__errorArgs, $__bag); ?><!--[if ENDBLOCK]><![endif]-->
                     <option value="Finalizado">Finalizado</option>
                     <option value="Con Informe">Con Informe</option>
                 </select>
+                <!--[if BLOCK]><![endif]--><?php $__errorArgs = ['estado'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> <span class="text-red-500 text-xs"><?php echo e($message); ?></span> <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?><!--[if ENDBLOCK]><![endif]-->
             </div>
             <div class="mb-4">
                 <label class="block text-gray-700">Docente Tutor</label>

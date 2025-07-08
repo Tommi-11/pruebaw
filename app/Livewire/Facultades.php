@@ -61,11 +61,13 @@ class Facultades extends Component
             FacultadModel::create([
                 'nombre' => $this->nombre,
             ]);
+            $this->dispatch('show-success-modal', message: 'La facultad ha sido creada correctamente.');
         } else if ($this->modalMode === 'edit' && $this->facultadId) {
             $facultad = FacultadModel::findOrFail($this->facultadId);
             $facultad->update([
                 'nombre' => $this->nombre,
             ]);
+            $this->dispatch('show-success-modal', message: 'La facultad ha sido actualizada correctamente.');
         }
         $this->closeModal();
     }

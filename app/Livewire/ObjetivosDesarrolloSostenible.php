@@ -64,12 +64,14 @@ class ObjetivosDesarrolloSostenible extends Component
                 'nombre' => $this->nombre,
                 'descripcion' => $this->descripcion,
             ]);
+            $this->dispatch('show-success-modal', message: 'El objetivo ha sido creado correctamente.');
         } else if ($this->modalMode === 'edit' && $this->objetivoId) {
             $objetivo = Objetivos_desarrollo_sostenible::findOrFail($this->objetivoId);
             $objetivo->update([
                 'nombre' => $this->nombre,
                 'descripcion' => $this->descripcion,
             ]);
+            $this->dispatch('show-success-modal', message: 'El objetivo ha sido actualizado correctamente.');
         }
         $this->closeModal();
     }

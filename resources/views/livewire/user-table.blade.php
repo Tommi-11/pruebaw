@@ -48,7 +48,7 @@
                     <label class="block text-gray-700">Nombres</label>
                     <input
                         type="text"
-                        wire:model.defer="nombres"
+                        wire:model="nombres"
                         class="w-full border rounded px-3 py-2 mt-1"
                         pattern="^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+$"
                         title="Solo letras y espacios permitidos"
@@ -60,7 +60,7 @@
                     <label class="block text-gray-700">Apellidos</label>
                     <input
                         type="text"
-                        wire:model.defer="apellidos"
+                        wire:model="apellidos"
                         class="w-full border rounded px-3 py-2 mt-1"
                         pattern="^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+$"
                         title="Solo letras y espacios permitidos"
@@ -72,7 +72,7 @@
                     <label class="block text-gray-700">Correo</label>
                     <input
                         type="email"
-                        wire:model.defer="email"
+                        wire:model="email"
                         class="w-full border rounded px-3 py-2 mt-1"
                         title="Ingrese un correo electrónico válido (ejemplo@dominio.com)"
                         maxlength="100"
@@ -94,7 +94,7 @@
                     <label class="block text-gray-700">Nueva Contraseña</label>
                     <input
                         type="password"
-                        wire:model.defer="new_password"
+                        wire:model="new_password"
                         class="w-full border rounded px-3 py-2 mt-1"
                         placeholder="Dejar en blanco para no cambiar"
                         minlength="6" />
@@ -122,14 +122,6 @@
         </div>
     </div>
     @endif
-    <!-- Modal de confirmación de cambios -->
-    @if($showSuccessModal)
-    <div class="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-40">
-        <div class="bg-white rounded-lg shadow-lg w-full max-w-md p-6 text-center">
-            <h2 class="text-lg font-bold mb-4">Registro exitoso</h2>
-            <p class="mb-4">Los cambios se han guardado correctamente.</p>
-            <button type="button" wire:click="closeSuccessModal" class="bg-blue-600 text-white px-4 py-2 rounded">Aceptar</button>
-        </div>
-    </div>
-    @endif
+    <!-- Modal de éxito con Alpine.js -->
+    <x-exito-modal message="Los cambios se han guardado correctamente." />
 </div>

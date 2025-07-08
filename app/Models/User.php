@@ -75,4 +75,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Documentos::class, 'user_id');
     }
+
+    public function hasRole($roleName)
+    {
+        return $this->role && $this->role->nombre === $roleName;
+    }
 }

@@ -42,13 +42,13 @@
             <div class="bg-white rounded-lg shadow-lg w-full max-w-md p-6">
                 <h2 class="text-lg font-bold mb-4">{{ $isEdit ? 'Editar Cargo' : 'Agregar Cargo' }}</h2>
                 <div class="mb-4">
-                    <label class="block text-gray-700">Nombre</label>
-                    <input type="text" wire:model.defer="nombre" class="w-full border rounded px-3 py-2 mt-1" />
+                    <label class="block text-gray-700">Nombre del Cargo</label>
+                    <input type="text" wire:model.defer="nombre" maxlength="255" class="w-full border rounded px-3 py-2 mt-1 @error('nombre') border-red-500 @enderror" placeholder="Ej: Coordinador" />
                     @error('nombre') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
                 </div>
                 <div class="mb-4">
                     <label class="block text-gray-700">Descripción</label>
-                    <input type="text" wire:model.defer="descripcion" class="w-full border rounded px-3 py-2 mt-1" />
+                    <textarea wire:model.defer="descripcion" maxlength="500" class="w-full border rounded px-3 py-2 mt-1 @error('descripcion') border-red-500 @enderror" placeholder="Descripción del cargo"></textarea>
                     @error('descripcion') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
                 </div>
                 <div class="flex justify-end gap-2 mt-4">
@@ -71,4 +71,6 @@
             </div>
         </div>
     @endif
+    <!-- Modal de éxito con Alpine.js -->
+    <x-exito-modal message="" />
 </div>

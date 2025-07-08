@@ -48,7 +48,7 @@
                     <label class="block text-gray-700">Nombres</label>
                     <input
                         type="text"
-                        wire:model.defer="nombres"
+                        wire:model="nombres"
                         class="w-full border rounded px-3 py-2 mt-1"
                         pattern="^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+$"
                         title="Solo letras y espacios permitidos"
@@ -67,7 +67,7 @@ unset($__errorArgs, $__bag); ?><!--[if ENDBLOCK]><![endif]-->
                     <label class="block text-gray-700">Apellidos</label>
                     <input
                         type="text"
-                        wire:model.defer="apellidos"
+                        wire:model="apellidos"
                         class="w-full border rounded px-3 py-2 mt-1"
                         pattern="^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+$"
                         title="Solo letras y espacios permitidos"
@@ -86,7 +86,7 @@ unset($__errorArgs, $__bag); ?><!--[if ENDBLOCK]><![endif]-->
                     <label class="block text-gray-700">Correo</label>
                     <input
                         type="email"
-                        wire:model.defer="email"
+                        wire:model="email"
                         class="w-full border rounded px-3 py-2 mt-1"
                         title="Ingrese un correo electrónico válido (ejemplo@dominio.com)"
                         maxlength="100"
@@ -122,7 +122,7 @@ unset($__errorArgs, $__bag); ?><!--[if ENDBLOCK]><![endif]-->
                     <label class="block text-gray-700">Nueva Contraseña</label>
                     <input
                         type="password"
-                        wire:model.defer="new_password"
+                        wire:model="new_password"
                         class="w-full border rounded px-3 py-2 mt-1"
                         placeholder="Dejar en blanco para no cambiar"
                         minlength="6" />
@@ -157,14 +157,25 @@ unset($__errorArgs, $__bag); ?><!--[if ENDBLOCK]><![endif]-->
         </div>
     </div>
     <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
-    <!-- Modal de confirmación de cambios -->
-    <!--[if BLOCK]><![endif]--><?php if($showSuccessModal): ?>
-    <div class="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-40">
-        <div class="bg-white rounded-lg shadow-lg w-full max-w-md p-6 text-center">
-            <h2 class="text-lg font-bold mb-4">Registro exitoso</h2>
-            <p class="mb-4">Los cambios se han guardado correctamente.</p>
-            <button type="button" wire:click="closeSuccessModal" class="bg-blue-600 text-white px-4 py-2 rounded">Aceptar</button>
-        </div>
-    </div>
-    <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
+    <!-- Modal de éxito con Alpine.js -->
+    <?php if (isset($component)) { $__componentOriginal1347047ed676050ce05de3ccca425f13 = $component; } ?>
+<?php if (isset($attributes)) { $__attributesOriginal1347047ed676050ce05de3ccca425f13 = $attributes; } ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.exito-modal','data' => ['message' => 'Los cambios se han guardado correctamente.']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
+<?php $component->withName('exito-modal'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag && $constructor = (new ReflectionClass(Illuminate\View\AnonymousComponent::class))->getConstructor()): ?>
+<?php $attributes = $attributes->except(collect($constructor->getParameters())->map->getName()->all()); ?>
+<?php endif; ?>
+<?php $component->withAttributes(['message' => 'Los cambios se han guardado correctamente.']); ?>
+<?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__attributesOriginal1347047ed676050ce05de3ccca425f13)): ?>
+<?php $attributes = $__attributesOriginal1347047ed676050ce05de3ccca425f13; ?>
+<?php unset($__attributesOriginal1347047ed676050ce05de3ccca425f13); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginal1347047ed676050ce05de3ccca425f13)): ?>
+<?php $component = $__componentOriginal1347047ed676050ce05de3ccca425f13; ?>
+<?php unset($__componentOriginal1347047ed676050ce05de3ccca425f13); ?>
+<?php endif; ?>
 </div><?php /**PATH C:\xampp\htdocs\sisogrsu1\resources\views/livewire/user-table.blade.php ENDPATH**/ ?>

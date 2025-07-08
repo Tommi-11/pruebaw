@@ -114,9 +114,11 @@ class Proyectos extends Component
             ];
             if ($this->modalMode === 'create') {
                 $proyecto = ProyectoModel::create($data);
+                $this->dispatch('show-success-modal', message: 'El proyecto ha sido creado correctamente.');
             } else if ($this->modalMode === 'edit' && $this->proyectoId) {
                 $proyecto = ProyectoModel::findOrFail($this->proyectoId);
                 $proyecto->update($data);
+                $this->dispatch('show-success-modal', message: 'El proyecto ha sido actualizado correctamente.');
             }
             // Guardar estudiantes en tabla pivote (solo IDs)
             $proyecto->estudiantes()->sync($this->equipo_estudiantes);

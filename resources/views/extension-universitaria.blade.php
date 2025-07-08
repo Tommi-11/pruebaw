@@ -259,6 +259,38 @@
             <div class="swiper-button-next"></div>
         </div>
     </main>
+
+    <!-- Formulario de Contacto Extensión Universitaria -->
+    <section class="bg-white rounded-xl shadow-lg p-8 my-12 max-w-2xl mx-auto">
+        @if(session('success'))
+            <div class="mb-6 p-4 rounded-lg bg-green-100 border border-green-300 text-green-800 text-center font-semibold">
+                {{ session('success') }}
+            </div>
+        @endif
+        <h2 class="mb-4 text-3xl font-serif font-bold text-center text-blue-900">Contáctanos - Extensión Universitaria</h2>
+        <p class="mb-8 font-light text-center text-gray-600 sm:text-lg">
+            ¿Tienes dudas, sugerencias o deseas información sobre eventos, actividades culturales o científicas? Escríbenos y te responderemos a la brevedad.
+        </p>
+        <form action="{{route('contacto.rsu')}}" method="post" class="space-y-6">
+            @csrf
+            <div>
+                <label for="email" class="block mb-2 text-sm font-medium text-blue-900">Tu correo electrónico</label>
+                <input type="email" id="email" name="email" class="shadow-sm bg-blue-50 border border-blue-200 text-blue-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="nombre@ejemplo.com" required>
+            </div>
+            <div>
+                <label for="asunto" class="block mb-2 text-sm font-medium text-blue-900">Asunto</label>
+                <input type="text" id="asunto" name="asunto" class="block p-3 w-full text-sm text-blue-900 bg-blue-50 rounded-lg border border-blue-200 shadow-sm focus:ring-blue-500 focus:border-blue-500" placeholder="¿En qué podemos ayudarte?" required>
+            </div>
+            <div>
+                <label for="mensaje" class="block mb-2 text-sm font-medium text-blue-900">Mensaje</label>
+                <textarea id="mensaje" name="mensaje" rows="6" class="block p-2.5 w-full text-sm text-blue-900 bg-blue-50 rounded-lg shadow-sm border border-blue-200 focus:ring-blue-500 focus:border-blue-500" placeholder="Escribe tu mensaje aquí..." required></textarea>
+            </div>
+            <button type="submit" class="py-3 px-6 text-sm font-semibold text-white rounded-lg bg-blue-700 hover:bg-blue-800 shadow transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2">
+                Enviar mensaje
+            </button>
+        </form>
+    </section>
+
     @include('layouts.footer')
 @endsection
 

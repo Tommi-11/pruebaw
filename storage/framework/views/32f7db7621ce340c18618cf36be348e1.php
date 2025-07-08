@@ -48,8 +48,15 @@
             <div class="bg-white rounded-lg shadow-lg w-full max-w-md p-6">
                 <h2 class="text-lg font-bold mb-4"><?php echo e($modalMode === 'create' ? 'Nuevo Objetivo' : 'Editar Objetivo'); ?></h2>
                 <div class="mb-4">
-                    <label class="block text-gray-700">Nombre</label>
-                    <input type="text" wire:model.defer="nombre" class="w-full border rounded px-3 py-2 mt-1" />
+                    <label class="block text-gray-700">Nombre del Objetivo</label>
+                    <input type="text" wire:model.defer="nombre" maxlength="255" class="w-full border rounded px-3 py-2 mt-1 <?php $__errorArgs = ['nombre'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> border-red-500 <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>" placeholder="Ej: Fin de la Pobreza" />
                     <!--[if BLOCK]><![endif]--><?php $__errorArgs = ['nombre'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
@@ -61,7 +68,14 @@ unset($__errorArgs, $__bag); ?><!--[if ENDBLOCK]><![endif]-->
                 </div>
                 <div class="mb-4">
                     <label class="block text-gray-700">Descripción</label>
-                    <textarea wire:model.defer="descripcion" class="w-full border rounded px-3 py-2 mt-1" rows="3"></textarea>
+                    <textarea wire:model.defer="descripcion" maxlength="1000" class="w-full border rounded px-3 py-2 mt-1 <?php $__errorArgs = ['descripcion'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> border-red-500 <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>" placeholder="Descripción del objetivo" rows="3"></textarea>
                     <!--[if BLOCK]><![endif]--><?php $__errorArgs = ['descripcion'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
@@ -92,5 +106,27 @@ unset($__errorArgs, $__bag); ?><!--[if ENDBLOCK]><![endif]-->
             </div>
         </div>
     <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
+
+    <!-- Modal de éxito con Alpine.js -->
+    <?php if (isset($component)) { $__componentOriginal1347047ed676050ce05de3ccca425f13 = $component; } ?>
+<?php if (isset($attributes)) { $__attributesOriginal1347047ed676050ce05de3ccca425f13 = $attributes; } ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.exito-modal','data' => ['message' => '']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
+<?php $component->withName('exito-modal'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag && $constructor = (new ReflectionClass(Illuminate\View\AnonymousComponent::class))->getConstructor()): ?>
+<?php $attributes = $attributes->except(collect($constructor->getParameters())->map->getName()->all()); ?>
+<?php endif; ?>
+<?php $component->withAttributes(['message' => '']); ?>
+<?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__attributesOriginal1347047ed676050ce05de3ccca425f13)): ?>
+<?php $attributes = $__attributesOriginal1347047ed676050ce05de3ccca425f13; ?>
+<?php unset($__attributesOriginal1347047ed676050ce05de3ccca425f13); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginal1347047ed676050ce05de3ccca425f13)): ?>
+<?php $component = $__componentOriginal1347047ed676050ce05de3ccca425f13; ?>
+<?php unset($__componentOriginal1347047ed676050ce05de3ccca425f13); ?>
+<?php endif; ?>
 </div>
 <?php /**PATH C:\xampp\htdocs\sisogrsu1\resources\views/livewire/objetivos-desarrollo-sostenible.blade.php ENDPATH**/ ?>

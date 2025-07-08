@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 //
 use App\Models\Noticias;
 use App\Models\Documentos;
@@ -41,5 +42,44 @@ class ResponsabilidadSocialController extends Controller
             : collect();
 
         return view('responsabilidad-social', compact('noticias', 'documentosNormativos', 'documentosRequisitos'));
+    }
+
+    // Crea una nueva clase que controlador el formulario de contacto
+    public function contactoRSU(Request $request){
+        // Validar datos del formulario
+        $request->validate([
+            'email' => [
+                'required',
+                'email',
+                'regex:/^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/'
+            ],
+            'asunto' => 'required|string|max:255',
+            'mensaje' => 'required|string',
+        ]);
+
+        // Detectar área según la URL anterior
+        $referer = $request->headers->get('referer');
+        $area = 'RSU';
+        if ($referer) {
+            if (strpos($referer, 'proyeccion-social') !== false) {
+                $area = 'PS';
+            } elseif (strpos($referer, 'extension-universitaria') !== false) {
+                $area = 'EU';
+            } elseif (strpos($referer, 'seguimiento-egresado') !== false) {
+                $area = 'SCE';
+            }
+        }
+
+        // Enviar correo usando la Mailable, pasando el área
+        Mail::to(config('mail.from.address'))
+            ->send(new \App\Mail\ContactoRSUMail(
+                $request->input('email'),
+                $request->input('asunto'),
+                $request->input('mensaje'),
+                $area
+            ));
+
+        // Redirigir con mensaje de éxito
+        return redirect()->back()->with('success', 'Tu mensaje ha sido enviado correctamente.');
     }
 }
