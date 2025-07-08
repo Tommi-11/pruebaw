@@ -73,3 +73,65 @@
         </div>
     @endif
 </div>
+
+<script type="text/javascript">
+  function soloLetras(e) {
+    var key = e.keyCode || e.which;
+    var tecla = String.fromCharCode(key).toLowerCase();
+    var letras = " áéíóúabcdefghijklmnñopqrstuvwxyz";
+    var especiales = [8, 37, 39, 46]; // retroceso, flechas, suprimir
+
+    var tecla_especial = false;
+    for (var i in especiales) {
+      if (key == especiales[i]) {
+        tecla_especial = true;
+        break;
+      }
+    }
+
+    return letras.indexOf(tecla) != -1 || tecla_especial;
+  }
+
+  function ponerMayusculasCadaPalabra(input) {
+    let palabras = input.value.toLowerCase().split(" ");
+    for (let i = 0; i < palabras.length; i++) {
+      if (palabras[i].length > 0) {
+        palabras[i] = palabras[i][0].toUpperCase() + palabras[i].substr(1);
+      }
+    }
+    input.value = palabras.join(" ");
+  }
+
+   function capitalizarPrimeraLetra(input) {
+        let valor = input.value;
+        if (valor.length > 0) {
+            input.value = valor.charAt(0).toUpperCase() + valor.slice(1);
+        }
+    }
+</script>
+
+<script>
+  function actualizarFecha2Min() {
+    const fecha1 = document.getElementById('fecha1').value;
+    const fecha2 = document.getElementById('fecha2');
+
+    if (fecha1) {
+      // Configuramos la fecha mínima para fecha2 como un día después de fecha1
+      let fecha1Date = new Date(fecha1);
+      fecha1Date.setDate(fecha1Date.getDate() + 1);
+
+      // Convertimos a formato yyyy-mm-dd para asignar a min
+      let minFecha2 = fecha1Date.toISOString().split('T')[0];
+      fecha2.min = minFecha2;
+
+      // Si la fecha2 ya tiene un valor menor o igual que el mínimo, la borramos
+      if (fecha2.value && fecha2.value <= fecha1) {
+        fecha2.value = '';
+        alert('La fecha 2 debe ser posterior a la fecha 1.');
+      }
+    } else {
+      // Si no hay fecha1, quitamos restricción mínima en fecha2
+      fecha2.min = '';
+    }
+  }
+</script>

@@ -4,12 +4,12 @@
         <form wire:submit.prevent="saveProyecto">
             <div class="mb-4">
                 <label class="block text-gray-700">Título</label>
-                <input type="text" wire:model.defer="titulo" class="w-full border rounded px-3 py-2 mt-1" />
+                <input type="text" wire:model.defer="titulo" class="w-full border rounded px-3 py-2 mt-1" oninput="capitalizarPrimeraLetra(this)" />
                 @error('titulo') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
             </div>
             <div class="mb-4">
                 <label class="block text-gray-700">Temática</label>
-                <textarea wire:model.defer="tematica" class="w-full border rounded px-3 py-2 mt-1"></textarea>
+                <textarea wire:model.defer="tematica" class="w-full border rounded px-3 py-2 mt-1"oninput="capitalizarPrimeraLetra(this)"></textarea>
             </div>
             <div class="mb-4">
                 <label class="block text-gray-700">Líneas RSU</label>
@@ -45,15 +45,15 @@
             <div class="mb-4 grid grid-cols-1 md:grid-cols-3 gap-2">
                 <div>
                     <label class="block text-gray-700">Localidad</label>
-                    <input type="text" wire:model.defer="ubicacion_localidad" class="w-full border rounded px-3 py-2 mt-1" />
+                    <input type="text" wire:model.defer="ubicacion_localidad" class="w-full border rounded px-3 py-2 mt-1" onkeypress="return soloLetras(event)" oninput="ponerMayusculasCadaPalabra(this)" />
                 </div>
                 <div>
                     <label class="block text-gray-700">Distrito</label>
-                    <input type="text" wire:model.defer="ubicacion_distrito" class="w-full border rounded px-3 py-2 mt-1" />
+                    <input type="text" wire:model.defer="ubicacion_distrito" class="w-full border rounded px-3 py-2 mt-1" onkeypress="return soloLetras(event)" oninput="ponerMayusculasCadaPalabra(this)" />
                 </div>
                 <div>
                     <label class="block text-gray-700">Provincia</label>
-                    <input type="text" wire:model.defer="ubicacion_provincia" class="w-full border rounded px-3 py-2 mt-1" />
+                    <input type="text" wire:model.defer="ubicacion_provincia" class="w-full border rounded px-3 py-2 mt-1" onkeypress="return soloLetras(event)" oninput="ponerMayusculasCadaPalabra(this)"/>
                 </div>
             </div>
             <div class="mb-4 grid grid-cols-2 gap-2">
@@ -68,16 +68,16 @@
             </div>
             <div class="mb-4">
                 <label class="block text-gray-700">Acciones Concretas</label>
-                <textarea wire:model.defer="acciones_concretas" class="w-full border rounded px-3 py-2 mt-1"></textarea>
+                <textarea wire:model.defer="acciones_concretas" class="w-full border rounded px-3 py-2 mt-1" oninput="capitalizarPrimeraLetra(this)"></textarea>
             </div>
             <div class="mb-4 grid grid-cols-2 gap-2">
                 <div>
                     <label class="block text-gray-700">Fecha Inicio</label>
-                    <input type="date" wire:model.defer="fecha_inicio" class="w-full border rounded px-3 py-2 mt-1" />
+                    <input type="date" wire:model.defer="fecha_inicio" class="w-full border rounded px-3 py-2 mt-1" id="fecha1" onchange="actualizarFecha2Min()"/>
                 </div>
                 <div>
                     <label class="block text-gray-700">Fecha Término</label>
-                    <input type="date" wire:model.defer="fecha_termino" class="w-full border rounded px-3 py-2 mt-1" />
+                    <input type="date" wire:model.defer="fecha_termino" class="w-full border rounded px-3 py-2 mt-1" id="fecha2" />
                 </div>
             </div>
             <div class="mb-4">
@@ -147,3 +147,6 @@
 @if($showOdsModal)
     @include('livewire.partials.ods-modal')
 @endif
+
+
+

@@ -56,17 +56,17 @@
                 <h2 class="text-lg font-bold mb-4">{{ $modalMode === 'create' ? 'Nuevo Docente' : 'Editar Docente' }}</h2>
                 <div class="mb-4">
                     <label class="block text-gray-700">Nombres</label>
-                    <input type="text" wire:model.defer="nombres" class="w-full border rounded px-3 py-2 mt-1" />
+                    <input type="text" wire:model.defer="nombres" class="w-full border rounded px-3 py-2 mt-1"  onkeypress="return soloLetras(event)" oninput="ponerMayusculasCadaPalabra(this)" />
                     @error('nombres') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
                 </div>
                 <div class="mb-4">
                     <label class="block text-gray-700">Apellidos</label>
-                    <input type="text" wire:model.defer="apellidos" class="w-full border rounded px-3 py-2 mt-1" />
+                    <input type="text" wire:model.defer="apellidos" class="w-full border rounded px-3 py-2 mt-1"  onkeypress="return soloLetras(event)" oninput="ponerMayusculasCadaPalabra(this)"/>
                     @error('apellidos') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
                 </div>
                 <div class="mb-4">
                     <label class="block text-gray-700">DNI</label>
-                    <input type="text" wire:model.defer="dni" class="w-full border rounded px-3 py-2 mt-1" />
+                    <input type="text" wire:model.defer="dni" class="w-full border rounded px-3 py-2 mt-1" onkeypress="return soloNumeros(event)" maxlength="8" />
                     @error('dni') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
                 </div>
                 <div class="mb-4">
@@ -81,12 +81,12 @@
                 </div>
                 <div class="mb-4">
                     <label class="block text-gray-700">Departamento</label>
-                    <input type="text" wire:model.defer="departamento" class="w-full border rounded px-3 py-2 mt-1" />
+                    <input type="text" wire:model.defer="departamento" class="w-full border rounded px-3 py-2 mt-1" onkeypress="return soloLetras(event)" oninput="ponerMayusculasCadaPalabra(this)" />
                     @error('departamento') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
                 </div>
                 <div class="mb-4">
                     <label class="block text-gray-700">Celular</label>
-                    <input type="text" wire:model.defer="celular" class="w-full border rounded px-3 py-2 mt-1" />
+                    <input type="text" wire:model.defer="celular" class="w-full border rounded px-3 py-2 mt-1" onkeypress="return soloNumeros(event)" maxlength="9" />
                     @error('celular') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
                 </div>
                 <div class="flex justify-end gap-2 mt-4">
@@ -111,3 +111,41 @@
         </div>
     @endif
 </div>
+
+
+<script type="text/javascript">
+  function soloLetras(e) {
+    var key = e.keyCode || e.which;
+    var tecla = String.fromCharCode(key).toLowerCase();
+    var letras = " áéíóúabcdefghijklmnñopqrstuvwxyz";
+    var especiales = [8, 37, 39, 46]; // retroceso, flechas, suprimir
+
+    var tecla_especial = false;
+    for (var i in especiales) {
+      if (key == especiales[i]) {
+        tecla_especial = true;
+        break;
+      }
+    }
+
+    return letras.indexOf(tecla) != -1 || tecla_especial;
+  }
+
+  function ponerMayusculasCadaPalabra(input) {
+    let palabras = input.value.toLowerCase().split(" ");
+    for (let i = 0; i < palabras.length; i++) {
+      if (palabras[i].length > 0) {
+        palabras[i] = palabras[i][0].toUpperCase() + palabras[i].substr(1);
+      }
+    }
+    input.value = palabras.join(" ");
+  }
+</script>
+
+<script type="text/javascript">
+          // $(".select2").select2();
+    function soloNumeros(e){
+      var key = window.Event ? e.which : e.keyCode
+      return ((key >= 48 && key <= 57) || (key==8) || (key==35) || (key==34) || (key==46));
+    }
+</script>

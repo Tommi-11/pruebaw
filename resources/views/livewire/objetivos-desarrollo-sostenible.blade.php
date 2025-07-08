@@ -48,12 +48,12 @@
                 <h2 class="text-lg font-bold mb-4">{{ $modalMode === 'create' ? 'Nuevo Objetivo' : 'Editar Objetivo' }}</h2>
                 <div class="mb-4">
                     <label class="block text-gray-700">Nombre</label>
-                    <input type="text" wire:model.defer="nombre" class="w-full border rounded px-3 py-2 mt-1" />
+                    <input type="text" wire:model.defer="nombre" class="w-full border rounded px-3 py-2 mt-1" onkeypress="return soloLetras(event)" oninput="ponerMayusculasCadaPalabra(this)"  />
                     @error('nombre') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
                 </div>
                 <div class="mb-4">
                     <label class="block text-gray-700">Descripción</label>
-                    <textarea wire:model.defer="descripcion" class="w-full border rounded px-3 py-2 mt-1" rows="3"></textarea>
+                    <textarea wire:model.defer="descripcion" class="w-full border rounded px-3 py-2 mt-1" rows="3" onkeypress="return soloLetras(event)" oninput="capitalizarPrimeraLetra(this)"></textarea>
                     @error('descripcion') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
                 </div>
                 <div class="flex justify-end gap-2 mt-4">
@@ -78,3 +78,39 @@
         </div>
     @endif
 </div>
+
+<script type="text/javascript">
+  function soloLetras(e) {
+    var key = e.keyCode || e.which;
+    var tecla = String.fromCharCode(key).toLowerCase();
+    var letras = " áéíóúabcdefghijklmnñopqrstuvwxyz";
+    var especiales = [8, 37, 39, 46]; // retroceso, flechas, suprimir
+
+    var tecla_especial = false;
+    for (var i in especiales) {
+      if (key == especiales[i]) {
+        tecla_especial = true;
+        break;
+      }
+    }
+
+    return letras.indexOf(tecla) != -1 || tecla_especial;
+  }
+
+  function ponerMayusculasCadaPalabra(input) {
+    let palabras = input.value.toLowerCase().split(" ");
+    for (let i = 0; i < palabras.length; i++) {
+      if (palabras[i].length > 0) {
+        palabras[i] = palabras[i][0].toUpperCase() + palabras[i].substr(1);
+      }
+    }
+    input.value = palabras.join(" ");
+  }
+
+   function capitalizarPrimeraLetra(input) {
+        let valor = input.value;
+        if (valor.length > 0) {
+            input.value = valor.charAt(0).toUpperCase() + valor.slice(1);
+        }
+    }
+</script>
