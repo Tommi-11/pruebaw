@@ -19,18 +19,7 @@
             </div>
             <div class="mb-4">
                 <label class="block text-gray-700">ODS (2-10)</label>
-                <input type="text" wire:model="ods_search" placeholder="Buscar ODS por nombre..." class="w-full border rounded px-3 py-2 mt-1" />
-                <div class="mt-2">
-                    @if($ods_search)
-                        @foreach($this->searchOds($ods_search) as $ods)
-                            <div class="flex items-center justify-between bg-gray-100 rounded px-2 py-1 mb-1">
-                                <span>{{ $ods->nombre }}</span>
-                                <button type="button" wire:click="addOdsToProyecto({{ $ods->id }})" class="text-blue-600 text-xs">Agregar</button>
-                            </div>
-                        @endforeach
-                        <button type="button" wire:click="showOdsRegisterModal" class="text-blue-600 text-xs mt-2">Registrar nuevo ODS</button>
-                    @endif
-                </div>
+                <button type="button" wire:click="showOdsRegisterModal" class="bg-blue-100 text-blue-800 px-3 py-2 rounded hover:bg-blue-200 mt-2">Seleccionar ODS</button>
                 <div class="mt-2">
                     @foreach($objetivos_desarrollo_sostenible as $id)
                         @php $ods = App\Models\Objetivos_desarrollo_sostenible::find($id); @endphp
@@ -104,36 +93,23 @@
             </div>
             <div class="mb-4">
                 <label class="block text-gray-700">Docente Tutor</label>
-                <input type="text" wire:model="docente_search" placeholder="Buscar docente por nombre, apellido o DNI..." class="w-full border rounded px-3 py-2 mt-1" />
+                <button type="button" wire:click="$set('showDocenteModal', true)" class="bg-blue-100 text-blue-800 px-3 py-2 rounded hover:bg-blue-200 mt-2">Seleccionar Docente</button>
                 <div class="mt-2">
-                    @if($docente_search)
-                        @foreach($this->searchDocentes($docente_search) as $docente)
-                            <div class="flex items-center justify-between bg-gray-100 rounded px-2 py-1 mb-1">
-                                <span>{{ $docente->nombres }} {{ $docente->apellidos }} ({{ $docente->dni }})</span>
-                                <button type="button" wire:click="$set('docente_tutor_id', {{ $docente->id }})" class="text-blue-600 text-xs">Seleccionar</button>
-                            </div>
-                        @endforeach
+                    @if($docente_tutor_id)
+                        @php $docente = App\Models\Docente::find($docente_tutor_id); @endphp
+                        @if($docente)
+                        <div class="flex items-center justify-between bg-green-100 rounded px-2 py-1 mb-1">
+                            <span>{{ $docente->nombres }} {{ $docente->apellidos }} ({{ $docente->dni }})</span>
+                            <button type="button" wire:click="$set('docente_tutor_id', null)" class="text-red-600 text-xs">Quitar</button>
+                        </div>
+                        @endif
                     @endif
                 </div>
-                @if($docente_tutor_id)
-                    <div class="mt-2 text-green-700 text-sm">Docente seleccionado: {{ optional(App\Models\Docente::find($docente_tutor_id))->nombres }} {{ optional(App\Models\Docente::find($docente_tutor_id))->apellidos }}</div>
-                @endif
                 @error('docente_tutor_id') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
             </div>
             <div class="mb-4">
                 <label class="block text-gray-700">Equipo de Estudiantes (2-4)</label>
-                <input type="text" wire:model="estudiante_search" placeholder="Buscar estudiante por nombre, apellido o código..." class="w-full border rounded px-3 py-2 mt-1" />
-                <div class="mt-2">
-                    @if($estudiante_search)
-                        @foreach($this->searchEstudiantes($estudiante_search) as $est)
-                            <div class="flex items-center justify-between bg-gray-100 rounded px-2 py-1 mb-1">
-                                <span>{{ $est->nombres }} {{ $est->apellidos }} ({{ $est->codigo_universidad }})</span>
-                                <button type="button" wire:click="addEstudianteToEquipo({{ $est->id }})" class="text-blue-600 text-xs">Agregar</button>
-                            </div>
-                        @endforeach
-                        <button type="button" wire:click="showEstudianteRegisterModal" class="text-blue-600 text-xs mt-2">Registrar nuevo estudiante</button>
-                    @endif
-                </div>
+                <button type="button" wire:click="$set('showEstudianteModal', true)" class="bg-blue-100 text-blue-800 px-3 py-2 rounded hover:bg-blue-200 mt-2">Seleccionar Estudiantes</button>
                 <div class="mt-2">
                     @foreach($equipo_estudiantes as $id)
                         @php $est = App\Models\Estudiantes::find($id); @endphp
@@ -157,4 +133,12 @@
 
 @if($showOdsModal)
     @include('livewire.partials.ods-modal')
+@endif
+
+@if($showDocenteModal)
+    @include('livewire.partials.docente-modal')
+@endif
+
+@if($showEstudianteModal)
+    @include('livewire.partials.estudiante-modal')
 @endif

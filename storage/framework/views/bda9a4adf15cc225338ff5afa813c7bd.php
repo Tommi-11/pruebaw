@@ -61,18 +61,7 @@ unset($__errorArgs, $__bag); ?><!--[if ENDBLOCK]><![endif]-->
             </div>
             <div class="mb-4">
                 <label class="block text-gray-700">ODS (2-10)</label>
-                <input type="text" wire:model="ods_search" placeholder="Buscar ODS por nombre..." class="w-full border rounded px-3 py-2 mt-1" />
-                <div class="mt-2">
-                    <!--[if BLOCK]><![endif]--><?php if($ods_search): ?>
-                        <!--[if BLOCK]><![endif]--><?php $__currentLoopData = $this->searchOds($ods_search); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $ods): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                            <div class="flex items-center justify-between bg-gray-100 rounded px-2 py-1 mb-1">
-                                <span><?php echo e($ods->nombre); ?></span>
-                                <button type="button" wire:click="addOdsToProyecto(<?php echo e($ods->id); ?>)" class="text-blue-600 text-xs">Agregar</button>
-                            </div>
-                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?><!--[if ENDBLOCK]><![endif]-->
-                        <button type="button" wire:click="showOdsRegisterModal" class="text-blue-600 text-xs mt-2">Registrar nuevo ODS</button>
-                    <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
-                </div>
+                <button type="button" wire:click="showOdsRegisterModal" class="bg-blue-100 text-blue-800 px-3 py-2 rounded hover:bg-blue-200 mt-2">Seleccionar ODS</button>
                 <div class="mt-2">
                     <!--[if BLOCK]><![endif]--><?php $__currentLoopData = $objetivos_desarrollo_sostenible; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $id): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                         <?php $ods = App\Models\Objetivos_desarrollo_sostenible::find($id); ?>
@@ -279,20 +268,18 @@ unset($__errorArgs, $__bag); ?><!--[if ENDBLOCK]><![endif]-->
             </div>
             <div class="mb-4">
                 <label class="block text-gray-700">Docente Tutor</label>
-                <input type="text" wire:model="docente_search" placeholder="Buscar docente por nombre, apellido o DNI..." class="w-full border rounded px-3 py-2 mt-1" />
+                <button type="button" wire:click="$set('showDocenteModal', true)" class="bg-blue-100 text-blue-800 px-3 py-2 rounded hover:bg-blue-200 mt-2">Seleccionar Docente</button>
                 <div class="mt-2">
-                    <!--[if BLOCK]><![endif]--><?php if($docente_search): ?>
-                        <!--[if BLOCK]><![endif]--><?php $__currentLoopData = $this->searchDocentes($docente_search); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $docente): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                            <div class="flex items-center justify-between bg-gray-100 rounded px-2 py-1 mb-1">
-                                <span><?php echo e($docente->nombres); ?> <?php echo e($docente->apellidos); ?> (<?php echo e($docente->dni); ?>)</span>
-                                <button type="button" wire:click="$set('docente_tutor_id', <?php echo e($docente->id); ?>)" class="text-blue-600 text-xs">Seleccionar</button>
-                            </div>
-                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?><!--[if ENDBLOCK]><![endif]-->
+                    <!--[if BLOCK]><![endif]--><?php if($docente_tutor_id): ?>
+                        <?php $docente = App\Models\Docente::find($docente_tutor_id); ?>
+                        <!--[if BLOCK]><![endif]--><?php if($docente): ?>
+                        <div class="flex items-center justify-between bg-green-100 rounded px-2 py-1 mb-1">
+                            <span><?php echo e($docente->nombres); ?> <?php echo e($docente->apellidos); ?> (<?php echo e($docente->dni); ?>)</span>
+                            <button type="button" wire:click="$set('docente_tutor_id', null)" class="text-red-600 text-xs">Quitar</button>
+                        </div>
+                        <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
                     <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
                 </div>
-                <!--[if BLOCK]><![endif]--><?php if($docente_tutor_id): ?>
-                    <div class="mt-2 text-green-700 text-sm">Docente seleccionado: <?php echo e(optional(App\Models\Docente::find($docente_tutor_id))->nombres); ?> <?php echo e(optional(App\Models\Docente::find($docente_tutor_id))->apellidos); ?></div>
-                <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
                 <!--[if BLOCK]><![endif]--><?php $__errorArgs = ['docente_tutor_id'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
@@ -304,18 +291,7 @@ unset($__errorArgs, $__bag); ?><!--[if ENDBLOCK]><![endif]-->
             </div>
             <div class="mb-4">
                 <label class="block text-gray-700">Equipo de Estudiantes (2-4)</label>
-                <input type="text" wire:model="estudiante_search" placeholder="Buscar estudiante por nombre, apellido o código..." class="w-full border rounded px-3 py-2 mt-1" />
-                <div class="mt-2">
-                    <!--[if BLOCK]><![endif]--><?php if($estudiante_search): ?>
-                        <!--[if BLOCK]><![endif]--><?php $__currentLoopData = $this->searchEstudiantes($estudiante_search); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $est): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                            <div class="flex items-center justify-between bg-gray-100 rounded px-2 py-1 mb-1">
-                                <span><?php echo e($est->nombres); ?> <?php echo e($est->apellidos); ?> (<?php echo e($est->codigo_universidad); ?>)</span>
-                                <button type="button" wire:click="addEstudianteToEquipo(<?php echo e($est->id); ?>)" class="text-blue-600 text-xs">Agregar</button>
-                            </div>
-                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?><!--[if ENDBLOCK]><![endif]-->
-                        <button type="button" wire:click="showEstudianteRegisterModal" class="text-blue-600 text-xs mt-2">Registrar nuevo estudiante</button>
-                    <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
-                </div>
+                <button type="button" wire:click="$set('showEstudianteModal', true)" class="bg-blue-100 text-blue-800 px-3 py-2 rounded hover:bg-blue-200 mt-2">Seleccionar Estudiantes</button>
                 <div class="mt-2">
                     <!--[if BLOCK]><![endif]--><?php $__currentLoopData = $equipo_estudiantes; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $id): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                         <?php $est = App\Models\Estudiantes::find($id); ?>
@@ -346,5 +322,13 @@ unset($__errorArgs, $__bag); ?><!--[if ENDBLOCK]><![endif]-->
 
 <!--[if BLOCK]><![endif]--><?php if($showOdsModal): ?>
     <?php echo $__env->make('livewire.partials.ods-modal', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+<?php endif; ?><!--[if ENDBLOCK]><![endif]-->
+
+<!--[if BLOCK]><![endif]--><?php if($showDocenteModal): ?>
+    <?php echo $__env->make('livewire.partials.docente-modal', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+<?php endif; ?><!--[if ENDBLOCK]><![endif]-->
+
+<!--[if BLOCK]><![endif]--><?php if($showEstudianteModal): ?>
+    <?php echo $__env->make('livewire.partials.estudiante-modal', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
 <?php /**PATH C:\xampp\htdocs\sisogrsu1\resources\views/livewire/partials/proyecto-modal.blade.php ENDPATH**/ ?>
